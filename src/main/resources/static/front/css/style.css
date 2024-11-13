@@ -147,12 +147,23 @@ header .icon.search {
 
 header > .right {
     display: flex;
-    width: 400px;
+    width: 500px;
     justify-content: flex-end;
 }
 
 header > .right > ul {
     display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header > .right li {
+    margin: 0 15px;
+}
+
+header >.right li a {
+    font-size: 1.077rem;
+    color: #222;
 }
 
 header .move-to-store {

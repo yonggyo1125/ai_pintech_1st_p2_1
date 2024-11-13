@@ -18,4 +18,12 @@ img { border: 0; }
 /* 사이트 상단 헤더 S */
 header { display: flex; height: 120px; justify-content: space-between; align-items: center; }
 
+header .main-menu { max-width: 835px; min-width: 450px; width: 100%; display: flex; }
+header .main-menu > li { width: 0; flex-grow: 1; }
+
+header > .left { display: flex; flex-grow: 1; }
+header > .left .logo { max-width: 350px; min-width: 250px; text-align: center; }
+
+header > .right { width: 400px; }
+
 /* 사이트 상단 헤더 E */

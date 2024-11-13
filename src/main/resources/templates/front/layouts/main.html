@@ -10,8 +10,19 @@
         <link rel="stylesheet" type="text/css" th:href="@{/common/css/style.css}">
         <link rel="stylesheet" type="text/css" th:href="@{/front/css/style.css}">
 
+        <th:block th:if="${addCss != null}">
+        <link rel="stylesheet" type="text/css" th:each="cssPath : ${addCss}"
+              th:href="@{/front/css/{path}(path=${cssPath})}">
+        </th:block>
+
         <script th:src="@{/common/js/common.js}"></script>
         <script th:src="@{/front/js/common.js}"></script>
+
+        <th:block th:if="${addScript != null}">
+            <script th:each="jsPath : ${addScript}"
+                    th:src="@{/front/js/{path}(path=${jsPath})}"></script>
+        </th:block>
+
     </head>
     <body>
         <header th:replace="~{front/outlines/_header::common}"></header>

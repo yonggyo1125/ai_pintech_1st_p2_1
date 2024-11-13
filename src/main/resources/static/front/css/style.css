@@ -16,13 +16,14 @@ img { border: 0; }
 /* 공통 스타일 E */
 
 /* 사이트 상단 헤더 S */
-header { display: flex; height: 120px; justify-content: space-between; align-items: center; }
+header { display: flex; height: 120px; justify-content: space-between; }
 
 header .main-menu { max-width: 835px; min-width: 450px; width: 100%; display: flex; }
-header .main-menu > li { width: 0; flex-grow: 1; }
+header .main-menu > li { width: 0; flex-grow: 1; border-right: 1px solid #ebebeb; }
+header .main-menu > li:first-of-type { border-left: 1px solid #ebebeb; }
 
 header > .left { display: flex; flex-grow: 1; }
-header > .left .logo { max-width: 350px; min-width: 250px; text-align: center; }
+header > .left .logo { max-width: 350px; min-width: 250px; display: flex; align-items: center; justify-content: center; }
 
 header > .right { width: 400px; }
 

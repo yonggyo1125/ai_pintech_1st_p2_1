@@ -7,6 +7,11 @@
         <meta name="description" th:if="${description != null}" th:content="${description}">
         <title th:if="${pageTitle != null}" th:text="${pageTitle}"></title>
 
+        <link rel="stylesheet" type="text/css" th:href="@{/common/css/style.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/front/css/style.css}">
+
+        <script th:src="@{/common/js/common.js}"></script>
+        <script th:src="@{/front/js/common.js}"></script>
     </head>
     <body>
         <header th:replace="~{front/outlines/_header::common}"></header>

@@ -57,4 +57,20 @@ header .icon.news {
     background:url("../images/icon_news.png") no-repeat center center;
 }
 
+header .icon.game {
+    background:url("../images/icon_game.png") no-repeat center center;
+}
+
+header .icon.card-game {
+    background:url("../images/icon_card.png") no-repeat center center;
+}
+
+header .icon.animation {
+    background:url("../images/icon_ani.png") no-repeat center center;
+}
+
+header .icon.products {
+    background:url('../images/icon_ball.png') no-repeat center center;
+}
+
 /* 사이트 상단 헤더 E */

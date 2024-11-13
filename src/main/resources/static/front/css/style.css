@@ -7,4 +7,10 @@ body { margin: 0; }
 a { text-decoration: none; }
 ul, ol { list-style: none; }
 ul, ol, dl, dt, dd { margin: 0; padding: 0; }
+img { border: 0; }
 /* 기본 스타일 초기화 E */
+
+/* 공통 스타일 S */
+.layout-width { max-width: 1250px; min-width: 1100px; }
+
+/* 공통 스타일 E */

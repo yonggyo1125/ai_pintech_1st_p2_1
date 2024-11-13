@@ -100,10 +100,17 @@ header > .left .logo { max-width: 350px; min-width: 250px; display: flex; align-
 
 header > .right { width: 400px; }
 
-header .icon {
+header .main-menu .icon {
     display: block;
     width: 31px;
     height: 27px;
+    margin: 0 auto;
+}
+
+header > .right .icon {
+    display: block;
+    width: 38px;
+    height: 38px;
     margin: 0 auto;
 }
 
@@ -127,4 +134,15 @@ header .icon.products {
     background:url('../images/icon_ball.png') no-repeat center center;
 }
 
+header .icon.catalog {
+    background:url("../images/icon_ball_c.png") no-repeat center center;
+}
+
+header .icon.login {
+    background:url("../images/icon_login.png") no-repeat center center;
+}
+
+header .icon.search {
+    background: url("../images/icon_search.png") no-repeat center center;
+}
 /* 사이트 상단 헤더 E */

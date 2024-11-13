@@ -25,10 +25,19 @@ header {
 }
 
 header .main-menu { max-width: 835px; min-width: 450px; width: 100%; display: flex; }
-header .main-menu > li { width: 0; flex-grow: 1; border-right: 1px solid #ebebeb; display: flex; align-items: center; justify-content: center; }
+header .main-menu > li {
+    width: 0;
+    flex-grow: 1;
+    border-right: 1px solid #ebebeb;
+}
 header .main-menu > li:first-of-type { border-left: 1px solid #ebebeb; }
 
 header .main-menu > li a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 120px;
+    width: 100%;
     font-size: 1.23rem;
     font-weight: 500;
 }
@@ -37,5 +46,15 @@ header > .left { display: flex; flex-grow: 1; }
 header > .left .logo { max-width: 350px; min-width: 250px; display: flex; align-items: center; justify-content: center; }
 
 header > .right { width: 400px; }
+
+header .icon {
+    display: block;
+    width: 31px;
+    height: 27px;
+}
+
+header .icon.news {
+    background:url("../images/icon_news.png") no-repeat center center;
+}
 
 /* 사이트 상단 헤더 E */

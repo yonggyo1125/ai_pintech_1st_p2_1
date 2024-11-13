@@ -13,8 +13,8 @@ public class MainController {
 
     @GetMapping
     public String index(Model model) {
-        model.addAttribute("addCss", List.of("member/test1.css", "member/test2.css"));
-        model.addAttribute("addScript", new String[] {"member/test1.js", "member/test2.js"});
+        model.addAttribute("addCss", List.of("member/test1", "member/test2"));
+        model.addAttribute("addScript", new String[] {"member/test1", "member/test2"});
         return "front/main/index";
     }
 }

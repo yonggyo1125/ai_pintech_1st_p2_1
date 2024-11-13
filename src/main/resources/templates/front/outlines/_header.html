@@ -1,6 +1,43 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <header th:fragment="common">
-        <h1>사이트  상단 영역</h1>
+        <div class="left">
+            <a th:href="@{/}" class="logo">
+                <img th:src="@{/front/images/main_logo.png}">
+            </a>
+            <ul class="main-menu">
+                <li>
+                    <a href="#">
+                        <i class="icon news"></i>
+                        <th:block th:text="#{소식}"></th:block>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="icon game"></i>
+                        <th:block th:text="#{게임}"></th:block>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="icon card-game"></i>
+                        <th:block th:text="#{카드_게임}"></th:block>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="icon animation"></i>
+                        <th:block th:text="#{애니메이션}"></th:block>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="icon products"></i>
+                        <th:block th:text="#{상품}"></th:block>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="right">RIGHT</div>
     </header>
 </html>

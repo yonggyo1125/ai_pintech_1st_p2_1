@@ -40,7 +40,30 @@ header .main-menu > li a {
     width: 100%;
     font-size: 1.23rem;
     font-weight: 500;
+    transition: all 0.5s;
 }
+
+header .main-menu > li:nth-of-type(1) a:hover {
+    background: #ffb040;
+}
+
+header .main-menu > li:nth-of-type(2) a:hover {
+    background: #d63836;
+}
+
+header .main-menu > li:nth-of-type(3) a:hover {
+    background: #1855a0;
+}
+
+header .main-menu > li:nth-of-type(4) a:hover {
+    background: #264462;
+}
+
+header .main-menu > li:nth-of-type(5) a:hover {
+    background: #793da7;
+}
+
+/* #d63836 */
 
 header > .left { display: flex; flex-grow: 1; }
 header > .left .logo { max-width: 350px; min-width: 250px; display: flex; align-items: center; justify-content: center; }
@@ -51,6 +74,7 @@ header .icon {
     display: block;
     width: 31px;
     height: 27px;
+    margin: 0 auto;
 }
 
 header .icon.news {

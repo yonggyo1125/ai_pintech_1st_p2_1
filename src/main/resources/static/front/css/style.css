@@ -3,7 +3,7 @@
 
 /* 기본 스타일 초기화 S */
 html { font-size: 13px; } /* 1rem - 13px */
-body { margin: 0; }
+body { margin: 120px 0 0; }
 a { text-decoration: none; }
 ul, ol { list-style: none; }
 ul, ol, dl, dt, dd { margin: 0; padding: 0; }
@@ -12,16 +12,23 @@ img { border: 0; }
 
 /* 공통 스타일 S */
 .layout-width { max-width: 1250px; min-width: 1100px; }
-
+main {
+    min-height: 500px;
+}
 /* 공통 스타일 E */
 
 /* 사이트 상단 헤더 S */
 header {
     display: flex;
+    width: 100%;
     height: 120px;
     justify-content: space-between;
     background: #fff;
     box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.3);
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
 }
 
 header .main-menu { max-width: 835px; min-width: 450px; width: 100%; display: flex; }
@@ -41,6 +48,10 @@ header .main-menu > li a {
     font-size: 1.23rem;
     font-weight: 500;
     transition: all 0.5s;
+}
+
+header .main-menu > li a:hover, header .main-menu > li a:hover * {
+    color: #fff;
 }
 
 header .main-menu > li:nth-of-type(1) a:hover {
@@ -63,7 +74,26 @@ header .main-menu > li:nth-of-type(5) a:hover {
     background: #793da7;
 }
 
-/* #d63836 */
+
+header .main-menu > li:nth-of-type(1) a:hover i {
+    background: url("../images/icon_news_w.png") no-repeat center center;
+}
+
+header .main-menu > li:nth-of-type(2) a:hover i {
+    background: url("../images/icon_game_w.png") no-repeat center center;
+}
+
+header .main-menu > li:nth-of-type(3) a:hover i {
+    background: url("../images/icon_card_w.png") no-repeat center center;
+}
+
+header .main-menu > li:nth-of-type(4) a:hover i {
+    background: url("../images/icon_ani_w.png") no-repeat center center;
+}
+
+header .main-menu > li:nth-of-type(5) a:hover i {
+    background: url("../images/icon_ball_w.png") no-repeat center center;
+}
 
 header > .left { display: flex; flex-grow: 1; }
 header > .left .logo { max-width: 350px; min-width: 250px; display: flex; align-items: center; justify-content: center; }

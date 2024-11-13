@@ -3,6 +3,7 @@
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=yes,maximum-scale=2.0, minimum-scale=0.5, initial-scale=1.0">
         <meta name="keywords" th:if="${keywords != null}" th:content="${keywords}">
         <meta name="description" th:if="${description != null}" th:content="${description}">
         <title th:if="${pageTitle != null}" th:text="${pageTitle}"></title>
@@ -14,11 +15,11 @@
                   th:each="cssPath : ${addCommonCss}" th:href="@{/common/css/{path}.css(path=${cssPath})}">
         </th:block>
 
-        <link rel="stylesheet" type="text/css" th:href="@{/front/css/style.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/mobile/css/style.css}">
 
         <th:block th:if="${addCss != null}">
         <link rel="stylesheet" type="text/css" th:each="cssPath : ${addCss}"
-              th:href="@{/front/css/{path}.css(path=${cssPath})}">
+              th:href="@{/mobile/css/{path}.css(path=${cssPath})}">
         </th:block>
 
         <script th:src="@{/common/js/common.js}"></script>
@@ -28,19 +29,19 @@
                     th:src="@{/common/js/{path}.js(path=${jsPath})}"></script>
         </th:block>
 
-        <script th:src="@{/front/js/common.js}"></script>
+        <script th:src="@{/mobile/js/common.js}"></script>
 
         <th:block th:if="${addScript != null}">
             <script th:each="jsPath : ${addScript}"
-                    th:src="@{/front/js/{path}.js(path=${jsPath})}"></script>
+                    th:src="@{/mobile/js/{path}.js(path=${jsPath})}"></script>
         </th:block>
 
     </head>
     <body>
-        <header th:replace="~{front/outlines/_header::common}"></header>
+        <header th:replace="~{mobile/outlines/_header::common}"></header>
 
         <main layout:fragment="content"></main>
 
-        <footer th:replace="~{front/outlines/_footer::common}"></footer>
+        <footer th:replace="~{mobile/outlines/_footer::common}"></footer>
     </body>
 </html>

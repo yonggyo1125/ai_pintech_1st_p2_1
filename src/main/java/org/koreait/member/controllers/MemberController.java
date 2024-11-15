@@ -64,7 +64,7 @@ public class MemberController {
      * @return
      */
     @PostMapping("/join")
-    public String join(@Valid RequestAgree form, Errors errors) {
+    public String join(@Valid RequestAgree agree, Errors errors, @ModelAttribute RequestJoin form) {
 
         log.info(form.toString());
 

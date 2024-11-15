@@ -11,12 +11,15 @@
                type="hidden" name="redirectUrl" th:value="*{redirectUrl}">
         <div class="row">
             <input type="text" name="email" th:field="*{email}" th:placeholder="#{이메일}">
-
+            <div class="error" th:each="err : ${#fields.errors('email')}" th:text="${err}"></div>
         </div>
         <div class="row">
             <input type="password" name="password" th:field="*{password}" th:placeholder="#{비밀번호}">
+            <div class="error" th:each="err : ${#fields.errors('password')}" th:text="${err}"></div>
         </div>
         <button type="submit" th:text="#{로그인}"></button>
+
+        <div class="error global" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
 
         <div class="links">
             <a th:href="@{/member/find_email}" th:text="#{이메일_찾기}"></a>

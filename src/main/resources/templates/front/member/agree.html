@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{front/layouts/main}">
+    <main layout:fragment="content">
+        <h1 th:text="#{약관동의}"></h1>
+        <form name="frmAgree" method="POST" th:action="@{/member/join}" autocomplete="off" th:object="${requestJoin}">
+            <div class="terms-check-all">
+                <input type="checkbox" class="check-all" data-target-name="*Terms" id="check-all">
+                <label for="check-all" th:text="#{전체_약관에_동의합니다.}"></label>
+            </div>
+            <ul>
+                <li>
+                    <input type="checkbox" name="requiredTerms" value="true" th:field="*{requiredTerms}" id="requiredTerms0">
+                    <label for="requiredTerms0" th:text="#{이용약관에_동의합니다.}"></label>
+                </li>
+                <li>
+                    <input type="checkbox" name="requiredTerms" value="true" th:field="*{requiredTerms}" id="requiredTerms1">
+                    <label for="requiredTerms1" th:text="#{개인정보_처리방침에_동의합니다.}"></label>
+                </li>
+                <li>
+                    <input type="checkbox" name="requiredTerms" value="true" th:field="*{requiredTerms}" id="requiredTerms2">
+                    <label for="requiredTerms2" th:text="#{개인정보_수집_및_이용에_동의합니다.}"></label>
+                </li>
+                <li>
+                    <input type="checkbox" name="optionalTerms" value="advertisement" th:field="*{optionalTerms}" id="optionalTerms0">
+                    <label for="optionalTerms0" th:text="#{광고성_정보_전송에_대해_동의합니다.(선택)}"></label>
+                </li>
+            </ul>
+
+        </form>
+    </main>
+</html>

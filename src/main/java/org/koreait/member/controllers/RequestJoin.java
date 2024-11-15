@@ -1,6 +1,7 @@
 package org.koreait.member.controllers;
 
 import lombok.Data;
+import org.koreait.member.constants.Gender;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -16,4 +17,9 @@ public class RequestJoin {
     private String confirmPassword; // 비밀번호 확인
     private String nickName; // 닉네임
     private LocalDate birthDt;  // 생년월일
+    private Gender gender; // 성별
+
+    private String zipCode; // 우편번호
+    private String address; // 주소
+    private String addressSub; // 나머지 주소
 }

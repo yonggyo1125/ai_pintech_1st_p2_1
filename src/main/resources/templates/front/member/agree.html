@@ -4,7 +4,7 @@
     layout:decorate="~{front/layouts/main}">
     <main layout:fragment="content">
         <h1 th:text="#{약관동의}"></h1>
-        <form name="frmAgree" method="POST" th:action="@{/member/join}" autocomplete="off" th:object="${requestJoin}">
+        <form name="frmAgree" method="POST" th:action="@{/member/join}" autocomplete="off" th:object="${requestAgree}">
             <div class="terms-check-all">
                 <input type="checkbox" class="check-all" data-target-name="*Terms" id="check-all">
                 <label for="check-all" th:text="#{전체_약관에_동의합니다.}"></label>

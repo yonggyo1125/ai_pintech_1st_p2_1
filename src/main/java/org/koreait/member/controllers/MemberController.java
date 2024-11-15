@@ -2,6 +2,7 @@ package org.koreait.member.controllers;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.koreait.global.libs.Utils;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+@Slf4j
 @Controller
 @RequestMapping("/member")
 @RequiredArgsConstructor
@@ -50,7 +52,7 @@ public class MemberController {
      * @return
      */
     @GetMapping("/agree")
-    public String joinAgree(@ModelAttribute RequestLogin form) {
+    public String joinAgree(@ModelAttribute RequestAgree form) {
 
         return utils.tpl("member/agree");
     }
@@ -62,7 +64,9 @@ public class MemberController {
      * @return
      */
     @PostMapping("/join")
-    public String join(@Valid RequestJoin form, Errors errors) {
+    public String join(@Valid RequestAgree form, Errors errors) {
+
+        log.info(form.toString());
 
         if (errors.hasErrors()) { // 약관 동의를 하지 않았다면 약관 동의 화면을 출력
             return utils.tpl("member/agree");

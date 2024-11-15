@@ -4,7 +4,23 @@
     layout:decorate="~{front/layouts/main}">
 
 <main layout:fragment="content">
-    <h1>로그인 페이지...</h1>
+    <img th:src="@{/front/images/logo.png}" th:alt="#{로고}">
+
+    <form name="frmLogin" class="login-box" method="POST" th:action="@{/member/login}" autocomplete="off" th:object="${requestLogin}">
+        <div class="row">
+            <input type="text" name="email" th:field="*{email}" th:placeholder="#{이메일}">
+        </div>
+        <div class="row">
+            <input type="password" name="password" th:field="*{password}" th:placeholder="#{비밀번호}">
+        </div>
+        <button type="submit" th:text="#{로그인}"></button>
+
+        <div class="links">
+            <a th:href="@{/member/find_email}" th:text="#{이메일_찾기}"></a>
+            <a th:href="@{/member/find_pass}" th:text="#{비밀번호_찾기}"></a>
+        </div>
+    </form>
+
 </main>
 
 </html>

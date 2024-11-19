@@ -30,8 +30,8 @@ commonLib.address = {
                * 처리에 대한 위임, 특정 함수를 정하고 그 함수가 정의되어 있으면 그 함수를 데이터와 함께 호출 - 콜백 방식
                */
                if (typeof callbackAddressSearch === 'function') {
-                    const { zoneCode, roadAddress } = data;
-                    callbackAddressSearch({zipCode: zoneCode, address: roadAddress});
+                    const { zonecode, roadAddress } = data;
+                    callbackAddressSearch({zipCode: zonecode, address: roadAddress});
                }
             }
         }).open();

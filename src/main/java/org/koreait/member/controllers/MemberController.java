@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.koreait.global.libs.Utils;
+import org.koreait.member.validators.JoinValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -20,7 +21,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @SessionAttributes("requestAgree")
 public class MemberController {
+    
     private final Utils utils;
+    private final JoinValidator joinValidator; // 회원 가입 검증
 
     @ModelAttribute("requestAgree")
     public RequestAgree requestAgree() {
@@ -101,10 +104,18 @@ public class MemberController {
     public String joinPs(@SessionAttribute("requestAgree") RequestAgree agree, @Valid RequestJoin form, Errors errors, SessionStatus status, Model model) {
         commonProcess("join", model); // 회원가입 공통 처리
 
+        joinValidator.validate(agree, errors); // 약관 동의 여부 체크
+        joinValidator.validate(form, errors); // 회원 가입 양식 검증
 
         if (errors.hasErrors()) {
             return utils.tpl("member/join");
         }
+
+        // 회원 가입 처리
+        form.setRequiredTerms1(agree.isRequiredTerms1());
+        form.setRequiredTerms2(agree.isRequiredTerms2());
+        form.setRequiredTerms3(agree.isRequiredTerms3());
+        form.setOptionalTerms(agree.getOptionalTerms());
 
         status.setComplete();
 

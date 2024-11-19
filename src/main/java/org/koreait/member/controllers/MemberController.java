@@ -5,10 +5,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.koreait.global.libs.Utils;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -23,15 +26,23 @@ public class MemberController {
         return new RequestAgree();
     }
 
-    @GetMapping("/login")
-    public String login(@ModelAttribute RequestLogin form) {
+    /* 회원 페이지 CSS */
+    @ModelAttribute("addCss")
+    public List<String> addCss() {
+        return List.of("member/style");
+    }
 
+    @GetMapping("/login")
+    public String login(@ModelAttribute RequestLogin form, Model model) {
+        commonProcess("login", model); // 로그인 페이지 공통 처리
+        
         return utils.tpl("member/login");
     }
 
     @PostMapping("/login")
-    public String loginPs(@Valid RequestLogin form, Errors errors) {
-
+    public String loginPs(@Valid RequestLogin form, Errors errors, Model model) {
+        commonProcess("login", model); // 로그인 페이지 공통 처리
+        
         if (errors.hasErrors()) {
             return utils.tpl("member/login");
         }
@@ -56,7 +67,8 @@ public class MemberController {
      * @return
      */
     @GetMapping("/agree")
-    public String joinAgree() {
+    public String joinAgree(Model model) {
+        commonProcess("join", model);
 
         return utils.tpl("member/agree");
     }
@@ -68,9 +80,9 @@ public class MemberController {
      * @return
      */
     @PostMapping("/join")
-    public String join(@Valid RequestAgree agree, Errors errors, @ModelAttribute RequestJoin form) {
+    public String join(@Valid RequestAgree agree, Errors errors, @ModelAttribute RequestJoin form, Model model) {
+        commonProcess("join", model); // 회원 가입 공통 처리
 
-        log.info(form.toString());
 
         if (errors.hasErrors()) { // 약관 동의를 하지 않았다면 약관 동의 화면을 출력
             return utils.tpl("member/agree");
@@ -85,7 +97,9 @@ public class MemberController {
      * @return
      */
     @PostMapping("/join_ps")
-    public String joinPs(@SessionAttribute("requestAgree") RequestAgree agree, @Valid RequestJoin form, Errors errors, SessionStatus status) {
+    public String joinPs(@SessionAttribute("requestAgree") RequestAgree agree, @Valid RequestJoin form, Errors errors, SessionStatus status, Model model) {
+        commonProcess("join", model); // 회원가입 공통 처리
+
 
         if (errors.hasErrors()) {
             return utils.tpl("member/join");
@@ -95,5 +109,15 @@ public class MemberController {
 
         // 회원가입 처리 완료 후 - 로그인 페이지로 이동
         return "redirect:/member/login";
+    }
+
+    /**
+     * 공통 처리 부분
+     * 
+     * @param mode
+     * @param model
+     */
+    private void commonProcess(String mode, Model model) {
+
     }
 }

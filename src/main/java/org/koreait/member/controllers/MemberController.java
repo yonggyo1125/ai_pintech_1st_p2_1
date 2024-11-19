@@ -7,17 +7,21 @@ import org.koreait.global.libs.Utils;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
 @Slf4j
 @Controller
 @RequestMapping("/member")
 @RequiredArgsConstructor
+@SessionAttributes("requestAgree")
 public class MemberController {
     private final Utils utils;
+
+    @ModelAttribute("requestAgree")
+    public RequestAgree requestAgree() {
+        return new RequestAgree();
+    }
 
     @GetMapping("/login")
     public String login(@ModelAttribute RequestLogin form) {
@@ -52,7 +56,7 @@ public class MemberController {
      * @return
      */
     @GetMapping("/agree")
-    public String joinAgree(@ModelAttribute RequestAgree form) {
+    public String joinAgree() {
 
         return utils.tpl("member/agree");
     }
@@ -81,11 +85,13 @@ public class MemberController {
      * @return
      */
     @PostMapping("/join_ps")
-    public String joinPs(@Valid RequestJoin form, Errors errors) {
+    public String joinPs(@SessionAttribute("requestAgree") RequestAgree agree, @Valid RequestJoin form, Errors errors, SessionStatus status) {
 
         if (errors.hasErrors()) {
             return utils.tpl("member/join");
         }
+
+        status.setComplete();
 
         // 회원가입 처리 완료 후 - 로그인 페이지로 이동
         return "redirect:/member/login";

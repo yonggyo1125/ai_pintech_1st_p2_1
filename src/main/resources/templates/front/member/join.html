@@ -7,19 +7,27 @@
     <form name="frmJoin" method="POST" th:action="@{/member/join_ps}" autocomplete="off" th:object="${requestJoin}">
         <div class="row">
             <input type="text" name="email" th:field="*{email}" th:placeholder="#{이메일_주소를_입력해주세요.}">
+            <div class="error" th:each="err : ${#fields.errors('email')}" th:text="${err}"></div>
         </div>
         <div class="row">
             <input type="text" name="name" th:field="*{name}" th:placeholder="#{회원명을_입력하세요.}">
+            <div class="error" th:each="err : ${#fields.errors('email')}" th:text="${err}"></div>
         </div>
         <div class="row">
             <input type="password" name="password" th:field="*{password}" th:placeholder="#{비밀번호}">
+
+            <div class="error" th:each="err : ${#fields.errors('email')}" th:text="${err}"></div>
         </div>
         <div class="row">
             <input type="password" name="confirmPassword" th:field="*{confirmPassword}" th:placeholder="#{위에_입력한_비밀번호와_동일한_비밀번호를_입력해주세요.}">
+
+            <div class="error" th:each="err : ${#fields.errors('email')}" th:text="${err}"></div>
         </div>
 
         <div class="row">
             <input type="text" name="nickName" th:field="*{nickName}" th:placeholder="#{닉네임을_입력하세요.}">
+
+            <div class="error" th:each="err : ${#fields.errors('email')}" th:text="${err}"></div>
         </div>
         <div class="row">
             <input type="text" name="birthDt" th:field="*{birthDt}" th:placeholde="#{생년월일을_선택해주세요.}">
@@ -28,21 +36,31 @@
                 <option value='FEMALE' th:text="#{여성}"></option>
                 <option value='MALE' th:text="#{남성}"></option>
             </select>
+
+            <div class="error" th:each="err : ${#fields.errors('email')}" th:text="${err}"></div>
+            <div class="error" th:each="err : ${#fields.errors('email')}" th:text="${err}"></div>
         </div>
 
         <section class="address-box">
             <div class="row">
                 <button type='button' th:text="#{주소찾기}"></button>
                 <input type="text" name="zipCode" th:field="*{zipCode}" th:placeholder="#{우편번호를_입력해주세요.}">
+
+                <div class="error" th:each="err : ${#fields.errors('email')}" th:text="${err}"></div>
             </div>
             <div class="row">
                 <input type="text" name="address" th:field="*{address}" th:placeholder="#{기존주소를_입력해주세요.}">
+
+                <div class="error" th:each="err : ${#fields.errors('email')}" th:text="${err}"></div>
             </div>
             <div class="row">
                 <input type="text" name="addressSub" th:field="*{addressSub}" th:placeholder="#{상세주소를_입력해주세요.}">
+
+                <div class="error" th:each="err : ${#fields.errors('email')}" th:text="${err}"></div>
             </div>
         </section>
-
+        <div class="error global" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
+        <button type="submit" th:text="#{가입}"></button>
     </form>
 </main>
 </html>

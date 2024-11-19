@@ -11,6 +11,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -118,6 +119,29 @@ public class MemberController {
      * @param model
      */
     private void commonProcess(String mode, Model model) {
+        mode = StringUtils.hasText(mode) ? mode : "login";
 
+        String pageTitle = null; // 페이지 제목
+        List<String> addCommonScript = new ArrayList<>(); // 공통 자바스크립트
+        List<String> addScript = new ArrayList<>(); // front쪽에 추가하는 자바스크립트
+
+        if (mode.equals("login")) {  // 로그인 공통 처리
+            pageTitle = utils.getMessage("로그인");
+
+        } else if (mode.equals("join")) { // 회원가입 공통 처리
+            pageTitle = utils.getMessage("회원가입");
+            addCommonScript.add("address");
+            addScript.add("member/join");
+        }
+
+
+        // 페이지 제목
+        model.addAttribute("pageTitle", pageTitle);
+
+        // 공통 스크립트
+        model.addAttribute("addCommonScript", addCommonScript);
+
+        // front 스크립트
+        model.addAttribute("addScript", addScript);
     }
 }

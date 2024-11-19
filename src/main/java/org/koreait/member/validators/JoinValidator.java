@@ -14,6 +14,11 @@ public class JoinValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
 
+        if (target instanceof RequestAgree requestAgree) {
+            validateAgree(requestAgree, errors);
+        } else {
+            validateJoin((RequestJoin)target, errors);
+        }
     }
 
     /**

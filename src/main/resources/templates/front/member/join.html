@@ -43,7 +43,7 @@
 
         <section class="address-box">
             <div class="row">
-                <button type='button' th:text="#{주소찾기}"></button>
+                <button type='button' class='search-address' th:text="#{주소찾기}"></button>
                 <input type="text" name="zipCode" th:field="*{zipCode}" th:placeholder="#{우편번호를_입력해주세요.}">
 
                 <div class="error" th:each="err : ${#fields.errors('zipCode')}" th:text="${err}"></div>

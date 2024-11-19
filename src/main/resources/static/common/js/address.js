@@ -25,7 +25,14 @@ commonLib.address = {
     search() {
         new daum.Postcode({
             oncomplete: function(data) {
-                console.log("data", data);
+               /**
+               * 주소 검색 후 데이터를 활용하는 방법은 다양!
+               * 처리에 대한 위임, 특정 함수를 정하고 그 함수가 정의되어 있으면 그 함수를 데이터와 함께 호출 - 콜백 방식
+               */
+               if (typeof callbackAddressSearch === 'function') {
+                    const { zoneCode, roadAddress } = data;
+                    callbackAddressSearch({zipCode: zoneCode, address: roadAddress});
+               }
             }
         }).open();
     }

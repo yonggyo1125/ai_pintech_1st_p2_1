@@ -2,10 +2,12 @@ package org.koreait.member.validators;
 
 import org.koreait.member.controllers.RequestAgree;
 import org.koreait.member.controllers.RequestJoin;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+@Lazy
 @Component
 public class JoinValidator implements Validator {
     @Override
@@ -40,7 +42,12 @@ public class JoinValidator implements Validator {
      * @param errors
      */
     private void validateJoin(RequestJoin form, Errors errors) {
-
+        /**
+         * 1. 이메일 중복 여부 체크
+         * 2. 비밀번호 복잡성 - 알파벳 대소문자 각각 1개 이상, 숫자 1개 이상, 특수 문자 포함
+         * 3. 비밀번호, 비밀번호 확인 일치 여부
+         * 4. 생년월일을 입력받으면 14세 이상만 가입 가능하게 통제
+         */
     }
 }
 

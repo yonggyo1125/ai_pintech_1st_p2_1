@@ -1,8 +1,10 @@
 package org.koreait.member.services;
 
 import org.koreait.member.controllers.RequestJoin;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+@Lazy // 지연로딩 - 최초로 빈을 사용할때 생성
 @Service
 public class MemberUpdateService {
 

@@ -17,6 +17,17 @@ commonLib.address = {
         script.id = "address-api";
         script.src = "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
         document.head.prepend(script);
+    },
+    /**
+    * 주소 검색 팝업
+    *
+    */
+    search() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                console.log("data", data);
+            }
+        }).open();
     }
 };
 
@@ -24,5 +35,12 @@ commonLib.address = {
 window.addEventListener("DOMContentLoaded", function() {
     const { address } = commonLib;
     address.init();
+
+    /* 주소 찾기 버튼 클릭 처리 S */
+    const els = document.getElementsByClassName("search-address");
+    for (const el of els) {
+        el.addEventListener("click", address.search);
+    }
+    /* 주소 찾기 버튼 클릭 처리 E */
 
 });

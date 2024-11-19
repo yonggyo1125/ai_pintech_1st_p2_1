@@ -21,6 +21,14 @@
         <div class="row">
             <input type="text" name="nickName" th:field="*{nickName}" th:placeholder="#{닉네임을_입력하세요.}">
         </div>
+        <div class="row">
+            <input type="text" name="birthDt" th:field="*{birthDt}" th:placeholde="#{생년월일을_선택해주세요.}">
+            <select name="gender" th:field="*{gender}">
+                <option value='' th:text="#{성별}"></option>
+                <option value='FEMALE' th:text="#{여성}"></option>
+                <option value='MALE' th:text="#{남성}"></option>
+            </select>
+        </div>
     </form>
 </main>
 </html>

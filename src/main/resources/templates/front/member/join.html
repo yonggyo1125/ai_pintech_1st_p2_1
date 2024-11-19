@@ -29,6 +29,20 @@
                 <option value='MALE' th:text="#{남성}"></option>
             </select>
         </div>
+
+        <section class="address-box">
+            <div class="row">
+                <button type='button' th:text="#{주소찾기}"></button>
+                <input type="text" name="zipCode" th:field="*{zipCode}" th:placeholder="#{우편번호를_입력해주세요.}">
+            </div>
+            <div class="row">
+                <input type="text" name="address" th:field="*{address}" th:placeholder="#{기존주소를_입력해주세요.}">
+            </div>
+            <div class="row">
+                <input type="text" name="addressSub" th:field="*{addressSub}" th:placeholder="#{상세주소를_입력해주세요.}">
+            </div>
+        </section>
+
     </form>
 </main>
 </html>

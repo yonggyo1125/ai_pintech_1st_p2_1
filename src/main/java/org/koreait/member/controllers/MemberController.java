@@ -69,7 +69,7 @@ public class MemberController {
      */
     @GetMapping("/agree")
     public String joinAgree(Model model) {
-        commonProcess("join", model);
+        commonProcess("agree", model);
 
         return utils.tpl("member/agree");
     }
@@ -132,6 +132,11 @@ public class MemberController {
             pageTitle = utils.getMessage("회원가입");
             addCommonScript.add("address");
             addScript.add("member/join");
+
+        } else if (mode.equals("agree")) {
+            // 약관 동의 페이지에 최초 접근시 약관 선택을 초기화
+            model.addAttribute("requestAgree", requestAgree());
+
         }
 
 

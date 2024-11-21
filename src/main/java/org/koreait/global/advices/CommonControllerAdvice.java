@@ -60,8 +60,9 @@ public class CommonControllerAdvice {
             }
         }
 
-        data.put("status", status);
-
+        data.put("status", status.value());
+        data.put("_status", status);
+        data.put("message", message);
         ModelAndView mv = new ModelAndView();
         mv.setStatus(status);
         mv.addAllObjects(data);

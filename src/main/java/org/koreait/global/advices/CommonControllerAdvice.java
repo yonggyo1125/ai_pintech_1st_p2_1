@@ -1,8 +1,11 @@
 package org.koreait.global.advices;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.koreait.global.exceptions.CommonException;
+import org.koreait.global.exceptions.scripts.AlertBackException;
 import org.koreait.global.exceptions.scripts.AlertException;
+import org.koreait.global.exceptions.scripts.AlertRedirectException;
 import org.koreait.global.libs.Utils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -19,22 +22,41 @@ public class CommonControllerAdvice {
     private final Utils utils;
 
     @ExceptionHandler(Exception.class)
-    public ModelAndView errorHandler(Exception e) {
+    public ModelAndView errorHandler(Exception e, HttpServletRequest request) {
         Map<String, Object> data = new HashMap<>();
 
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR; // 기본 응답 코드 500
         String tpl = "error/error"; // 기본 출력 템플릿
         String message = e.getMessage();
 
+        data.put("method", request.getMethod());
+        data.put("path", request.getContextPath() + request.getRequestURI());
+        data.put("querystring", request.getQueryString());
+        data.put("exception", e);
 
         if (e instanceof CommonException commonException) {
             status = commonException.getStatus();
-            if (commonException.isErrorCode()) { // 에러코드로 메세지를 출력하는 것이라면
-                message = utils.getMessage(message);
-            }
+            message = commonException.isErrorCode() ? utils.getMessage(message) : message;
 
+            StringBuffer sb = new StringBuffer(2048);
             if (e instanceof AlertException) {
                 tpl = "common/_execute_script"; // 스크립트를 실행하기 위한 HTML 템플릿
+                sb.append(String.format("alert('%s');", message));
+            }
+
+            if (e instanceof AlertBackException backException) {
+                String target = backException.getTarget();
+                sb.append(String.format("%s.history.back();", target));
+            }
+
+            if (e instanceof AlertRedirectException redirectException) {
+                String target = redirectException.getTarget();
+                String url = redirectException.getUrl();
+                sb.append(String.format("%s.location.replace('%s');", target, url));
+            }
+
+            if (!sb.isEmpty()) {
+                data.put("script", sb.toString());
             }
         }
     }

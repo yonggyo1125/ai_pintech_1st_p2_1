@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import java.time.LocalDate;
+
 @Lazy
 @Component
 public class JoinValidator implements Validator {
@@ -48,6 +50,15 @@ public class JoinValidator implements Validator {
          * 3. 비밀번호, 비밀번호 확인 일치 여부
          * 4. 생년월일을 입력받으면 14세 이상만 가입 가능하게 통제
          */
+
+        String email = form.getEmail();
+        String password = form.getPassword();
+        String confirmPassword = form.getConfirmPassword();
+        LocalDate birthDt = form.getBirthDt();
+
+        // 2. 비밀번호 복잡성 S
+
+        // 2. 비밀번호 복잡성 E
     }
 }
 

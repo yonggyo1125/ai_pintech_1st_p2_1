@@ -59,5 +59,13 @@ public class CommonControllerAdvice {
                 data.put("script", sb.toString());
             }
         }
+
+        data.put("status", status);
+
+        ModelAndView mv = new ModelAndView();
+        mv.setStatus(status);
+        mv.addAllObjects(data);
+        mv.setViewName(tpl);
+        return mv;
     }
 }

@@ -6,27 +6,27 @@
         <h1 th:text="#{약관동의}"></h1>
         <form name="frmAgree" method="POST" th:action="@{/member/join}" autocomplete="off" th:object="${requestAgree}">
             <div class="terms-check-all">
-                <input type="checkbox" class="check-all" data-target-name="*Terms" id="check-all">
+                <input type="checkbox" class="check-all" data-target-class="terms" id="check-all">
                 <label for="check-all" th:text="#{전체_약관에_동의합니다.}"></label>
             </div>
             <ul>
                 <li>
-                    <input type="checkbox" name="requiredTerms1" value="true" th:field="*{requiredTerms1}" id="requiredTerms0">
+                    <input type="checkbox" name="requiredTerms1" value="true" th:field="*{requiredTerms1}" id="requiredTerms0" class="terms">
                     <label for="requiredTerms0" th:text="#{이용약관에_동의합니다.}"></label>
                     <div class="error" th:each="err : ${#fields.errors('requiredTerms1')}" th:text="${err}"></div>
                 </li>
                 <li>
-                    <input type="checkbox" name="requiredTerms2" value="true" th:field="*{requiredTerms2}" id="requiredTerms1">
+                    <input type="checkbox" name="requiredTerms2" value="true" th:field="*{requiredTerms2}" id="requiredTerms1" class="terms">
                     <label for="requiredTerms1" th:text="#{개인정보_처리방침에_동의합니다.}"></label>
                     <div class="error" th:each="err : ${#fields.errors('requiredTerms2')}" th:text="${err}"></div>
                 </li>
                 <li>
-                    <input type="checkbox" name="requiredTerms3" value="true" th:field="*{requiredTerms3}" id="requiredTerms2">
+                    <input type="checkbox" name="requiredTerms3" value="true" th:field="*{requiredTerms3}" id="requiredTerms2" class="terms">
                     <label for="requiredTerms2" th:text="#{개인정보_수집_및_이용에_동의합니다.}"></label>
                     <div class="error" th:each="err : ${#fields.errors('requiredTerms3')}" th:text="${err}"></div>
                 </li>
                 <li>
-                    <input type="checkbox" name="optionalTerms" value="advertisement" th:field="*{optionalTerms}" id="optionalTerms0">
+                    <input type="checkbox" name="optionalTerms" value="advertisement" th:field="*{optionalTerms}" id="optionalTerms0" class="terms">
                     <label for="optionalTerms0" th:text="#{광고성_정보_전송에_대해_동의합니다.(선택)}"></label>
                 </li>
             </ul>

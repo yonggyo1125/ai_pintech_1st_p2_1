@@ -86,8 +86,10 @@ public class MemberController {
      * @return
      */
     @PostMapping("/join")
-    public String join(@Valid RequestAgree agree, Errors errors, @ModelAttribute RequestJoin form, Model model) {
+    public String join(RequestAgree agree, Errors errors, @ModelAttribute RequestJoin form, Model model) {
         commonProcess("join", model); // 회원 가입 공통 처리
+
+        joinValidator.validate(agree, errors);
 
 
         if (errors.hasErrors()) { // 약관 동의를 하지 않았다면 약관 동의 화면을 출력

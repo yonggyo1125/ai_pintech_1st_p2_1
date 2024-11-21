@@ -21,16 +21,16 @@ public class JoinValidator implements Validator, PasswordValidator {
 
     @Override
     public void validate(Object target, Errors errors) {
-
         // 커맨드 객체 검증 실패시에는 추가 검증은 진행 X
         if (errors.hasErrors()) {
             return;
         }
 
-        if (target instanceof RequestAgree requestAgree) {
-            validateAgree(requestAgree, errors);
+       if (target instanceof RequestJoin requestJoin) {
+            validateJoin(requestJoin, errors);
         } else {
-            validateJoin((RequestJoin)target, errors);
+            validateAgree((RequestAgree)target, errors);
+
         }
     }
 
@@ -41,7 +41,17 @@ public class JoinValidator implements Validator, PasswordValidator {
      * @param errors
      */
     private void validateAgree(RequestAgree form, Errors errors) {
+        if (!form.isRequiredTerms1()) {
+            errors.rejectValue("requiredTerms1", "AssertTrue");
+        }
 
+        if (!form.isRequiredTerms2()) {
+            errors.rejectValue("requiredTerms2", "AssertTrue");
+        }
+
+        if (!form.isRequiredTerms3()) {
+            errors.rejectValue("requiredTerms3", "AssertTrue");
+        }
     }
 
     /**

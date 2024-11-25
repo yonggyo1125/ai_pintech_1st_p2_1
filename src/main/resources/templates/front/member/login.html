@@ -4,7 +4,7 @@
     layout:decorate="~{front/layouts/main}">
 
 <main layout:fragment="content">
-    <img th:src="@{/front/images/logo.png}" th:alt="#{로고}">
+    <img th:src="@{/front/images/logo.png}" th:alt="#{로고}" class="login-logo">
 
     <form name="frmLogin" class="login-box" method="POST" th:action="@{/member/login}" autocomplete="off" th:object="${requestLogin}">
         <input th:if="*{redirectUrl != null }"

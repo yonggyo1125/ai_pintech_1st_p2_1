@@ -26,6 +26,7 @@ public class ApiUpdateService {
      */
     public void update(int page) {
         int limit = 100;
+        //int limit = 3;
         int offset = (page - 1) * limit; // 시작 레코드 번호, 0, 100, ..
         String url = String.format("https://pokeapi.co/api/v2/pokemon?offset=%d&limit=%d", offset, limit);
         ApiResponse response = tpl.getForObject(URI.create(url), ApiResponse.class);
@@ -63,11 +64,11 @@ public class ApiUpdateService {
             ApiPokemon data2 = tpl.getForObject(URI.create(url2), ApiPokemon.class);
 
             // 한글 이름
-            String nameKr = data2.getNames().stream().filter(d -> d.getLanguage().getName().equals("ko")).map(d -> d.getName()).toString();
+            String nameKr = data2.getNames().stream().filter(d -> d.getLanguage().getName().equals("ko")).map(d -> d.getName()).collect(Collectors.joining());
             pokemon.setName(nameKr);
 
             // 한글 설명
-            String flavorText = data2.getFlavorTextEntries().stream().filter(d -> d.getLanguage().getName().equals("ko")).map(d -> d.getFlavorText()).toString();
+            String flavorText = data2.getFlavorTextEntries().stream().filter(d -> d.getLanguage().getName().equals("ko")).map(d -> d.getFlavorText()).collect(Collectors.joining());
             pokemon.setFlavorText(flavorText);
 
             pokemons.add(pokemon);

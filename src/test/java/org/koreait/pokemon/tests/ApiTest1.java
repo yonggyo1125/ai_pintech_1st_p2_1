@@ -2,6 +2,7 @@ package org.koreait.pokemon.tests;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.koreait.pokemon.api.entities.ApiPokemon;
 import org.koreait.pokemon.api.entities.ApiResponse;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.web.client.RestTemplate;
@@ -31,7 +32,7 @@ public class ApiTest1 {
     void requestTest2() {
         String url = "https://pokeapi.co/api/v2/pokemon/1";
 
-        String response = tpl.getForObject(URI.create(url), String.class);
+        ApiPokemon response = tpl.getForObject(URI.create(url), ApiPokemon.class);
         System.out.println(response);
     }
 }

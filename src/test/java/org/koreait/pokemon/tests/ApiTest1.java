@@ -1,6 +1,7 @@
 package org.koreait.pokemon.tests;
 
 import org.junit.jupiter.api.Test;
+import org.koreait.pokemon.api.entities.ApiResponse;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.web.client.RestTemplate;
 
@@ -15,7 +16,7 @@ public class ApiTest1 {
 
         RestTemplate tpl = new RestTemplate();
 
-        String response = tpl.getForObject(URI.create(url), String.class);
+        ApiResponse response = tpl.getForObject(URI.create(url), ApiResponse.class);
 
         System.out.println(response);
     }

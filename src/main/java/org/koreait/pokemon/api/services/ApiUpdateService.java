@@ -10,6 +10,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -42,6 +43,18 @@ public class ApiUpdateService {
             pokemon.setWeight(data1.getWeight());
             pokemon.setBaseExperience(data1.getBaseExperience());
             pokemon.setFrontImage(data1.getSprites().getOther().getOfficialArtwork().get("front_default"));
+
+            // 타입 처리 S
+            String types = data1.getTypes().stream().map(d -> d.getType().getName())
+                    .collect(Collectors.joining("||"));  // 타입1||타입2||타입3
+            // 타입 처리 E
+
+            // 능력 처리 S
+            String abilities = data1.getAbilities().stream().map(d -> d.getAbility().getName()).collect(Collectors.joining("||"));
+            // 능력 처리 E
+
+            pokemon.setTypes(types);
+            pokemon.setAbilities(abilities);
 
             // 포켓몬 한글 이름, 포켓몬 한글 설명
             String url2 = String.format("https://pokeapi.co/api/v2/pokemon-species/%d", data1.getId());

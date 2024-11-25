@@ -59,6 +59,14 @@ public class ApiUpdateService {
             // 포켓몬 한글 이름, 포켓몬 한글 설명
             String url2 = String.format("https://pokeapi.co/api/v2/pokemon-species/%d", data1.getId());
             ApiPokemon data2 = tpl.getForObject(URI.create(url2), ApiPokemon.class);
+
+            // 한글 이름
+            String nameKr = data2.getNames().stream().filter(d -> d.getLanguage().getName().equals("ko")).map(d -> d.getName()).toString();
+            pokemon.setName(nameKr);
+
+            // 한글 설명
+            String flavorText = data2.getFlavorTextEntries().stream().filter(d -> d.getLanguage().getName().equals("ko")).map(d -> d.getFlavorText()).toString();
+            pokemon.setFlavorText(flavorText);
         }
         /* 상세 정보 처리 E */
 

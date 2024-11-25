@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,6 +34,7 @@ public class ApiUpdateService {
             return;
         }
         /* 상세 정보 처리 S */
+        List<Pokemon> pokemons = new ArrayList<>();
         for (UrlItem item : items) {
             Pokemon pokemon = new Pokemon();
             // 기초 데이터
@@ -67,8 +69,11 @@ public class ApiUpdateService {
             // 한글 설명
             String flavorText = data2.getFlavorTextEntries().stream().filter(d -> d.getLanguage().getName().equals("ko")).map(d -> d.getFlavorText()).toString();
             pokemon.setFlavorText(flavorText);
+
+            pokemons.add(pokemon);
         }
         /* 상세 정보 처리 E */
 
+        pokemons.forEach(System.out::println);
     }
 }

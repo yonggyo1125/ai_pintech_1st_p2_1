@@ -35,4 +35,11 @@ public class ApiTest1 {
         ApiPokemon response = tpl.getForObject(URI.create(url), ApiPokemon.class);
         System.out.println(response);
     }
+
+    @Test
+    void requestTest3() {
+        String url = "https://pokeapi.co/api/v2/pokemon-species/1";
+        ApiPokemon response = tpl.getForObject(URI.create(url), ApiPokemon.class);
+        System.out.println(response);
+    }
 }

@@ -2,6 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="~{front/layouts/main}">
+
+    <th:block layout:fragment="addCss">
+        <link rel="stylesheet" type="text/css" th:href="@{/front/css/error/style.css}">
+    </th:block>
+
     <main layout:fragment="content">
         <th:block th:replace="~{error/_common::common}"></th:block>
     </main>

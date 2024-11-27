@@ -1,2 +1,43 @@
 server:
   port: 3000
+
+spring:
+  # 데이터 베이스 설정
+  datasource:
+    driverClassName: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@${db.host}:XE
+    username: ${db.username}
+    password: ${db.password}
+
+  # JPA 설정
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+    hibernate:
+      ddlAuto: ${ddl.auto}
+
+  # 타임리프 설정
+  thymeleaf:
+    cache: false
+    prefix: file:src/main/resources/templates/
+
+  # 파일 업로드 용량 설정
+  servlet:
+    multipart:
+      maxFileSize: 20MB
+      maxRequestSize: 60MB
+      fileSizeThreshold: 30MB
+
+# 로거 설정
+logging:
+  level:
+    org.hibernate.type: trace
+    org.hibernate.orm.jdbc.bind: trace
+
+# 파일 업로드 경로
+file:
+  upload.path: ${file.path}
+  upload.url: ${file.url}

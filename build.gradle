@@ -31,7 +31,7 @@ dependencies {
 	runtimeOnly 'com.oracle.database.jdbc:ojdbc11'
 
 	annotationProcessor 'jakarta.annotation:jakarta.annotation-api'
-	annotationProcessor 'jakarta.annotation:jakarta.persistence-api'
+	annotationProcessor 'jakarta.annotation:jakarta.persistence-api:3.2.0'
 
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 	implementation 'org.hibernate.validator:hibernate-validator'

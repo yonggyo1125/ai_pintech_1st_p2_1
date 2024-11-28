@@ -5,6 +5,7 @@ import org.koreait.pokemon.api.entities.ApiPokemon;
 import org.koreait.pokemon.api.entities.ApiResponse;
 import org.koreait.pokemon.api.entities.UrlItem;
 import org.koreait.pokemon.entities.Pokemon;
+import org.koreait.pokemon.repositories.PokemonRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 public class ApiUpdateService {
 
     private final RestTemplate tpl;
+    private final PokemonRepository repository;
 
     /**
      * 1페이지당 100개씩 DB 반영
@@ -75,6 +77,7 @@ public class ApiUpdateService {
         }
         /* 상세 정보 처리 E */
 
-        pokemons.forEach(System.out::println);
+        // DB 영구 저장 처리
+        repository.saveAllAndFlush(pokemons);
     }
 }

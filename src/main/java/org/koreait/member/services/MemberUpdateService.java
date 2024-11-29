@@ -53,6 +53,8 @@ public class MemberUpdateService {
      */
     private void save(Member member) {
 
+
+        memberRepository.saveAndFlush(member);
     }
 
 }

@@ -37,4 +37,13 @@ public class Member extends BaseEntity {
 
     @Column(length=100)
     private String addressSub;
+
+    private boolean requiredTerms1;
+
+    private boolean requiredTerms2;
+
+    private boolean requiredTerms3;
+
+    @Column(length=50)
+    private String optionalTerms; // 선택 약관
 }

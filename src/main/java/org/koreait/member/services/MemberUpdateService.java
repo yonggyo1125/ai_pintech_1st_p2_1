@@ -7,6 +7,7 @@ import org.koreait.member.repositories.AuthoritiesRepository;
 import org.koreait.member.repositories.MemberRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +20,9 @@ public class MemberUpdateService {
 
     private final MemberRepository memberRepository;
     private final AuthoritiesRepository authoritiesRepository;
+    private PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
+
 
     /**
      * 커맨드 객체의 타입에 따라서 RequestJoin이면 회원 가입 처리
@@ -37,6 +40,11 @@ public class MemberUpdateService {
             member.setOptionalTerms(_optionalTerms);
         }
 
+        // 비밀번호 해시화 - BCrypt
+        String hash = passwordEncoder.encode(form.getPassword());
+        member.setPassword(hash);
+
+        save(member); // 회원 저장 처리
     }
 
     /**

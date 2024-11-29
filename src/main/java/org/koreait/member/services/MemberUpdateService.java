@@ -1,7 +1,9 @@
 package org.koreait.member.services;
 
 import lombok.RequiredArgsConstructor;
+import org.koreait.member.constants.Authority;
 import org.koreait.member.controllers.RequestJoin;
+import org.koreait.member.entities.Authorities;
 import org.koreait.member.entities.Member;
 import org.koreait.member.repositories.AuthoritiesRepository;
 import org.koreait.member.repositories.MemberRepository;
@@ -44,17 +46,32 @@ public class MemberUpdateService {
         String hash = passwordEncoder.encode(form.getPassword());
         member.setPassword(hash);
 
-        save(member); // 회원 저장 처리
+        // 회원 권한
+        Authorities auth = new Authorities();
+        auth.setMember(member);
+        auth.setAuthority(Authority.USER);  // 회원 권한이 없는 경우 - 회원 가입시, 기본 권한 USER
+
+        save(member, List.of(auth)); // 회원 저장 처리
     }
 
     /**
      * 회원정보 추가 또는 수정 처리
      *
      */
-    private void save(Member member) {
-
+    private void save(Member member, List<Authorities> authorities) {
 
         memberRepository.saveAndFlush(member);
+
+        // 회원 권한 업데이트 처리 S
+        if (authorities != null) {
+            /**
+             * 기존 권한을 삭제하고 다시 등록
+             */
+
+            List<Authorities> items = authoritiesRepository.findAll();
+        }
+
+        // 회원 권한 업데이트 처리 E
     }
 
 }

@@ -6,6 +6,7 @@ import org.koreait.member.constants.Authority;
 
 @Data
 @Entity
+@IdClass(AuthoritiesId.class)
 public class Authorities {
     @Id
     @ManyToOne(fetch = FetchType.LAZY)

@@ -2,10 +2,12 @@ package org.koreait.member.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 import org.koreait.global.entities.BaseEntity;
 import org.koreait.member.constants.Gender;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Entity
@@ -46,4 +48,8 @@ public class Member extends BaseEntity {
 
     @Column(length=50)
     private String optionalTerms; // 선택 약관
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "member")
+    private List<Authorities> authorities;
 }

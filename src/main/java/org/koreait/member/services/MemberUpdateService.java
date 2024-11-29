@@ -9,6 +9,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Lazy // 지연로딩 - 최초로 빈을 사용할때 생성
 @Service
 @RequiredArgsConstructor
@@ -26,6 +29,14 @@ public class MemberUpdateService {
     public void process(RequestJoin form) {
         // 커맨드 객체 -> 엔티티 객체 데이터 옮기기
         Member member = modelMapper.map(form, Member.class);
+
+        // 선택 약관 -> 약관 항목1||약관 항목2||...
+        List<String> optionalTerms = form.getOptionalTerms();
+        if (optionalTerms != null) {
+            String _optionalTerms = optionalTerms.stream().collect(Collectors.joining("||"));
+            member.setOptionalTerms(_optionalTerms);
+        }
+
     }
 
     /**

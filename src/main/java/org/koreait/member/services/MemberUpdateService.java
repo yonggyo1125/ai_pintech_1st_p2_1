@@ -5,6 +5,7 @@ import org.koreait.member.constants.Authority;
 import org.koreait.member.controllers.RequestJoin;
 import org.koreait.member.entities.Authorities;
 import org.koreait.member.entities.Member;
+import org.koreait.member.entities.QAuthorities;
 import org.koreait.member.repositories.AuthoritiesRepository;
 import org.koreait.member.repositories.MemberRepository;
 import org.modelmapper.ModelMapper;
@@ -67,8 +68,13 @@ public class MemberUpdateService {
             /**
              * 기존 권한을 삭제하고 다시 등록
              */
+            QAuthorities qAuthorities = QAuthorities.authorities;
+            List<Authorities> items = (List<Authorities>) authoritiesRepository.findAll(qAuthorities.member.eq(member));
+            if (items != null) {
+                authoritiesRepository.deleteAll(items);
+            }
 
-            List<Authorities> items = authoritiesRepository.findAll();
+            authoritiesRepository.saveAllAndFlush(authorities);
         }
 
         // 회원 권한 업데이트 처리 E

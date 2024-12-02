@@ -42,5 +42,8 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
         }
 
         session.setAttribute("requestLogin", form);
+
+        // 로그인 실패시에는 로그인 페이지로 이동
+        response.sendRedirect(request.getContextPath() + "/member/login");
     }
 }

@@ -60,6 +60,11 @@ public class MemberUpdateServiceTest {
     void joinTest() {
 
         updateService.process(form);
+
+        Member member = memberRepository.findByEmail(form.getEmail()).orElse(null);
+        System.out.println(member);
+        System.out.println(member.getAuthorities());
+        System.out.println(form);
     }
 
     @Test

@@ -7,8 +7,10 @@ import org.junit.jupiter.api.Test;
 import org.koreait.member.constants.Gender;
 import org.koreait.member.controllers.RequestJoin;
 import org.koreait.member.entities.Authorities;
+import org.koreait.member.entities.Member;
 import org.koreait.member.entities.QAuthorities;
 import org.koreait.member.repositories.AuthoritiesRepository;
+import org.koreait.member.repositories.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -26,6 +28,9 @@ public class MemberUpdateServiceTest {
 
      @Autowired
      private AuthoritiesRepository authoritiesRepository;
+
+     @Autowired
+     private MemberRepository memberRepository;
 
      private RequestJoin form;
 
@@ -59,6 +64,8 @@ public class MemberUpdateServiceTest {
 
     @Test
     void authoritiesTest() {
+         Member member = memberRepository.findByEmail(form.getEmail()).orElse(null);
+
         QAuthorities qAuthorities = QAuthorities.authorities;
         List<Authorities> items = (List<Authorities>) authoritiesRepository.findAll(qAuthorities.member.eq(member));
     }

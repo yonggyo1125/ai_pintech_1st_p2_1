@@ -17,6 +17,20 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
+        /* 인증 설정 S - 로그인, 로그아웃 */
+        http.formLogin(c -> {
+           c.loginPage("/member/login") // 로그인 양식을 처리할 주소
+                   .usernameParameter("email")
+                   .passwordParameter("password")
+                   .failureForwardUrl("/member/login?error=1")
+                   .successForwardUrl("/");
+        });
+
+        http.logout(c -> {
+           c.logoutSuccessUrl("/member/login");
+        });
+        /* 인증 설정 E */
+
         return http.build(); // 설정 무력화
     }
 

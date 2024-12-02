@@ -50,7 +50,7 @@ public class MemberController {
         if (form.getErrorCodes() != null) { // 검증 실패
             form.getErrorCodes().stream().map(s -> s.split("_"))
                     .forEach(s -> {
-                        if (StringUtils.hasText(s[1])) {
+                        if (s.length > 1 && StringUtils.hasText(s[1])) {
                             errors.rejectValue(s[1], s[0]);
                         } else {
                             errors.reject(s[0]);

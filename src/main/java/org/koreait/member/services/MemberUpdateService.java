@@ -66,20 +66,18 @@ public class MemberUpdateService {
         memberRepository.saveAndFlush(member);
 
         // 회원 권한 업데이트 처리 S
+
         if (authorities != null) {
             /**
              * 기존 권한을 삭제하고 다시 등록
              */
-            member = memberRepository.findByEmail(member.getEmail()).orElse(null);
             QAuthorities qAuthorities = QAuthorities.authorities;
             List<Authorities> items = (List<Authorities>) authoritiesRepository.findAll(qAuthorities.member.eq(member));
             if (items != null) {
                 authoritiesRepository.deleteAll(items);
             }
 
-            for (Authorities item : authorities) {
-                item.setMember(member);
-            }
+
             authoritiesRepository.saveAllAndFlush(authorities);
         }
 

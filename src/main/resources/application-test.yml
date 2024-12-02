@@ -5,7 +5,9 @@ spring:
     url: jdbc:h2:mem:test
     username: sa
     password:
-
+  jpa:
+    hibernate:
+      ddlAuto: create
 
 # 파일 업로드 경로
 file:

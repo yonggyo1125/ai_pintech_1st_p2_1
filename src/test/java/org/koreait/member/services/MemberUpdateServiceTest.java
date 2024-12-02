@@ -3,6 +3,7 @@ package org.koreait.member.services;
 import com.github.javafaker.Faker;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.koreait.member.constants.Gender;
 import org.koreait.member.controllers.RequestJoin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -33,6 +34,7 @@ public class MemberUpdateServiceTest {
         form.setAddress(faker.address().fullAddress());
         form.setAddressSub(faker.address().buildingNumber());
         form.setNickName(faker.name().name());
+        form.setGender(Gender.MALE);
         form.setRequiredTerms1(true);
         form.setRequiredTerms2(true);
         form.setRequiredTerms3(true);

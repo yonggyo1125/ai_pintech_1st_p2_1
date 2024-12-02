@@ -20,7 +20,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/member")
 @RequiredArgsConstructor
-@SessionAttributes("requestAgree")
+@SessionAttributes({"requestAgree", "requestLogin"})
 public class MemberController {
     
     private final Utils utils;
@@ -39,7 +39,7 @@ public class MemberController {
     }
 
     @GetMapping("/login")
-    public String login(@ModelAttribute RequestLogin form, Model model) {
+    public String login(@ModelAttribute RequestLogin form, Errors errors, Model model) {
         commonProcess("login", model); // 로그인 페이지 공통 처리
         
         return utils.tpl("member/login");

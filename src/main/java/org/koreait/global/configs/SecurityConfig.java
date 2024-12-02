@@ -1,5 +1,7 @@
 package org.koreait.global.configs;
 
+import org.koreait.member.services.LoginFailureHandler;
+import org.koreait.member.services.LoginSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,8 +25,8 @@ public class SecurityConfig {
            c.loginPage("/member/login") // 로그인 양식을 처리할 주소
                    .usernameParameter("email")
                    .passwordParameter("password")
-                   .failureUrl("/member/login?error=1")
-                   .defaultSuccessUrl("/");
+                   .failureHandler(new LoginFailureHandler())
+                   .successHandler(new LoginSuccessHandler());
         });
 
         http.logout(c -> {

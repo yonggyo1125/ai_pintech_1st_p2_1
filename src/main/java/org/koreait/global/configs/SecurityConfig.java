@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  * 스프링 시큐리티 설정
@@ -22,12 +23,13 @@ public class SecurityConfig {
            c.loginPage("/member/login") // 로그인 양식을 처리할 주소
                    .usernameParameter("email")
                    .passwordParameter("password")
-                   .failureForwardUrl("/member/login?error=1")
-                   .successForwardUrl("/");
+                   .failureUrl("/member/login?error=1")
+                   .defaultSuccessUrl("/");
         });
 
         http.logout(c -> {
-           c.logoutSuccessUrl("/member/login");
+           c.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
+                   .logoutSuccessUrl("/member/login");
         });
         /* 인증 설정 E */
 

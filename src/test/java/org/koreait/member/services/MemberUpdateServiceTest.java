@@ -64,7 +64,10 @@ public class MemberUpdateServiceTest {
 
     @Test
     void authoritiesTest() {
+         updateService.process(form);
+
          Member member = memberRepository.findByEmail(form.getEmail()).orElse(null);
+        System.out.println(member);
 
         QAuthorities qAuthorities = QAuthorities.authorities;
         List<Authorities> items = (List<Authorities>) authoritiesRepository.findAll(qAuthorities.member.eq(member));

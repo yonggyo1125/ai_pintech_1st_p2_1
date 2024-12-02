@@ -32,6 +32,11 @@ public class MemberController {
         return new RequestAgree();
     }
 
+    @ModelAttribute("requestLogin")
+    public RequestLogin requestLogin() {
+        return new RequestLogin();
+    }
+
     /* 회원 페이지 CSS */
     @ModelAttribute("addCss")
     public List<String> addCss() {
@@ -41,7 +46,18 @@ public class MemberController {
     @GetMapping("/login")
     public String login(@ModelAttribute RequestLogin form, Errors errors, Model model) {
         commonProcess("login", model); // 로그인 페이지 공통 처리
-        
+
+        if (form.getErrorCodes() != null) { // 검증 실패
+            form.getErrorCodes().stream().map(s -> s.split("_"))
+                    .forEach(s -> {
+                        if (StringUtils.hasText(s[1])) {
+                            errors.rejectValue(s[1], s[0]);
+                        } else {
+                            errors.reject(s[0]);
+                        }
+                    });
+        }
+
         return utils.tpl("member/login");
     }
 

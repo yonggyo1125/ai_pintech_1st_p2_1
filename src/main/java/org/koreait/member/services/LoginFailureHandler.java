@@ -38,6 +38,11 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
                 errorCodes.add("NotBlank_password");
             }
 
+
+            if (errorCodes.isEmpty()) {
+                errorCodes.add("Failure.validate.login");
+            }
+
             form.setErrorCodes(errorCodes);
         }
 

@@ -5,3 +5,9 @@ spring:
     url: jdbc:h2:mem:test
     username: sa
     password:
+
+
+# 파일 업로드 경로
+file:
+  upload.path: D:/uploads/
+  upload.url: /uploads/

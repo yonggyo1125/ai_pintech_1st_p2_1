@@ -9,13 +9,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Locale;
 
 @SpringBootTest
 @ActiveProfiles({"default", "test"})
 public class MemberUpdateServiceTest {
 
-    @Autowired
+     @Autowired
     private MemberUpdateService updateService;
 
     @Test
@@ -26,10 +27,17 @@ public class MemberUpdateServiceTest {
         RequestJoin form = new RequestJoin();
         form.setEmail(faker.internet().emailAddress());
         form.setPassword("_aA123456");
-        form.setName(faker.name().fullName());
+        form.setName(faker.name().name());
         form.setBirthDt(LocalDate.now().minusYears(20L));
         form.setZipCode(faker.address().zipCode());
         form.setAddress(faker.address().fullAddress());
         form.setAddressSub(faker.address().buildingNumber());
+        form.setNickName(faker.name().name());
+        form.setRequiredTerms1(true);
+        form.setRequiredTerms2(true);
+        form.setRequiredTerms3(true);
+        form.setOptionalTerms(List.of("advertisement"));
+        System.out.println(form);
+        updateService.process(form);
     }
 }

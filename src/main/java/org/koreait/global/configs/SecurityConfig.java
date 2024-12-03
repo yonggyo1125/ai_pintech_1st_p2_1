@@ -35,6 +35,26 @@ public class SecurityConfig {
         });
         /* 인증 설정 E */
 
+        /* 인가 설정 S - 페이지 접근 통제 */
+        /**
+         * authenticated() : 인증받은 사용자만 접근
+         * anonymous() : 인증 받지 않은 사용자만 접근
+         * permitAll() : 모든 사용자가 접근 가능
+         * hasAuthority("권한 명칭") : 하나의 권한을 체크
+         * hasAnyAuthority("권한1", "권한2", ...) : 나열된 권한 중 하나라도 충족하면 접근 가능
+         * ROLE
+         * ROLE_명칭
+         * hasRole("명칭")
+         * hasAnyRole(...)
+         */
+        http.authorizeHttpRequests(c -> {
+            c.requestMatchers("/mypage/**").authenticated() // 인증한 회원 
+                    .requestMatchers("/member/login", "/member/join", "/member/agree").anonymous() // 미인증 회원
+                    .requestMatchers("/admin/**").hasAnyAuthority("MANAGER", "ADMIN") // 관리자 페이지는 MANAGER, ADMIN 권한
+                    .anyRequest().permitAll(); // 나머지 페이지는 모두 접근 가능
+        });
+        /* 인가 설정 E */
+
         return http.build(); // 설정 무력화
     }
 

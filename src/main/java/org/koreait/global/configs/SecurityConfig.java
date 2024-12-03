@@ -2,6 +2,8 @@ package org.koreait.global.configs;
 
 import org.koreait.member.services.LoginFailureHandler;
 import org.koreait.member.services.LoginSuccessHandler;
+import org.koreait.member.services.MemberAccessDeniedHandler;
+import org.koreait.member.services.MemberAuthenticationExceptionHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -55,8 +57,8 @@ public class SecurityConfig {
         });
 
         http.exceptionHandling(c -> {
-            c.authenticationEntryPoint()  // 미로그인시 인가 실패
-                    .accessDeniedHandler() // 로그인 이후 인가 실패
+            c.authenticationEntryPoint(new MemberAuthenticationExceptionHandler())  // 미로그인시 인가 실패
+                    .accessDeniedHandler(new MemberAccessDeniedHandler()); // 로그인 이후 인가 실패
 
         });
 

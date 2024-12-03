@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpSession;
 import org.koreait.member.controllers.RequestLogin;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.CredentialsExpiredException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.util.StringUtils;
@@ -52,9 +53,11 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
             form.setErrorCodes(errorCodes);
         } else if (exception instanceof CredentialsExpiredException) { //  비밀번호가 만료된 경우
             redirectUrl = request.getContextPath() + "/member/password/change";
+        } else if (exception instanceof DisabledException) { // 탈퇴한 회원
+            form.setErrorCodes(List.of("Failure.disabled.login"));
         }
 
-
+        System.out.println(exception);
 
         session.setAttribute("requestLogin", form);
 

@@ -7,6 +7,7 @@ import org.koreait.global.entities.BaseEntity;
 import org.koreait.member.constants.Gender;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -55,4 +56,7 @@ public class Member extends BaseEntity {
     @ToString.Exclude
     @OneToMany(mappedBy = "member")
     private List<Authorities> authorities;
+
+    // 비밀번호 변경 일시
+    private LocalDateTime credentialChangedAt;
 }

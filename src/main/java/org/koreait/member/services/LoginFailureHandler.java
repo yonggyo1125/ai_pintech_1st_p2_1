@@ -26,6 +26,9 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
+        form.setEmail(email);
+        form.setPassword(password);
+
         // 아이디 또는 비밀번호를 입력하지 않은 경우, 아이디로 조회 X, 비번이 일치하지 않는 경우
         if (exception instanceof BadCredentialsException) {
             List<String> errorCodes = Objects.requireNonNullElse(form.getErrorCodes(), new ArrayList<>());

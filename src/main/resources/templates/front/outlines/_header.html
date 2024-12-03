@@ -58,14 +58,14 @@
                     </a>
                 </li>
                 <li>
-                    <a sec:authorize="isAnonymous()" th:href="@{/member/login}">
+                    <a th:unless="${@memberUtil.isLogin()}" th:href="@{/member/login}">
                         <i class="icon login"></i>
                         <th:block th:text="#{로그인}"></th:block>
                     </a>
 
-                    <a sec:authorize="isAuthenticated()" th:href="@{/mypage}">
+                    <a th:if="${@memberUtil.isLogin()}" th:href="@{/mypage}">
                         <i class="icon login"></i>
-                        <th:block th:text="#{마이페이지}"></th:block>
+                        <th:block th:text="#{MYPAGE}"></th:block>
                     </a>
                 </li>
                 <li>

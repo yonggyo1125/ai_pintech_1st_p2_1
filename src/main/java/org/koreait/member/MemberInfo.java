@@ -1,6 +1,7 @@
 package org.koreait.member;
 
 import lombok.Builder;
+import lombok.Getter;
 import lombok.ToString;
 import org.koreait.member.entities.Member;
 import org.springframework.security.core.GrantedAuthority;
@@ -8,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
+@Getter
 @Builder
 @ToString
 public class MemberInfo implements UserDetails {

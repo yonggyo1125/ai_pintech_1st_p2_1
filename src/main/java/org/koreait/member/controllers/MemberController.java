@@ -4,10 +4,9 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.koreait.global.libs.Utils;
-import org.koreait.member.MemberInfo;
 import org.koreait.member.services.MemberUpdateService;
 import org.koreait.member.validators.JoinValidator;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -65,9 +64,20 @@ public class MemberController {
 
     @ResponseBody
     @GetMapping("/test")
+    public void test() {
+        /*
+        MemberInfo memberInfo = (MemberInfo)SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal();
+        System.out.println(memberInfo);
+
+         */
+        System.out.println(SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal()); // 미로그인 상태 anonymousUser 문자열
+    }
+    /*
     public void test(@AuthenticationPrincipal MemberInfo memberInfo) {
         System.out.println(memberInfo);
-    }
+    } */
     /*
     public void test(Principal principal) {
         String email = principal.getName();

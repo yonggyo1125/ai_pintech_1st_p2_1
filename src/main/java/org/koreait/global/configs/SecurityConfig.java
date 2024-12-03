@@ -53,7 +53,15 @@ public class SecurityConfig {
                     .requestMatchers("/admin/**").hasAnyAuthority("MANAGER", "ADMIN") // 관리자 페이지는 MANAGER, ADMIN 권한
                     .anyRequest().permitAll(); // 나머지 페이지는 모두 접근 가능
         });
+
+        http.exceptionHandling(c -> {
+            c.authenticationEntryPoint()  // 미로그인시 인가 실패
+                    .accessDeniedHandler() // 로그인 이후 인가 실패
+
+        });
+
         /* 인가 설정 E */
+
 
         return http.build(); // 설정 무력화
     }

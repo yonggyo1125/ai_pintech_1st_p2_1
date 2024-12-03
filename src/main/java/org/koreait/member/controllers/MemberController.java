@@ -4,8 +4,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.koreait.global.libs.Utils;
+import org.koreait.member.MemberInfo;
 import org.koreait.member.services.MemberUpdateService;
 import org.koreait.member.validators.JoinValidator;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -60,6 +62,17 @@ public class MemberController {
 
         return utils.tpl("member/login");
     }
+
+    @ResponseBody
+    @GetMapping("/test")
+    public void test(@AuthenticationPrincipal MemberInfo memberInfo) {
+        System.out.println(memberInfo);
+    }
+    /*
+    public void test(Principal principal) {
+        String email = principal.getName();
+        System.out.println(email);
+    } */
 
     /**
      * 회원가입 약관 동의

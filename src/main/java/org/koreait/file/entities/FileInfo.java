@@ -1,9 +1,6 @@
 package org.koreait.file.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Transient;
+import jakarta.persistence.*;
 import lombok.Data;
 import org.koreait.global.entities.BaseMemberEntity;
 
@@ -13,11 +10,19 @@ public class FileInfo extends BaseMemberEntity {
     @Id @GeneratedValue
     private Long seq; // 파일 등록 번호
 
+    @Column(length=45, nullable = false)
     private String gid; // 파일 그룹
+
+    @Column(length=45)
     private String location;  // 그룹 내에서 위치
 
+    @Column(length=100, nullable = false)
     private String fileName; // 업로드시 원 파일명
+
+    @Column(length=30)
     private String extension; // 확장자
+
+    @Column(length=65)
     private String contentType; // 파일 형식  image/png   application/..
 
     @Transient

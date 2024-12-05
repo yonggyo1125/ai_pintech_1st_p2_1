@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -15,7 +16,7 @@ import java.util.Objects;
 public class CommonException extends RuntimeException {
     private HttpStatus status;
     private boolean errorCode;
-    private Map<String, Object> errorMessages;
+    private Map<String, List<String>> errorMessages;
 
     public CommonException(String message, HttpStatus status) {
         super(message);
@@ -27,7 +28,7 @@ public class CommonException extends RuntimeException {
      * @param errorMessages
      * @param status
      */
-    public CommonException(Map<String, Object> errorMessages, HttpStatus status) {
+    public CommonException(Map<String, List<String>> errorMessages, HttpStatus status) {
         this.errorMessages = errorMessages;
         this.status = status;
     }

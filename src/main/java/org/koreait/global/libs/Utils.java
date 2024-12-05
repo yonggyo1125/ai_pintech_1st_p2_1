@@ -4,8 +4,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.Errors;
 
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
@@ -46,5 +49,19 @@ public class Utils {
         Locale lo = request.getLocale(); // 사용자 요청 헤더(Accept-Language)
 
         return messageSource.getMessage(code, null, lo);
+    }
+
+    /**
+     * REST 커맨드 객체 검증 실패시에 에러 코드를 가지고 메세지 추출
+     *
+     * @param errors
+     * @return
+     */
+    public Map<String, List<String>> getErrorMessages(Errors errors) {
+        // 필드별 에러코드 - getFieldErrors()
+        Map<String, List<String>>
+        // 글로벌 에러코드 - getGlobalErrors()
+
+        return null; // 임시
     }
 }

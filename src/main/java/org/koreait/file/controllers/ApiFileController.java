@@ -1,6 +1,8 @@
 package org.koreait.file.controllers;
 
-import org.koreait.global.exceptions.BadRequestException;
+import jakarta.validation.Valid;
+import org.koreait.member.controllers.RequestLogin;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,10 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/file")
 public class ApiFileController {
     @GetMapping
-    public void test() {
-        boolean result = true;
-        if (result) {
-            throw new BadRequestException("그냥 테스트...");
+    public void test(@Valid RequestLogin form, Errors errors) {
+        if (errors.hasErrors()) {
+            //errors.
+            //System.out.println("검증 실패!");
         }
     }
 }

@@ -3,6 +3,7 @@ package org.koreait.global.libs;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
@@ -56,7 +57,14 @@ public class Utils {
 
     public List<String> getMessages(String[] codes) {
 
-        return Arrays.stream(codes).map(this::getMessage).toList();
+            return Arrays.stream(codes).map(c -> {
+                try {
+                    return getMessage(c);
+                } catch (Exception e) {
+                    return "";
+                }
+            }).filter(s -> !s.isBlank()).toList();
+
     }
 
     /**
@@ -66,22 +74,28 @@ public class Utils {
      * @return
      */
     public Map<String, List<String>> getErrorMessages(Errors errors) {
-        // 필드별 에러코드 - getFieldErrors()
-        // Collectors.toMap
-        Map<String, List<String>> messages = errors.getFieldErrors()
-                .stream()
-                .collect(Collectors.toMap(FieldError::getField, f -> getMessages(f.getCodes()), (v1, v2) -> v2));
+        ResourceBundleMessageSource ms = (ResourceBundleMessageSource) messageSource;
+        ms.setUseCodeAsDefaultMessage(false);
+        try {
+            // 필드별 에러코드 - getFieldErrors()
+            // Collectors.toMap
+            Map<String, List<String>> messages = errors.getFieldErrors()
+                    .stream()
+                    .collect(Collectors.toMap(FieldError::getField, f -> getMessages(f.getCodes()), (v1, v2) -> v2));
 
-        // 글로벌 에러코드 - getGlobalErrors()
-        List<String> gMessages = errors.getGlobalErrors()
-                .stream()
-                .flatMap(o -> getMessages(o.getCodes()).stream())
-                .toList();
-        // 글로벌 에러코드 필드 - global
-        if (!gMessages.isEmpty()) {
-            messages.put("global", gMessages);
+            // 글로벌 에러코드 - getGlobalErrors()
+            List<String> gMessages = errors.getGlobalErrors()
+                    .stream()
+                    .flatMap(o -> getMessages(o.getCodes()).stream())
+                    .toList();
+            // 글로벌 에러코드 필드 - global
+            if (!gMessages.isEmpty()) {
+                messages.put("global", gMessages);
+            }
+
+            return messages;
+        } finally {
+            ms.setUseCodeAsDefaultMessage(true);
         }
-
-        return messages;
     }
 }

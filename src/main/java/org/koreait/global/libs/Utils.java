@@ -5,10 +5,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -51,6 +54,11 @@ public class Utils {
         return messageSource.getMessage(code, null, lo);
     }
 
+    public List<String> getMessages(String[] codes) {
+
+        return Arrays.stream(codes).map(this::getMessage).toList();
+    }
+
     /**
      * REST 커맨드 객체 검증 실패시에 에러 코드를 가지고 메세지 추출
      *
@@ -59,7 +67,11 @@ public class Utils {
      */
     public Map<String, List<String>> getErrorMessages(Errors errors) {
         // 필드별 에러코드 - getFieldErrors()
-        Map<String, List<String>>
+        // Collectors.toMap
+        Map<String, List<String>> messages = errors.getFieldErrors()
+                .stream()
+                .collect(Collectors.toMap(FieldError::getField, f -> getMessages(f.getCodes()), (v1, v2) -> v2));
+
         // 글로벌 에러코드 - getGlobalErrors()
 
         return null; // 임시

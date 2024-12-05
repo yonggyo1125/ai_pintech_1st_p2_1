@@ -52,4 +52,10 @@ public class ApiFileController {
 
         return null;
     }
+
+    @DeleteMapping({"/deletes/{gid}", "/deletes/{gid}/{location}"})
+    public JSONData deletes(@PathVariable("gid") String gid,
+                            @PathVariable(name="location", required = false) String location) {
+        return null;
+    }
 }

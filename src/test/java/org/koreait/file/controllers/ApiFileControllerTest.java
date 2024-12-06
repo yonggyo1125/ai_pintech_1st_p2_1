@@ -7,6 +7,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -27,6 +28,7 @@ public class ApiFileControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "user01@test.org", authorities = "USER")
     void test1() throws Exception {
         /**
          * MockMultipartFile

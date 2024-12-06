@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.koreait.file.entities.FileInfo;
 import org.koreait.file.repositories.FileInfoRepository;
+import org.koreait.file.services.FileDeleteService;
 import org.koreait.file.services.FileInfoService;
 import org.koreait.member.services.MemberUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,9 @@ public class ApiFileControllerTest {
     @Autowired
     private FileInfoService infoService;
 
+    @Autowired
+    private FileDeleteService deleteService;
+
     @BeforeEach
     void setup() {
         //mockMvc = MockMvcBuilders.standaloneSetup(ApiFileController.class).build();
@@ -50,8 +54,7 @@ public class ApiFileControllerTest {
         form.setAddress("주소!");
 
         updateService.process(form);
-
-         */
+        */
     }
 
     @Test
@@ -74,7 +77,7 @@ public class ApiFileControllerTest {
 
         //Thread.sleep(5000);
         /*
-        List<FileInfo> items = repository.getList("testgid");
+        List<FileInfo> items = infoService.getList("testgid");
         for (FileInfo item : items) {
             System.out.println(item.getCreatedBy());
         } */
@@ -86,6 +89,14 @@ public class ApiFileControllerTest {
         System.out.println(item);
 
         List<FileInfo> items = infoService.getList("testgid", null, null);
+        items.forEach(System.out::println);
+    }
+
+    @Test
+    void test3() {
+        //FileInfo item = deleteService.delete(1L);
+        //System.out.println(item);
+        List<FileInfo> items = deleteService.deletes("testgid", "testlocation");
         items.forEach(System.out::println);
     }
 }

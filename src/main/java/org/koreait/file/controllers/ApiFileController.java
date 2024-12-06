@@ -7,8 +7,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.koreait.file.constants.FileStatus;
 import org.koreait.file.entities.FileInfo;
 import org.koreait.file.services.FileDownloadService;
+import org.koreait.file.services.FileInfoService;
 import org.koreait.file.services.FileUploadService;
 import org.koreait.global.exceptions.BadRequestException;
 import org.koreait.global.libs.Utils;
@@ -31,6 +33,8 @@ public class ApiFileController {
     private final FileUploadService uploadService;
 
     private final FileDownloadService downloadService;
+
+    private final FileInfoService infoService;
 
     /**
      * 파일 업로드
@@ -68,8 +72,9 @@ public class ApiFileController {
     // 파일 단일 조회
     @GetMapping("/info/{seq}")
     public JSONData info(@PathVariable("seq") Long seq) {
+        FileInfo item = infoService.get(seq);
 
-        return null;
+        return new JSONData(item);
     }
 
     /**
@@ -78,9 +83,12 @@ public class ApiFileController {
      */
     @GetMapping(path={"/list/{gid}", "/list/{gid}/{location}"})
     public JSONData list(@PathVariable("gid") String gid,
-                         @PathVariable(name="location", required = false) String location) {
+                         @PathVariable(name="location", required = false) String location,
+                         @RequestParam(name="status", defaultValue = "DONE") FileStatus status) {
 
-        return null;
+        List<FileInfo> items = infoService.getList(gid, location, status);
+
+        return new JSONData(items);
     }
 
     // 파일 단일 삭제

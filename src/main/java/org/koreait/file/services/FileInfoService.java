@@ -1,4 +1,7 @@
 package org.koreait.file.services;
 
-public class FileInfoService {
+import org.koreait.file.repositories.FileInfoRepository;
+
+public class FileInfoService  {
+
 }

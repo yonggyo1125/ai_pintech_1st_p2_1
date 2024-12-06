@@ -1,3 +1,14 @@
+var commonLib = commonLib ?? {};
+commonLib.fileManager = {
+    /**
+    * 파일 업로드 처리
+    *
+    */
+    upload(files, gid, location, single, imageOnly) {
+
+    }
+
+};
 
 window.addEventListener("DOMContentLoaded", function() {
     const fileUploads = document.getElementsByClassName("file-upload");
@@ -20,7 +31,10 @@ window.addEventListener("DOMContentLoaded", function() {
 
     // 파일 선택시 - change 이벤트 발생
     fileEl.addEventListener("change", function(e) {
-        // e.currentTarget, e.target
-        console.dir(e.currentTarget.files);
+        const files = e.currentTarget.files;
+        const {gid, location, single, imageOnly} = fileEl;
+
+        const { fileManager } = commonLib;
+        fileManager.upload(files, gid, location, single, imageOnly);
     });
 });

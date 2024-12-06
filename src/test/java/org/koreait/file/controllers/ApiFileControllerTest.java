@@ -85,7 +85,7 @@ public class ApiFileControllerTest {
         FileInfo item = infoService.get(1L);
         System.out.println(item);
 
-        List<FileInfo> items = infoService.getList("testgid");
+        List<FileInfo> items = infoService.getList("testgid", null, null);
         items.forEach(System.out::println);
     }
 }

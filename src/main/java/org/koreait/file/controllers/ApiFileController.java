@@ -6,13 +6,13 @@ import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.koreait.file.entities.FileInfo;
+import org.koreait.file.services.FileDownloadService;
 import org.koreait.file.services.FileUploadService;
 import org.koreait.global.exceptions.BadRequestException;
 import org.koreait.global.libs.Utils;
 import org.koreait.global.rests.JSONData;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
@@ -23,14 +23,14 @@ import java.util.List;
 @Tag(name="파일 API", description = "파일 업로드, 조회, 다운로드, 삭제 기능 제공합니다.")
 @RestController
 @RequestMapping("/api/file")
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class ApiFileController {
 
-    @Autowired
-    private Utils utils;
+    private final Utils utils;
 
-    @Autowired
-    private FileUploadService uploadService;
+    private final FileUploadService uploadService;
+
+    private final FileDownloadService downloadService;
 
     /**
      * 파일 업로드
@@ -62,7 +62,7 @@ public class ApiFileController {
     // 파일 다운로드
     @GetMapping("/download/{seq}")
     public void download(@PathVariable("seq") Long seq) {
-
+        downloadService.process(seq);
     }
 
     // 파일 단일 조회

@@ -2,6 +2,8 @@ package org.koreait.file.controllers;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.koreait.file.entities.FileInfo;
+import org.koreait.file.repositories.FileInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,6 +12,8 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.List;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
@@ -21,6 +25,9 @@ public class ApiFileControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private FileInfoRepository repository;
 
     @BeforeEach
     void setup() {
@@ -43,5 +50,10 @@ public class ApiFileControllerTest {
                         .param("location", "testlocation")
                         .with(csrf().asHeader()))
                 .andDo(print());
+
+        List<FileInfo> items = repository.getList("testgid");
+        for (FileInfo item : items) {
+            System.out.println(item.getCreatedBy());
+        }
     }
 }

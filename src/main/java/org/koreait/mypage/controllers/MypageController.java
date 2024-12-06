@@ -16,4 +16,10 @@ public class MypageController {
     public String index() {
         return utils.tpl("mypage/index");
     }
+
+    @GetMapping("/profile")
+    public String profile() {
+
+        return utils.tpl("mypage/profile");
+    }
 }

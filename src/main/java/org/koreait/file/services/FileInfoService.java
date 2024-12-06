@@ -10,6 +10,7 @@ import org.koreait.file.exceptions.FileNotFoundException;
 import org.koreait.file.repositories.FileInfoRepository;
 import org.koreait.global.configs.FileProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -19,6 +20,7 @@ import java.util.Objects;
 
 import static org.springframework.data.domain.Sort.Order.asc;
 
+@Lazy
 @Service
 @RequiredArgsConstructor
 @EnableConfigurationProperties(FileProperties.class)
@@ -53,7 +55,12 @@ public class FileInfoService  {
             andBuilder.and(fileInfo.done.eq(status == FileStatus.DONE));
         }
 
-        return (List<FileInfo>)infoRepository.findAll(andBuilder, Sort.by(asc("createdAt")));
+        List<FileInfo> items = (List<FileInfo>)infoRepository.findAll(andBuilder, Sort.by(asc("createdAt")));
+
+        // 추가 정보 처리
+        items.forEach(this::addInfo);
+
+        return items;
     }
 
     public List<FileInfo> getList(String gid, String location) {

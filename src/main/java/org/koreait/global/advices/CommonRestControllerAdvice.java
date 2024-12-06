@@ -1,6 +1,8 @@
 package org.koreait.global.advices;
 
+import lombok.RequiredArgsConstructor;
 import org.koreait.global.exceptions.CommonException;
+import org.koreait.global.libs.Utils;
 import org.koreait.global.rests.JSONData;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +14,10 @@ import java.util.List;
 import java.util.Map;
 
 @RestControllerAdvice(annotations = RestController.class)
+@RequiredArgsConstructor
 public class CommonRestControllerAdvice {
+
+    private final Utils utils;
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<JSONData> errorHandler(Exception e) {
@@ -26,6 +31,8 @@ public class CommonRestControllerAdvice {
             Map<String, List<String>> errorMessages = commonException.getErrorMessages();
             if (errorMessages != null) {
                 message = errorMessages;
+            } else {
+                message = commonException.isErrorCode() ? utils.getMessage((String)message) : message;
             }
         }
 

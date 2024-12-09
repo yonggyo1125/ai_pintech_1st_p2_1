@@ -69,9 +69,9 @@ public class ThumbnailService {
      * thumbs/폴더번호/seq_너비_높이.확장자
      * thumbs/urls/정수해시코드_너비_높이.확장자
      */
-    public String getThumbPath(long seq, String url, int width, int height) {
+    public String getThumbPath(Long seq, String url, int width, int height) {
         String thumbPath = properties.getPath() + "thumbs/";
-        if (seq > 0L) { // 직접 서버에 올린 파일
+        if (seq != null && seq > 0L) { // 직접 서버에 올린 파일
             FileInfo item = infoService.get(seq);
 
             thumbPath = thumbPath + String.format("%d/%d_%d_%d%s", seq % 10L, seq, width, height, item.getExtension());

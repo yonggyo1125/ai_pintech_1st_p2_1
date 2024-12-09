@@ -110,6 +110,20 @@ window.addEventListener("DOMContentLoaded", function() {
             // 기본 동작 차단
             e.preventDefault();
 
+            const files = e.dataTransfer.files;
+
+            let {gid, location, single, imageOnly, done} = this.dataset;
+            single = single === "true";
+            imageOnly = imageOnly === "true";
+            done = done === "true";
+
+            if (single && files.length > 1) { // 단일 파일 업로드 이지만 여러개를 선택한 경우
+                alert("하나의 파일만 업로드 하세요.");
+                return;
+            }
+
+            const { fileManager } = commonLib;
+            fileManager.upload(files, gid, location, single, imageOnly, done);
         });
     }
 

@@ -1,3 +1,17 @@
+var commonLib = commonLib ?? {};
+
+/**
+* 메타 태그 정보 조회
+*   mode - rootUrl : <meta name="rootUrl" ... />
+*/
+commonLib.getMeta = function(mode) {
+    if (!mode) return;
+
+    const el = document.querySelector(`meta[name='${mode}']`);
+
+    return el?.content;
+};
+
 window.addEventListener("DOMContentLoaded", function() {
     // 체크박스 전체 토글 기능 S
     const checkAlls = document.getElementsByClassName("check-all");

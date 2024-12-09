@@ -8,6 +8,7 @@
         <meta name="description" th:if="${description != null}" th:content="${description}">
         <meta name="_csrf" th:content="${_csrf.token}">
         <meta name="_csrf_header" th:content="${_csrf.headerName}">
+        <meta name="rootUrl" th:content="@{/}">
 
         <title th:if="${pageTitle != null}" th:text="${pageTitle}"></title>
 

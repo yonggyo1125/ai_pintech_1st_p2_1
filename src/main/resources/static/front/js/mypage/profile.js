@@ -4,5 +4,13 @@
 *
 */
 function callbackFileUpload(files) {
-    console.log("files", files);
+    if (!files || files.length === 0) {
+        return;
+    }
+
+    const el = document.querySelector(".profile-image");
+    if (el) {
+        const file = files[0];
+        el.innerHTML = `<img src='${file.fileUrl}'>`;
+    }
 }

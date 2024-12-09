@@ -3,13 +3,15 @@ package org.koreait.file.services;
 import lombok.RequiredArgsConstructor;
 import org.koreait.file.controllers.RequestThumb;
 import org.koreait.file.entities.FileInfo;
-import org.koreait.file.repositories.FileInfoRepository;
 import org.koreait.global.configs.FileProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
+
+import java.io.File;
+import java.util.Objects;
 
 @Lazy
 @Service
@@ -39,7 +41,18 @@ public class ThumbnailService {
 
             thumbPath = thumbPath + String.format("%d/%d_%d_%d%s", seq % 10L, seq, width, height, item.getExtension());
         } else if (StringUtils.hasText(url)){ // 원격 URL 이미지인 경우
-
+            String extension = url.lastIndexOf(".") == -1 ? "": url.substring(url.lastIndexOf("."));
+            if (StringUtils.hasText(extension)) {
+                extension = extension.split("[?#]")[0];
+            }
+            thumbPath = thumbPath + String.format("urls/%d_%d_%d%s", Objects.hash(url), width, height, extension);
         }
+
+        File file = new File(thumbPath);
+        if (!file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+        }
+
+        return thumbPath;
     }
 }

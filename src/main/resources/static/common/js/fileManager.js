@@ -39,6 +39,16 @@ commonLib.fileManager = {
 
             /* 전송 양식 만들기 E */
 
+            /* 양식 전송 처리 S */
+            const { getMeta } = commonLib;
+
+            const csrfHeader = getMeta("_csrf_header");
+            const csrfToken = getMeta("_csrf");
+            const url = getMeta("rootUrl")
+
+            console.log(csrfHeader, csrfToken, url);
+
+            /* 양식 전송 처리 E */
         } catch (err) {
             alert(err.message);
             console.error(err);
@@ -67,17 +77,21 @@ window.addEventListener("DOMContentLoaded", function() {
             fileEl.multiple = !fileEl.single;  // false - 단일 파일 선택, true - 여러파일 선택 가능
 
             fileEl.click();
+
+
+             // 파일 선택시 - change 이벤트 발생
+             fileEl.removeEventListener("change", fileEventHandler);
+             fileEl.addEventListener("change", fileEventHandler);
+
+             function fileEventHandler(e) {
+                const files = e.currentTarget.files;
+                const {gid, location, single, imageOnly} = fileEl;
+
+                const { fileManager } = commonLib;
+                fileManager.upload(files, gid, location, single, imageOnly);
+             }
         });
     }
 
-    // 파일 선택시 - change 이벤트 발생
-    fileEl.addEventListener("change", function(e) {
-        const files = e.currentTarget.files;
-        const {gid, location, single, imageOnly} = fileEl;
 
-        const { fileManager } = commonLib;
-        fileManager.upload(files, gid, location, single, imageOnly);
-
-
-    });
 });

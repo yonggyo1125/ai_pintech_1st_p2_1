@@ -125,5 +125,8 @@ public class ApiFileController {
         return new JSONData(items);
     }
 
+    @GetMapping("/thumb")
+    public void thumb(RequestThumb form) {
 
+    }
 }

@@ -1,6 +1,7 @@
 package org.koreait.file.services;
 
 import lombok.RequiredArgsConstructor;
+import net.coobird.thumbnailator.Thumbnails;
 import org.koreait.file.controllers.RequestThumb;
 import org.koreait.file.entities.FileInfo;
 import org.koreait.global.configs.FileProperties;
@@ -11,6 +12,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
+import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Objects;
 
 @Lazy
@@ -26,7 +30,38 @@ public class ThumbnailService {
 
     public String create(RequestThumb form) {
 
-        return null;
+        Long seq = form.getSeq();
+        String url = form.getUrl();
+        int width = form.getWidth();
+        int height = form.getHeight();
+
+        String thumbPath = getThumbPath(seq, url, width, height);
+        File file = new File(thumbPath);
+        if (file.exists()) { // 이미 Thumbnail 이미지를 만든 경우
+            return thumbPath;
+        }
+
+        try {
+            if (seq != null && seq > 0L) { // 서버에 올라간 파일
+                FileInfo item = infoService.get(seq);
+                Thumbnails.of(item.getFilePath())
+                        .size(width, height)
+                        .toFile(file);
+
+            } else if (StringUtils.hasText(url)) { // 원격 URL 이미지
+                String original = String.format("%s_original", thumbPath);
+                byte[] bytes = restTemplate.getForObject(URI.create(url), byte[].class);
+                Files.write(Paths.get(original), bytes);
+
+                Thumbnails.of(original)
+                        .size(width, height)
+                        .toFile(file);
+            } else {
+                thumbPath = null;
+            }
+        } catch (Exception e) {}
+
+        return thumbPath;
     }
 
     /**

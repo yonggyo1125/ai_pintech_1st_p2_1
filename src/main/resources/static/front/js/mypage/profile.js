@@ -9,7 +9,8 @@ window.addEventListener("DOMContentLoaded", function() {
         const { fileManager } = commonLib;
         fileManager.delete(seq, function(file) {
             // 삭제 후 후속 처리
-            console.log(file);
+            delete el.dataset.seq;
+            el.innerHTML = "";
         });
 
     });

@@ -64,6 +64,7 @@ commonLib.fileManager = {
     * @param callback : 삭제 후 후속 처리 콜백 함수
     */
     delete(seq, callback) {
+        const { ajaxLoad } = commonLib;
         ajaxLoad(`/api/file/delete/${seq}`, file => callback(file), 'DELETE');
     }
 };

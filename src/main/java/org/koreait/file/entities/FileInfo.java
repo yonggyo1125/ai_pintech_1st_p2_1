@@ -35,5 +35,8 @@ public class FileInfo extends BaseMemberEntity {
     @Transient
     private String filePath; // 파일이 서버에 있는 경로
 
+    @Transient
+    private String thumbUrl; // 썸네일 기본 URL
+
     private boolean done; // 파일과 연관된 작업이 완료되었는지 여부
 }

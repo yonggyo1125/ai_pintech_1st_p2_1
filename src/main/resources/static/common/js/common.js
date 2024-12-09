@@ -15,14 +15,46 @@ commonLib.getMeta = function(mode) {
 /**
 * Ajax 요청 처리
 *
-* @params url : 요청 주소
+* @params url : 요청 주소, http[s] : 외부 URL - 컨텍스트 경로는 추가 X
 * @params method 요청방식 - GET, POST, DELETE, PATCH ...
 * @params callback 응답 완료 후 후속 처리 콜백 함수
 * @params data : 요청 데이터
 * @params headers : 추가 요청 헤더
 */
-commonLib.ajaxLoad = function(url, callback, method, data, headers) {
+commonLib.ajaxLoad = function(url, callback, method = 'GET', data, headers) {
+    if (!url) return;
 
+    const { getMeta } = commonLib;
+    const csrfHeader = getMeta("_csrf_header");
+    const csrfToken = getMeta("_csrf");
+    url = /^http[s]?:/.test(url) ? url : getMeta("rootUrl") + url;
+
+    headers = headers ?? {};
+    headers[csrfHeader] = csrfToken;
+    method = method.toUpperCase();
+
+    const options = {
+        method,
+        headers,
+    }
+
+    if (data && method in ['POST', 'PUT', 'PATCH']) { // body 쪽 데이터 추가 가능
+        options.body = data instanceof FormData ? data : JSON.stringify(data);
+    }
+
+    fetch(url, options)
+        .then(res => res.json())
+        .then(json => {
+            if (json.success) { // 응답 성공(처리 성공)
+               if (typeof callback === 'function') { // 콜백 함수가 정의된 경우
+                    callback(json.data);
+               }
+               return;
+            }
+
+            alert(json.message); // 실패시에는 alert 메세지를 출력
+        })
+        .catch(err => console.error(err))
 };
 
 window.addEventListener("DOMContentLoaded", function() {

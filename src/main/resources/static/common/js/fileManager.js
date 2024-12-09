@@ -49,12 +49,16 @@ commonLib.fileManager = {
 
 window.addEventListener("DOMContentLoaded", function() {
     const fileUploads = document.getElementsByClassName("file-upload");
-    const fileEl = document.createElement("input");
-    fileEl.type = 'file';
+    let fileEl = null;
 
     for (const el of fileUploads) {
         el.addEventListener("click", function() {
             const {gid, location, single, imageOnly} = this.dataset;
+
+            if (!fileEl) {
+                fileEl = document.createElement("input");
+                fileEl.type = 'file';
+            }
 
             fileEl.gid = gid;
             fileEl.location = location;
@@ -73,5 +77,7 @@ window.addEventListener("DOMContentLoaded", function() {
 
         const { fileManager } = commonLib;
         fileManager.upload(files, gid, location, single, imageOnly);
+
+
     });
 });

@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.koreait.file.constants.FileStatus;
@@ -14,10 +15,13 @@ import org.koreait.global.exceptions.BadRequestException;
 import org.koreait.global.libs.Utils;
 import org.koreait.global.rests.JSONData;
 import org.springframework.http.HttpStatus;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.*;
+import java.nio.file.Files;
 import java.util.List;
 
 @Tag(name="파일 API", description = "파일 업로드, 조회, 다운로드, 삭제 기능 제공합니다.")
@@ -37,6 +41,8 @@ public class ApiFileController {
     private final FileDeleteService deleteService;
 
     private final FileDoneService doneService;
+
+    private final ThumbnailService thumbnailService;
 
     /**
      * 파일 업로드
@@ -126,7 +132,24 @@ public class ApiFileController {
     }
 
     @GetMapping("/thumb")
-    public void thumb(RequestThumb form) {
+    public void thumb(RequestThumb form, HttpServletResponse response) {
+        String path = thumbnailService.create(form);
+        if (!StringUtils.hasText(path)) {
+            return;
+        }
+
+        File file = new File(path);
+        try (FileInputStream fis = new FileInputStream(file);
+             BufferedInputStream bis = new BufferedInputStream(fis)) {
+
+            String contentType = Files.probeContentType(file.toPath());
+            response.setContentType(contentType);
+
+            OutputStream out = response.getOutputStream();
+            out.write(bis.readAllBytes());
+
+        } catch (IOException e) {}
+
 
     }
 }

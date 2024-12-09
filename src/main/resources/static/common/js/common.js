@@ -18,7 +18,7 @@ commonLib.getMeta = function(mode) {
 * @params url : 요청 주소, http[s] : 외부 URL - 컨텍스트 경로는 추가 X
 * @params method 요청방식 - GET, POST, DELETE, PATCH ...
 * @params callback 응답 완료 후 후속 처리 콜백 함수
-* @params data : 요청 데이터
+* @params data : 요청 데이터(POST, PATCH, PUT ...)
 * @params headers : 추가 요청 헤더
 */
 commonLib.ajaxLoad = function(url, callback, method = 'GET', data, headers) {
@@ -27,7 +27,7 @@ commonLib.ajaxLoad = function(url, callback, method = 'GET', data, headers) {
     const { getMeta } = commonLib;
     const csrfHeader = getMeta("_csrf_header");
     const csrfToken = getMeta("_csrf");
-    url = /^http[s]?:/.test(url) ? url : getMeta("rootUrl") + url;
+    url = /^http[s]?:/.test(url) ? url : getMeta("rootUrl") + url.replace("/", "");
 
     headers = headers ?? {};
     headers[csrfHeader] = csrfToken;

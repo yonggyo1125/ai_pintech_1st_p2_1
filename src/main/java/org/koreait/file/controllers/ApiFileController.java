@@ -59,6 +59,14 @@ public class ApiFileController {
 
         form.setFiles(files);
 
+        /**
+         * 단일 파일 업로드
+         *      - 기 업로드된 파일을 삭제하고 새로 추가
+         */
+        if (form.isSingle()) {
+            deleteService.deletes(form.getGid(), form.getLocation());
+        }
+
         List<FileInfo> uploadedFiles = uploadService.upload(form);
         JSONData data = new JSONData(uploadedFiles);
         data.setStatus(HttpStatus.CREATED);

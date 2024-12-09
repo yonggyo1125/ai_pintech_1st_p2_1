@@ -10,5 +10,8 @@ public class RequestUpload {
     private String gid;
     private String location;
 
+    private boolean single; // 단일 파일
+    private boolean imageOnly; // 이미지 형식 파일만 허용
+
     public MultipartFile[] files;
 }

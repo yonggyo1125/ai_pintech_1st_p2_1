@@ -35,6 +35,7 @@ public class FileUploadService {
 
         String rootPath = properties.getPath();
 
+
         // 파일 업로드 성공 파일 정보
         List<FileInfo> uploadedItems = new ArrayList<>();
 

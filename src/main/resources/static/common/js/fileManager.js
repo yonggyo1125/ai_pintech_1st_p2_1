@@ -6,6 +6,7 @@ commonLib.fileManager = {
     */
     upload(files, gid, location, single, imageOnly) {
         try {
+            /* 유효성 검사 S */
             if (!files || files.length === 0) {
                 throw new Error("파일을 선택하세요.");
             }
@@ -17,6 +18,26 @@ commonLib.fileManager = {
                     }
                 }
             }
+
+            if (!gid || !('' + gid).trim()) {
+                throw new Error("잘못된 접근입니다.");
+            }
+            /* 유효성 검사 E */
+
+            /* 전송 양식 만들기 S */
+            const formData = new FormData();
+            formData.append("gid", gid);
+            formData.append("single", single);
+            formData.append("imageOnly", imageOnly);
+            if (location) {
+                formData.append("location", location);
+            }
+
+            for (const file of files) {
+                formData.append("file", file);
+            }
+
+            /* 전송 양식 만들기 E */
 
         } catch (err) {
             alert(err.message);

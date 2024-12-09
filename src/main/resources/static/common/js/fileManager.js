@@ -4,7 +4,7 @@ commonLib.fileManager = {
     * 파일 업로드 처리
     *
     */
-    upload(files, gid, location, single, imageOnly) {
+    upload(files, gid, location, single, imageOnly, done) {
         try {
             /* 유효성 검사 S */
             if (!files || files.length === 0) {
@@ -29,6 +29,8 @@ commonLib.fileManager = {
             formData.append("gid", gid);
             formData.append("single", single);
             formData.append("imageOnly", imageOnly);
+            formData.append("done", done);
+
             if (location) {
                 formData.append("location", location);
             }
@@ -47,6 +49,8 @@ commonLib.fileManager = {
                 }
             }, 'POST', formData);
 
+            window.fileEl = null;
+
             /* 양식 전송 처리 E */
         } catch (err) {
             alert(err.message);
@@ -62,7 +66,7 @@ window.addEventListener("DOMContentLoaded", function() {
 
     for (const el of fileUploads) {
         el.addEventListener("click", function() {
-            const {gid, location, single, imageOnly} = this.dataset;
+            const {gid, location, single, imageOnly, done} = this.dataset;
 
             if (!fileEl) {
                 fileEl = document.createElement("input");
@@ -74,6 +78,7 @@ window.addEventListener("DOMContentLoaded", function() {
             fileEl.imageOnly = imageOnly === 'true';
             fileEl.single = single === 'true';
             fileEl.multiple = !fileEl.single;  // false - 단일 파일 선택, true - 여러파일 선택 가능
+            fileEl.done = done === 'true'; // 업로드 완료 하자마자 완료 처리
 
             fileEl.click();
 
@@ -84,10 +89,10 @@ window.addEventListener("DOMContentLoaded", function() {
 
              function fileEventHandler(e) {
                 const files = e.currentTarget.files;
-                const {gid, location, single, imageOnly} = fileEl;
+                const {gid, location, single, imageOnly, done} = fileEl;
 
                 const { fileManager } = commonLib;
-                fileManager.upload(files, gid, location, single, imageOnly);
+                fileManager.upload(files, gid, location, single, imageOnly, done);
              }
         });
     }

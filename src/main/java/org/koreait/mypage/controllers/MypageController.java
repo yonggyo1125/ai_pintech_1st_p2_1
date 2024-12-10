@@ -6,6 +6,7 @@ import org.koreait.global.libs.Utils;
 import org.koreait.member.entities.Member;
 import org.koreait.member.libs.MemberUtil;
 import org.koreait.member.services.MemberUpdateService;
+import org.koreait.mypage.validators.ProfileValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +29,7 @@ public class MypageController {
     private final MemberUtil memberUtil;
     private final ModelMapper modelMapper;
     private final MemberUpdateService updateService;
+    private final ProfileValidator profileValidator;
 
     @ModelAttribute("profile")
     public Member getMember() {
@@ -65,6 +67,8 @@ public class MypageController {
     @PatchMapping("/profile")
     public String updateProfile(@Valid RequestProfile form, Errors errors, Model model) {
         commonProcess("profile", model);
+
+        profileValidator.validate(form, errors);
 
         if (errors.hasErrors()) {
             return utils.tpl("mypage/profile");

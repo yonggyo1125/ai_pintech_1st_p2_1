@@ -26,6 +26,10 @@ public class ProfileValidator implements Validator, PasswordValidator {
             return;
         }
 
+        if (password.length() < 8) {
+            errors.rejectValue("password", "Size");
+        }
+
         if (!StringUtils.hasText(confirmPassword)) {
             errors.rejectValue("confirmPassword", "NotBlank");
             return;

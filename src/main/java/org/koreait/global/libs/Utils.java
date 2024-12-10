@@ -2,16 +2,16 @@ package org.koreait.global.libs;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.koreait.file.entities.FileInfo;
+import org.koreait.file.services.FileInfoService;
 import org.springframework.context.MessageSource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -20,6 +20,7 @@ public class Utils {
 
     private final HttpServletRequest request;
     private final MessageSource messageSource;
+    private final FileInfoService fileInfoService;
 
     public boolean isMobile() {
 
@@ -97,5 +98,29 @@ public class Utils {
         } finally {
             ms.setUseCodeAsDefaultMessage(true);
         }
+    }
+
+    /**
+     * 이미지 출력
+     *
+     * @param width
+     * @param height
+     * @param mode - image : 이미지 태그로 출력, background : 배경 이미지 형태 출력
+     * @return
+     */
+    public String showImage(Long seq, String url, int width, int height, String mode) {
+
+        try {
+            if (seq != null && seq > 0L) {
+                FileInfo item = fileInfoService.get(seq);
+
+            } else if (StringUtils.hasText(url)) {
+
+            }
+
+            mode = Objects.requireNonNullElse(mode, "image");
+        } catch (Exception e) {}
+
+        return "";
     }
 }

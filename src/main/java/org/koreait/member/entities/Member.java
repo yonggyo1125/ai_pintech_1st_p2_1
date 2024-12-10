@@ -3,6 +3,7 @@ package org.koreait.member.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
+import org.koreait.file.entities.FileInfo;
 import org.koreait.global.entities.BaseEntity;
 import org.koreait.member.constants.Gender;
 
@@ -59,4 +60,7 @@ public class Member extends BaseEntity {
 
     // 비밀번호 변경 일시
     private LocalDateTime credentialChangedAt;
+
+    @Transient
+    private FileInfo profileImage;
 }

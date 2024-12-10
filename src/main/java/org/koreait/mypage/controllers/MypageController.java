@@ -56,7 +56,7 @@ public class MypageController {
         RequestProfile form = modelMapper.map(member, RequestProfile.class);
         String optionalTerms = member.getOptionalTerms();
         if (StringUtils.hasText(optionalTerms)) {
-            form.setOptionalTerms(Arrays.stream(optionalTerms.split("||")).toList());
+            form.setOptionalTerms(Arrays.stream(optionalTerms.split("\\|\\|")).toList());
         }
 
         model.addAttribute("requestProfile", form);

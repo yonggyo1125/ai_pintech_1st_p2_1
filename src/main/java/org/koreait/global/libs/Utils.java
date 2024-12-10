@@ -113,6 +113,9 @@ public class Utils {
         try {
             if (seq != null && seq > 0L) {
                 FileInfo item = fileInfoService.get(seq);
+                if (!item.getContentType().contains("image/")) {
+
+                }
 
             } else if (StringUtils.hasText(url)) {
 

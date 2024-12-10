@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.koreait.global.paging.ListData;
 import org.koreait.pokemon.controllers.PokemonSearch;
 import org.koreait.pokemon.entities.Pokemon;
+import org.koreait.pokemon.exceptions.PokemonNotFoundException;
 import org.koreait.pokemon.repositories.PokemonRepository;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -34,7 +35,12 @@ public class PokemonInfoService {
      */
     public Pokemon get(Long seq) {
 
-        return null;
+        Pokemon item = pokemonRepository.findById(seq).orElseThrow(PokemonNotFoundException::new);
+
+        // 추가 정보 처리
+        addInfo(item);
+
+        return item;
     }
 
     /**

@@ -3,9 +3,46 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{front/layouts/main}">
 <main layout:fragment="content">
-    [[${requestProfile}]]
+
 <form name="frmProfile" method="POST" th:action="@{/mypage/profile}" th:object="${requestProfile}" autocomplete="off">
     <input type="hidden" name="_method" value="PATCH">
+    <div class="error global" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
+    <dl>
+        <dt th:text="#{이메일}"></dt>
+        <dd th:text="${profile.email}"></dd>
+    </dl>
+
+    <dl>
+        <dt th:text="#{회원명}"></dt>
+        <dd>
+            <input type="text" name="name" th:field="*{name}">
+            <div class="error" th:each="err : ${#fields.errors('name')}" th:text="${err}"></div>
+        </dd>
+    </dl>
+
+    <dl>
+        <dt th:text="#{비밀번호}"></dt>
+        <dd>
+            <input type="password" name="password" th:field="*{password}">
+            <div class="error" th:each="err : ${#fields.errors('password')}" th:text="${err}"></div>
+        </dd>
+    </dl>
+
+    <dl>
+        <dt th:text="#{비밀번호_확인}"></dt>
+        <dd>
+            <input type="password" name="confirmPassword" th:field="*{confirmPassword}">
+            <div class="error" th:each="err : ${#fields.errors('confirmPassword')}" th:text="${err}"></div>
+        </dd>
+    </dl>
+
+    <dl>
+        <dt th:text="#{닉네임}"></dt>
+        <dd>
+            <input type="text" name="nickName" th:field="*{nickName}">
+            <div class="error" th:each="err : ${#fields.errors('nickName')}" th:text="${err}"></div>
+        </dd>
+    </dl>
 
     <div class="drag-upload profile-image"
          data-image-only="true"

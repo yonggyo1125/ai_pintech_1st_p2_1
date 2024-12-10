@@ -16,7 +16,8 @@
                      data-location="profile"
                      data-done="true"
                 >
-
+                <th:block th:if="${profile.profileImage != null}"
+                          th:utext="${@utils.showImage(profile.profileImage.seq, 250, 350, 'image')}"></th:block>
                 </div>
                 <button type="button" class='file-upload'
                         data-image-only="true"

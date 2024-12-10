@@ -2,6 +2,7 @@ package org.koreait.mypage.controllers;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.koreait.member.constants.Gender;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -17,6 +18,8 @@ public class RequestProfile {
 
     @NotBlank
     private String nickName;
+
+    @Size(min=8)
     private String password;
     private String confirmPassword;
 

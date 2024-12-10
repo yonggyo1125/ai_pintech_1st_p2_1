@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.koreait.global.libs.Utils;
 import org.koreait.member.entities.Member;
 import org.koreait.member.libs.MemberUtil;
+import org.koreait.member.services.MemberUpdateService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +27,7 @@ public class MypageController {
     private final Utils utils;
     private final MemberUtil memberUtil;
     private final ModelMapper modelMapper;
+    private final MemberUpdateService updateService;
 
     @ModelAttribute("profile")
     public Member getMember() {
@@ -68,7 +70,9 @@ public class MypageController {
             return utils.tpl("mypage/profile");
         }
 
-        return null;
+        updateService.process(form);
+
+        return "redirect:/mypage"; // 회원 정보 수정 완료 후 마이페이지 메인 이동
     }
 
     /**

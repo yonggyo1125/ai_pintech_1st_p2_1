@@ -65,6 +65,10 @@ public class MemberUpdateService {
      * @param form
      */
     public void process(RequestProfile form) {
+        process(form, null);
+    }
+
+    public void process(RequestProfile form, List<Authority> authorities) {
         Member member = memberUtil.getMember(); // 로그인한 사용자의 정보
         member.setName(form.getName());
         member.setNickName(form.getNickName());
@@ -86,8 +90,24 @@ public class MemberUpdateService {
             member.setPassword(hash);
         }
 
+        /**
+         * 회원 권한은 관리자만 수정 가능!
+         *
+         */
+        List<Authorities> _authorities = null;
+        if (authorities != null && memberUtil.isAdmin()) {
+            _authorities = authorities.stream().map(a -> {
+               Authorities auth = new Authorities();
+               auth.setAuthority(a);
+               auth.setMember(member);
+               return auth;
+            }).toList();
+        }
+
+        save(member, _authorities);
     }
-                        /**
+
+    /**
      * 회원정보 추가 또는 수정 처리
      *
      */

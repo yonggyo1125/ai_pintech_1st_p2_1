@@ -108,20 +108,32 @@ public class Utils {
      * @param mode - image : 이미지 태그로 출력, background : 배경 이미지 형태 출력
      * @return
      */
-    public String showImage(Long seq, String url, int width, int height, String mode) {
+    public String showImage(Long seq, String url, int width, int height, String mode, String className) {
 
         try {
+            String imageUrl = null;
             if (seq != null && seq > 0L) {
                 FileInfo item = fileInfoService.get(seq);
-                if (!item.getContentType().contains("image/")) {
-
+                if (!item.isImage()) {
+                    return "";
                 }
 
-            } else if (StringUtils.hasText(url)) {
+                imageUrl = String.format("%s&width=%d&height=%d", item.getThumbUrl(), width, height);
 
+            } else if (StringUtils.hasText(url)) {
+                imageUrl = String.format("%s/api/file/thumb?url=%s&width=%d&height=%d", request.getContextPath(), url, width, height);
             }
 
+            if (!StringUtils.hasText(imageUrl)) return "";
+
             mode = Objects.requireNonNullElse(mode, "image");
+            className = Objects.requireNonNullElse(className, "image");
+            if (mode.equals("background")) { // 배경 이미지
+
+                return String.format("<div style='width: %dpx; height: %dpx; background:url(\'%s\') no-repeat center center; background-size:cover;'></div>");
+            } else { // 이미지 태그
+                return String.format("<img src='%s' class='%s'>", imageUrl, className);
+            }
         } catch (Exception e) {}
 
         return "";

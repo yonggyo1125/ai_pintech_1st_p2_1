@@ -42,7 +42,7 @@ public class FileInfo extends BaseMemberEntity {
     private boolean done; // 파일과 연관된 작업이 완료되었는지 여부
 
     // 이미지 형식 여부
-    private boolean isImage() {
+    public boolean isImage() {
 
         return StringUtils.hasText(contentType) && contentType.contains("image/");
     }

@@ -108,6 +108,30 @@ public class Utils {
      * @param mode - image : 이미지 태그로 출력, background : 배경 이미지 형태 출력
      * @return
      */
+    public String showImage(Long seq, int width, int height, String mode, String className) {
+        return showImage(seq, null, width, height, mode, className);
+    }
+
+    public String showImage(Long seq, int width, int height, String className) {
+        return showImage(seq, null, width, height, "image", className);
+    }
+
+    public String showBackground(Long seq, int width, int height, String className) {
+        return showImage(seq, null, width, height, "background", className);
+    }
+
+    public String showImage(String url, int width, int height, String mode, String className) {
+        return showImage(null, url, width, height, mode, className);
+    }
+
+    public String showImage(String url, int width, int height, String className) {
+        return showImage(null, url, width, height, "image", className);
+    }
+
+    public String showBackground(String url, int width, int height, String className) {
+        return showImage(null, url, width, height, "background", className);
+    }
+
     public String showImage(Long seq, String url, int width, int height, String mode, String className) {
 
         try {
@@ -130,7 +154,7 @@ public class Utils {
             className = Objects.requireNonNullElse(className, "image");
             if (mode.equals("background")) { // 배경 이미지
 
-                return String.format("<div style='width: %dpx; height: %dpx; background:url(\'%s\') no-repeat center center; background-size:cover;'></div>");
+                return String.format("<div style='width: %dpx; height: %dpx; background:url(\'%s\') no-repeat center center; background-size:cover;' class='%s'></div>", width, height, imageUrl, className);
             } else { // 이미지 태그
                 return String.format("<img src='%s' class='%s'>", imageUrl, className);
             }

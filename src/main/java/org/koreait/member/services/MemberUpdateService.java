@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -76,6 +77,13 @@ public class MemberUpdateService {
         List<String> optionalTerms = form.getOptionalTerms();
         if (optionalTerms != null) {
             member.setOptionalTerms(String.join("||", optionalTerms));
+        }
+
+        // 회원정보 수정일때는 비밀번호가 입력 된 경우만 저장
+        String password = form.getPassword();
+        if (StringUtils.hasText(password)) {
+            String hash = passwordEncoder.encode(password);
+            member.setPassword(hash);
         }
 
     }

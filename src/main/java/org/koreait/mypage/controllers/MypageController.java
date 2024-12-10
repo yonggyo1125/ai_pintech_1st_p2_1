@@ -2,6 +2,7 @@ package org.koreait.mypage.controllers;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.koreait.global.annotations.ApplyErrorPage;
 import org.koreait.global.libs.Utils;
 import org.koreait.member.entities.Member;
 import org.koreait.member.libs.MemberUtil;
@@ -22,6 +23,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Controller
+@ApplyErrorPage
 @RequestMapping("/mypage")
 @RequiredArgsConstructor
 public class MypageController {

@@ -65,6 +65,18 @@
         </dd>
     </dl>
     <dl>
+        <dt th:text="#{성별}"></dt>
+        <dd>
+            <input type="radio" name="gender" value="FEMALE" th:field="*{gender}" id="gender-female">
+            <label for="gender-female" th:text="#{여성}"></label>
+
+            <input type="radio" name="gender" value="MALE" th:field="*{gender}" id="gender-male">
+            <label for="gender-male" th:text="#{남성}"></label>
+
+            <div class="error" th:each="err : ${#fields.errors('gender')}" th:text="${err}"></div>
+        </dd>
+    </dl>
+    <dl>
         <dt th:text="#{주소}"></dt>
         <dd>
             <div class="row">
@@ -85,7 +97,7 @@
             </div>
         </dd>
     </dl>
-
+    <button type="submit" th:text="#{수정하기}"></button>
 </form>
 </main>
 </html>

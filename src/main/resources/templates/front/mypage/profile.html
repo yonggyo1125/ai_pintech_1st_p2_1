@@ -76,6 +76,15 @@
             <div class="error" th:each="err : ${#fields.errors('gender')}" th:text="${err}"></div>
         </dd>
     </dl>
+
+    <dl>
+        <dt th:text="#{생년월일}"></dt>
+        <dd>
+            <input type="date" name="birthDt" th:field="*{birthDt}">
+            <div class="error" th:each="err : ${#fields.errors('birthDt')}" th:text="${err}"></div>
+        </dd>
+    </dl>
+
     <dl>
         <dt th:text="#{주소}"></dt>
         <dd>

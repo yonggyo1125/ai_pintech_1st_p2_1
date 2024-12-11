@@ -69,7 +69,7 @@ public class Pagination {
         String qs = request.getQueryString();
         baseUrl = "?";
         if (StringUtils.hasText(qs)) {
-            baseUrl = Arrays.stream(qs.split("&"))
+            baseUrl += Arrays.stream(qs.split("&"))
                         .filter(s -> !s.contains("page="))
                     .collect(Collectors.joining("&")) + "&";
         }
@@ -98,7 +98,7 @@ public class Pagination {
 
         List<String[]> pages = new ArrayList<>();
         for (int i = firstRangePage; i <= lastRangePage; i++) {
-            String url = "?page=" + i;
+            String url =  baseUrl + i;
             pages.add(new String[] {"" + i, url});
         }
 

@@ -20,7 +20,8 @@ public class PaginationTest {
     @BeforeEach
     void init() {
         // Stub(스텁 - 가짜 데이터)
-      given(request.getQueryString()).willReturn("query=블로그&test1=1&test2=2&page=3");
+      //given(request.getQueryString()).willReturn("query=블로그&test1=1&test2=2&page=3");
+        given(request.getQueryString()).willReturn(null);
     }
 
     @Test

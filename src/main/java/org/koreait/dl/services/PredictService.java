@@ -20,6 +20,9 @@ public class PredictService {
     @Value("${python.script.path}")
     private String scriptPath;
 
+    @Value("${python.data.url}")
+    private String dataUrl;
+
     @Autowired
     private ObjectMapper om;
 
@@ -27,7 +30,7 @@ public class PredictService {
         try {
             String data = om.writeValueAsString(items);
 
-            ProcessBuilder builder = new ProcessBuilder(runPath, scriptPath + "predict.py", data);
+            ProcessBuilder builder = new ProcessBuilder(runPath, dataUrl + "?mode=ALL", scriptPath + "predict.py", data);
             Process process = builder.start();
             InputStream in = process.getInputStream();
 

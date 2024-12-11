@@ -34,6 +34,10 @@ public class Pagination {
      * @param ranges : 페이지 구간 갯수
      * @param limit : 한 페이지당 출력될 레코드 갯수
      */
+    public Pagination(int page, int total, int ranges, int limit) {
+        this(page, total, ranges, limit, null);
+    }
+
     public Pagination(int page, int total, int ranges, int limit, HttpServletRequest request) {
         // 페이징 기본값 처리
         page = Math.max(page, 1);

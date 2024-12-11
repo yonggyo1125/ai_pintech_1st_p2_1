@@ -1,11 +1,15 @@
 package org.koreait.global.paging;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.Getter;
 import lombok.ToString;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @ToString
@@ -21,6 +25,8 @@ public class Pagination {
     private int prevRangeLastPage;
     private int nextRangeFirstPage;
 
+    private String baseUrl;
+
     /**
      *
      * @param page : 현재 페이지 번호
@@ -28,7 +34,7 @@ public class Pagination {
      * @param ranges : 페이지 구간 갯수
      * @param limit : 한 페이지당 출력될 레코드 갯수
      */
-    public Pagination(int page, int total, int ranges, int limit) {
+    public Pagination(int page, int total, int ranges, int limit, HttpServletRequest request) {
         // 페이징 기본값 처리
         page = Math.max(page, 1);
         total = Math.max(total, 0);
@@ -50,14 +56,25 @@ public class Pagination {
 
         int prevRangeLastPage = 0, nextRangeFirstPage = 0; // 이전 구간 시작 페이지 번호, 다음 구간 시작 페이지 번호
         if (rangeCnt > 0) {
-            prevRangeLastPage = (rangeCnt - 1) * ranges + ranges;
+            prevRangeLastPage = firstRangePage - 1;
         }
 
         // 마지막 페이지 구간
         int lastRangeCnt = (totalPages - 1) / ranges;
         if (rangeCnt < lastRangeCnt) {
-            nextRangeFirstPage = (rangeCnt - 1) * ranges + 1;
+            nextRangeFirstPage = (rangeCnt + 1) * ranges + 1;
         }
+
+        /* 쿼리스트링 값 처리 S */
+        String qs = request.getQueryString();
+        baseUrl = "?";
+        if (StringUtils.hasText(qs)) {
+            baseUrl = Arrays.stream(qs.split("&"))
+                        .filter(s -> !s.contains("page="))
+                    .collect(Collectors.joining("&")) + "&";
+        }
+        baseUrl += "page=";
+        /* 쿼리스트링 값 처리 E */
 
         this.page = page;
         this.ranges = ranges;

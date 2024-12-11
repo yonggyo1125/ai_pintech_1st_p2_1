@@ -189,3 +189,29 @@ header .move-to-store::after {
     transform: skew(-45deg);
 }
 /* 사이트 상단 헤더 E */
+
+/* 페이지네이션 S */
+.pagination {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.pagination a {
+    display: inline-block;
+    min-width: 45px;
+    height: 45px;
+    border: 1px solid #000;
+    line-height: 43px;
+    font-size: 1.56rem;
+    border-radius: 3px;
+}
+
+.pagination a + a {
+    margin-left: 3px;
+}
+
+.pagination a.on {
+    background: #000;
+    color: #fff;
+}
+/* 페이지네이션 E */

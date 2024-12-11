@@ -1,11 +1,10 @@
 package org.koreait.pokemon.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
+import jakarta.persistence.*;
 import lombok.Data;
 import org.koreait.global.entities.BaseEntity;
+
+import java.util.List;
 
 @Data
 @Entity
@@ -28,4 +27,10 @@ public class Pokemon extends BaseEntity {
     private String flavorText; // 설명
     private String types; // 타입1||타입2||타입3
     private String abilities; // 능력1||능력2||능력3
+
+    @Transient
+    private List<String> _types;
+
+    @Transient
+    private List<String> _abilities;
 }

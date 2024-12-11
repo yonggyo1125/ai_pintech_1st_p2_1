@@ -19,6 +19,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.springframework.data.domain.Sort.Order.desc;
@@ -91,6 +92,16 @@ public class PokemonInfoService {
      * @param item
      */
     private void addInfo(Pokemon item) {
+        // abilities
+        String abilities = item.getAbilities();
+        if (StringUtils.hasText(abilities)) {
+            item.set_abilities(Arrays.stream(abilities.split("\\|\\|")).toList());
+        }
 
+        // types
+        String types = item.getTypes();
+        if (StringUtils.hasText(types)) {
+            item.set_types(Arrays.stream(types.split("\\|\\|")).toList());
+        }
     }
 }

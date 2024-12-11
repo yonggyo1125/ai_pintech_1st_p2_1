@@ -30,11 +30,11 @@ public class PredictService {
         try {
             String data = om.writeValueAsString(items);
 
-            ProcessBuilder builder = new ProcessBuilder(runPath, dataUrl + "?mode=ALL", scriptPath + "predict.py", data);
+            ProcessBuilder builder = new ProcessBuilder(runPath, scriptPath + "predict.py", dataUrl + "?mode=ALL", data);
             Process process = builder.start();
             InputStream in = process.getInputStream();
-
             return om.readValue(in.readAllBytes(), int[].class);
+
         } catch (Exception e) {
             e.printStackTrace();
         }

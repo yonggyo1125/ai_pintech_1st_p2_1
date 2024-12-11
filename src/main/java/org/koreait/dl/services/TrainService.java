@@ -1,5 +1,7 @@
 package org.koreait.dl.services;
 
+import lombok.RequiredArgsConstructor;
+import org.koreait.dl.entities.TrainItem;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Profile;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 @Lazy
 @Service
 @Profile("dl")
+@RequiredArgsConstructor
 public class TrainService {
 
     @Value("${python.run.path}")
@@ -28,5 +31,9 @@ public class TrainService {
             int exitCode = process.waitFor();
 
         } catch (Exception e) {}
+    }
+
+    public void log(TrainItem item) {
+
     }
 }

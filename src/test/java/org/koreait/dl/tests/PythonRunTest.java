@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.io.BufferedReader;
+import java.util.Arrays;
 import java.util.List;
 
 @SpringBootTest
@@ -52,6 +53,6 @@ public class PythonRunTest {
         List<int[]> items = List.of(item);
 
        int[] predictions = service.predict(items);
-       //System.out.println(Arrays.toString(predictions));
+       System.out.println(Arrays.toString(predictions));
     }
 }

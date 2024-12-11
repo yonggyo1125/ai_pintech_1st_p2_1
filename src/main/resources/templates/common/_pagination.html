@@ -2,6 +2,25 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:fragment="pagination" th:if="${pagination != null}" th:object="${pagination}">
     <div class="pagination">
+        <th:block th:if="*{prevRangeLastPage > 0}">
+            <a th:href="*{#strings.concat(baseUrl, 1)}" class="page">
+                <i class="xi-backward"></i>
+            </a>
+            <a th:href="*{#strings.concat(baseUrl, prevRangeLastPage)}" class="page">
+                <i class="xi-angle-left"></i>
+            </a>
+        </th:block>
+
+        <a th:each="page : *{pages}" th:href="${page[1]}" th:text="${page[0]}" class="page" th:classappend="${('' + pagination.page) == page[0]} ? 'on'"></a>
+
+        <th:block th:if="*{nextRangeFirstPage > 0}">
+            <a th:href="*{#strings.concat(baseUrl, nextRangeFirstPage)}" class="page">
+                <i class="xi-angle-right"></i>
+            </a>
+            <a th:href="*{#strings.concat(baseUrl, totalPages)}" class="page">
+                <i class="xi-forward"></i>
+            </a>
+        </th:block>
 
     </div> <!--// pagination -->
 </th:block>

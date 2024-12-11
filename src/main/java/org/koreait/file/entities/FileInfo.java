@@ -5,13 +5,15 @@ import lombok.Data;
 import org.koreait.global.entities.BaseMemberEntity;
 import org.springframework.util.StringUtils;
 
+import java.io.Serializable;
+
 @Data
 @Entity
 @Table(indexes = {
         @Index(name="idx_gid", columnList = "gid, createdAt"),
         @Index(name="idx_gid_location", columnList = "gid, location, createdAt")
 })
-public class FileInfo extends BaseMemberEntity {
+public class FileInfo extends BaseMemberEntity implements Serializable {
     @Id @GeneratedValue
     private Long seq; // 파일 등록 번호
 

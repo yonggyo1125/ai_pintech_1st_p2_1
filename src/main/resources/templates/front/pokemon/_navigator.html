@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="navigator">
+    <nav th:object="${item}">
+        <a th:href="@{/pokemon/view/{seq}(seq=*{prevItem.seq})}" class="prev-link">
+            <span th:text="*{#strings.concat('No.', #numbers.formatInteger(prevItem.seq, 4))}" class="item-no"></span>
+            <span th:text="*{prevItem.name}" class="item-nm"></span>
+        </a>
+
+        <a th:href="@{/pokemon/view/{seq}(seq=*{nextItem.seq})}" class="next-link">
+            <span th:text="*{#strings.concat('No.', #numbers.formatInteger(nextItem.seq, 4))}" class="item-no"></span>
+            <span th:text="*{nextItem.name}" class="item-nm"></span>
+        </a>
+    </nav>
+</th:block>
+</html>

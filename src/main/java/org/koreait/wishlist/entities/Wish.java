@@ -7,6 +7,7 @@ import org.koreait.wishlist.constants.WishType;
 
 @Data
 @Entity
+@IdClass(WishId.class)
 public class Wish {
     @Id
     private Long seq;

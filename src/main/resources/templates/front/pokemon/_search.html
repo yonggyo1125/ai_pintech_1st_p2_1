@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="search">
+    <form name="frmSearch" method="GET" th:action="@{/pokemon/list}" autocomplete="off" th:object="${pokemonSearch}">
+
+    </form>
+</th:block>
+</html>

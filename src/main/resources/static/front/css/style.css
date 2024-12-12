@@ -147,7 +147,7 @@ header .icon.search {
 
 header > .right {
     display: flex;
-    width: 500px;
+    width: 520px;
     justify-content: flex-end;
 }
 

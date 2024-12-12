@@ -3,6 +3,32 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{front/layouts/main}">
 <main layout:fragment="content">
+    <section class="details" th:object="${item}">
+        <div class="left"
+             th:utext="*{@utils.showImage(frontImage, 390, 390, 'image')}"></div>
+        <div class="right">
+            <div class="item-no"
+                 th:text="*{#strings.concat('No.', #numbers.formatInteger(seq, 4))}"></div>
+            <div class="item-nm" th:text="*{name}"></div>
+            <div class="flavor-text" th:text="*{flavorText}"></div>
 
+            <div class="spec-info">
+                <ul>
+                    <li>
+                        <div class="tit" th:text="#{타입}"></div>
+                        <div class="text">
+                            <th:block th:each="type : *{_types}"
+                                      th:text="${#messages.msg(type)}"></th:block>
+                        </div>
+                    </li>
+                    <li>
+
+                        <div class="tit" th:text="#{키}"></div>
+                        <div class="text" th:text="*{#strings.concat(height / 10.0, 'm')}"></div>
+                    </li>
+                </ul>
+            </div>
+        </div> <!--// right -->
+    </section>
 </main>
 </html>

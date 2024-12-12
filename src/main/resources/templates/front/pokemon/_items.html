@@ -14,7 +14,8 @@
                     <div clas="item-nm" th:text="*{name}"></div>
 
                     <div class="item-types">
-                        <div class="type" th:each="type : *{_types}" th:text="${type}"></div>
+                        <div class="type" th:each="type : *{_types}"
+                             th:text="${#messages.msg(type)}"></div>
                     </div>
                 </a>
             </li> <!--// item -->

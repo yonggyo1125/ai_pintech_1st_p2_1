@@ -4,7 +4,9 @@
       layout:decorate="~{front/layouts/main}">
 <main layout:fragment="content">
 
+    <th:block th:replace="~{front/pokemon/_search::search}"></th:block>
 
+    <th:block th:replace="~{front/pokemon/_items::items}"></th:block>
 
     <th:block th:replace="~{common/_pagination::pagination}"></th:block>
 </main>

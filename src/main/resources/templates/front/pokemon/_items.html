@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <th:block th:fragment="items">
+        <ul class="items">
+            <li th:if="${#lists.isEmpty(items)}" class="no-data">
+                <h3 th:text="#{검색결과가_없습니다.}"></h3>
+                <div th:text="#{다른_키워드로_검색해주세요.}"></div>
+            </li>
+            <li th:unless="${#lists.isEmpty(items)}" class="item" th:each="item : ${items}" th:object="${item}">
+                <a th:href="@{/pokemon/view/{seq}(seq=*{seq})}">
+                    <th:block th:utext="*{@utils.showImage(frontImage, 390, 390, 'image')}"></th:block>
+                    <div class="item-no"
+                         th:text="*{#strings.concat('No.', #numbers.formatInteger(seq, 4))}"></div>
+                    <div clas="item-nm" th:text="*{name}"></div>
 
+                    <div class="item-types">
+                        <div class="type" th:each="type : *{_types}" th:text="${type}"></div>
+                    </div>
+                </a>
+            </li> <!--// item -->
+        </ul>
     </th:block>
 </html>

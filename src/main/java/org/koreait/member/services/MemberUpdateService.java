@@ -31,6 +31,7 @@ public class MemberUpdateService {
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
     private final MemberUtil memberUtil;
+    private final MemberInfoService infoService;
 
     /**
      * 커맨드 객체의 타입에 따라서 RequestJoin이면 회원 가입 처리
@@ -136,5 +137,4 @@ public class MemberUpdateService {
 
         // 회원 권한 업데이트 처리 E
     }
-
 }

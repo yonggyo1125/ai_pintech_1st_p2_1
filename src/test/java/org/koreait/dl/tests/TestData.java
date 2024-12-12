@@ -30,6 +30,7 @@ public class TestData {
                         .item8(random.nextInt())
                         .item9(random.nextInt())
                         .item10(random.nextInt())
+                        .result(random.nextInt(4)) // 0 ~ 4
                         .build()
                 ).toList();
         repository.saveAllAndFlush(items);

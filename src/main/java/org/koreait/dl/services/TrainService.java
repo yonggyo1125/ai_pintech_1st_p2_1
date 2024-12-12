@@ -41,6 +41,7 @@ public class TrainService {
             ProcessBuilder builder = new ProcessBuilder(runPath, scriptPath + "train.py", dataUrl + "?mode=ALL", dataUrl);
             Process process = builder.start();
             int exitCode = process.waitFor();
+            System.out.println(exitCode);
 
         } catch (Exception e) {}
     }

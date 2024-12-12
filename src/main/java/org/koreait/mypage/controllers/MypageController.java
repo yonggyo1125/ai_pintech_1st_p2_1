@@ -23,6 +23,7 @@ import java.util.List;
 @ApplyErrorPage
 @RequestMapping("/mypage")
 @RequiredArgsConstructor
+@SessionAttributes("profile")
 public class MypageController {
     private final Utils utils;
     private final MemberUtil memberUtil;
@@ -74,6 +75,9 @@ public class MypageController {
         }
 
         updateService.process(form);
+
+        // 프로필 속성 변경
+        model.addAttribute("profile", memberUtil.getMember());
 
         return "redirect:/mypage"; // 회원 정보 수정 완료 후 마이페이지 메인 이동
     }

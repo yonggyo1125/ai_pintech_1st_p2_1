@@ -133,7 +133,7 @@ public class PokemonInfoService {
         for (int i = 0; i < items.size(); i++) {
             Pokemon _item = items.get(i);
 
-            Map<String, Object> data = i == 0 ? prevItem : nextItem;
+            Map<String, Object> data = _item.getSeq().longValue() == prevSeq ? prevItem : nextItem;
             data.put("seq", _item.getSeq());
             data.put("name", _item.getName());
             data.put("nameEn", _item.getNameEn());

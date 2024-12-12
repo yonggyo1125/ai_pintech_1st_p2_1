@@ -111,6 +111,7 @@ public class MypageController {
 
         if (mode.equals("profile")) { // 회원정보 수정
             addCommonScript.add("fileManager");
+            addCommonScript.add("address");
             addScript.add("mypage/profile");
             pageTitle = utils.getMessage("회원정보_수정");
         }

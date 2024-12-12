@@ -136,5 +136,9 @@ public class MemberUpdateService {
         }
 
         // 회원 권한 업데이트 처리 E
+
+        // 로그인 회원 정보 업데이트
+        infoService.addInfo(member);
+        memberUtil.setMember(member);
     }
 }

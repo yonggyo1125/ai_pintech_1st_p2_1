@@ -36,4 +36,10 @@ public class Pokemon extends BaseEntity {
 
     @Transient
     private List<String> _abilities;
+
+    @Transient
+    private Pokemon prevItem;
+
+    @Transient
+    private Pokemon nextItem;
 }

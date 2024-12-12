@@ -3,6 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{front/layouts/main}">
 <main layout:fragment="content">
+    [[${item}]]
     <section class="details" th:object="${item}">
         <div class="left"
              th:utext="*{@utils.showImage(frontImage, 390, 390, 'image')}"></div>

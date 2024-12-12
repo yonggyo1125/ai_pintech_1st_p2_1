@@ -21,7 +21,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.springframework.data.domain.Sort.Order.asc;
 
@@ -125,8 +127,20 @@ public class PokemonInfoService {
 
         QPokemon pokemon = QPokemon.pokemon;
         List<Pokemon> items = (List<Pokemon>)pokemonRepository.findAll(pokemon.seq.in(prevSeq, nextSeq));
-        item.setPrevItem(items.get(0));
-        item.setNextItem(items.get(1));
+
+        Map<String, Object> prevItem = new HashMap<>();
+        Map<String, Object> nextItem = new HashMap<>();
+        for (int i = 0; i < items.size(); i++) {
+            Pokemon _item = items.get(i);
+
+            Map<String, Object> data = i == 0 ? prevItem : nextItem;
+            data.put("seq", _item.getSeq());
+            data.put("name", _item.getName());
+            data.put("nameEn", _item.getNameEn());
+        }
+
+        item.setPrevItem(prevItem);
+        item.setNextItem(nextItem);
     }
 
     private Long getLastSeq() {

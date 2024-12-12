@@ -5,6 +5,7 @@ import lombok.Data;
 import org.koreait.global.entities.BaseEntity;
 
 import java.util.List;
+import java.util.Map;
 
 @Data
 @Entity
@@ -38,8 +39,8 @@ public class Pokemon extends BaseEntity {
     private List<String> _abilities;
 
     @Transient
-    private Pokemon prevItem;
+    private Map<String, Object> prevItem;
 
     @Transient
-    private Pokemon nextItem;
+    private Map<String, Object> nextItem;
 }

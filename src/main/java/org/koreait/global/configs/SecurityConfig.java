@@ -67,7 +67,7 @@ public class SecurityConfig {
         /* 인가 설정 E */
 
 
-        return http.build(); // 설정 무력화
+        return http.build();
     }
 
     @Bean

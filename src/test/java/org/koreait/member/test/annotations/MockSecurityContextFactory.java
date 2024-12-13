@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.context.support.WithSecurityContextFactory;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -23,6 +24,10 @@ public class MockSecurityContextFactory implements WithSecurityContextFactory<Mo
         member.setName(annotation.name());
         member.setNickName(annotation.nickName());
         member.setBirthDt(LocalDate.now().minusYears(20L));
+        member.setRequiredTerms1(true);
+        member.setRequiredTerms2(true);
+        member.setRequiredTerms3(true);
+        member.setCredentialChangedAt(LocalDateTime.now());
 
         List<SimpleGrantedAuthority> authorities = Arrays.stream(annotation.authority())
                 .map(a -> new SimpleGrantedAuthority(a.name()))

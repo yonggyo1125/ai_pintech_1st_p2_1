@@ -54,7 +54,20 @@ public class EmailService {
             MimeMessageHelper helper = new MimeMessageHelper(message, false, "UTF-8");
             helper.setTo(form.getTo().toArray(String[]::new));
 
+            if (cc != null && !cc.isEmpty()) {
+                helper.setCc(cc.toArray(String[]::new));
+            }
 
+            if (bcc != null && !bcc.isEmpty()) {
+                helper.setBcc(bcc.toArray(String[]::new));
+            }
+
+            helper.setSubject(subject);
+            helper.setText(html, true);
+
+            javaMailSender.send(message);
+
+            return true;
         } catch(Exception e) {
             e.printStackTrace();
         }

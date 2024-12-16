@@ -28,6 +28,7 @@ public class I18NConfig implements WebMvcConfigurer {
     public CookieLocaleResolver localeResolver() {
         CookieLocaleResolver resolver = new CookieLocaleResolver();
         resolver.setCookieMaxAge(60 * 60);
+        resolver.setCookieName("language");
 
         return resolver;
     }

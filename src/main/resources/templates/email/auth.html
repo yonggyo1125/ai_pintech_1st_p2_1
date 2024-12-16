@@ -2,5 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <body>
         <h1 th:text="${subject}"></h1>
+        <div>[[${to}]]</div>
+        <div>[[${cc}]]</div>
+        <div>[[${bcc}]]</div>
+        <div>[[${subject}]]</div>
+        <div th:utext="${content}"></div>
     </body>
 </html>

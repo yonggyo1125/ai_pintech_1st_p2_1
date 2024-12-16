@@ -10,6 +10,7 @@ import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -33,18 +34,26 @@ public class EmailService {
             Context context = new Context();
             tplData = Objects.requireNonNullElseGet(tplData, HashMap::new);
 
-            tplData.put("to", form.getTo());
-            tplData.put("cc", form.getCc());
-            tplData.put("bcc", form.getBcc());
-            tplData.put("subject", form.getSubject());
-            tplData.put("content", form.getContent());
+            List<String> to = form.getTo();
+            List<String> cc = form.getCc();
+            List<String> bcc = form.getBcc();
+            String subject = form.getSubject();
+            String content = form.getContent();
+
+            tplData.put("to", to);
+            tplData.put("cc", cc);
+            tplData.put("bcc", bcc);
+            tplData.put("subject", subject);
+            tplData.put("content", content);
 
             context.setVariables(tplData);
 
-            String content = templateEngine.process("email/" + tpl, context);
+            String html = templateEngine.process("email/" + tpl, context);
 
             MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, false, "UTF-8");
+            helper.setTo(form.getTo().toArray(String[]::new));
+
 
         } catch(Exception e) {
             e.printStackTrace();

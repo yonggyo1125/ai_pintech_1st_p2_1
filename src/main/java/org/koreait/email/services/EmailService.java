@@ -1,8 +1,10 @@
 package org.koreait.email.services;
 
+import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import org.koreait.email.controllers.RequestEmail;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
@@ -39,9 +41,10 @@ public class EmailService {
 
             context.setVariables(tplData);
 
-
             String content = templateEngine.process("email/" + tpl, context);
 
+            MimeMessage message = javaMailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, false, "UTF-8");
 
         } catch(Exception e) {
             e.printStackTrace();

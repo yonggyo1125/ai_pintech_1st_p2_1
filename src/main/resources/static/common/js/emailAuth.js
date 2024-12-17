@@ -1,4 +1,4 @@
-var commonLib = commonLib : {};
+var commonLib = commonLib ?? {};
 
 /**
 * 이메일 인증 코드 관련

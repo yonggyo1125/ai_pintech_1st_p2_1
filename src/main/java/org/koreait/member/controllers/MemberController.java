@@ -161,6 +161,8 @@ public class MemberController {
         } else if (mode.equals("join")) { // 회원가입 공통 처리
             pageTitle = utils.getMessage("회원가입");
             addCommonScript.add("address");
+            addCommonScript.add("emailAuth");
+
             addScript.add("member/join");
 
         } else if (mode.equals("agree")) {

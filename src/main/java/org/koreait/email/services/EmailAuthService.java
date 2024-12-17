@@ -45,6 +45,7 @@ public class EmailAuthService {
 
         session.setAttribute("authCode", authCode);
         session.setAttribute("expiredTime", expired);
+        session.setAttribute("authCodeVerified", false);
 
         Map<String, Object> tplData = new HashMap<>();
         tplData.put("authCode", authCode);
@@ -76,5 +77,8 @@ public class EmailAuthService {
         if (!code.equals(authCode)) {
             throw new AuthCodeMismatchException();
         }
+
+        // 인증 성공 상태 세션에 기록
+        session.setAttribute("authCodeVerified", true);
     }
 }

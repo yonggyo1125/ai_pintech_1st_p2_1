@@ -10,10 +10,13 @@
             <div class="error" th:each="err : ${#fields.errors('email')}" th:text="${err}"></div>
         </div>
         <div class="row auth-box">
-            <input type="number" id="auth-code">
-            <span class="timer">03:00</span>
-            <button type="button" id="send-auth-code" th:text="#{인증코드_전송}"></button>
-            <button type="button" id="resend-auth-code" class="dn" th:text="#{인증코드_재전송}"></button>
+            <div>
+                <input type="number" id="auth-code">
+                <span class="timer">03:00</span>
+                <button type="button" id="send-auth-code" th:text="#{인증코드_전송}"></button>
+                <button type="button" id="resend-auth-code" class="dn" th:text="#{인증코드_재전송}"></button>
+            </div>
+            <div class="error dn"></div>
         </div>
         <div class="row">
             <input type="text" name="name" th:field="*{name}" th:placeholder="#{회원명을_입력하세요.}">

@@ -40,7 +40,17 @@ window.addEventListener("DOMContentLoaded", function() {
     *
     */
     function updateTimer(seconds) {
-        console.log("seconds", seconds);
+        let timerStr = "00:00";
+        if (seconds > 0) {
+            const min = Math.floor(seconds / 60);
+            const sec = seconds - min * 60;
+            timeStr = `${('' + min).padStart(2, '0')}:${('' + sec).padStart(2, '0')}`;
+        }
+
+        const timerEl = document.querySelector(".auth-box .timer");
+        if (timerEl) {
+            timerEl.innerHTML = timeStr;
+        }
     }
 });
 

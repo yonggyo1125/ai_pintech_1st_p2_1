@@ -52,7 +52,7 @@ commonLib.ajaxLoad = function(url, callback, method = 'GET', data, headers) {
                 }
             })
             .then(json => {
-                if (json.success) { // 응답 성공(처리 성공)
+                if (json?.success) { // 응답 성공(처리 성공)
                    if (typeof callback === 'function') { // 콜백 함수가 정의된 경우
                         callback(json.data);
                    }

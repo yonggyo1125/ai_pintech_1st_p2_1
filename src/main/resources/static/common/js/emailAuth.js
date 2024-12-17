@@ -44,18 +44,38 @@ commonLib.emailAuth = {
     * 인증 코드 전송
     *
     */
-    sendCode(email) {
+    sendCode(email, callback) {
         const { ajaxLoad } = commonLib;
-        ajaxLoad(`/api/email/auth/${email}`);
+        const { timer } = this;
+        (async() => {
+            try {
+                await ajaxLoad(`/api/email/auth/${email}`);
+                timer.reset(callback);
+                timer.start(callback);
+            } catch (err) { // 인증코드 발급 실패
+                alert(err.message);
+            }
+        })();
 
     },
     /**
     * 인증 코드 검증
     *
     */
-    verify(authCode) {
+    verify(authCode, successCallback, failureCallback) {
         const { ajaxLoad } = commonLib;
-        ajaxLoad(`/api/email/verify?authCode=${authCode}`);
+        const { timer } = this;
+        (async() => {
+            try {
+                await ajaxLoad(`/api/email/verify?authCode=${authCode}`);
+                timer.stop(successCallback);
+
+            } catch (err) {
+                if (typeof failureCallback === 'function') {
+                    failureCallback(err);
+                }
+            }
+        })();
     },
 };
 

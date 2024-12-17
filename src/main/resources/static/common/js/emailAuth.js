@@ -10,7 +10,8 @@ commonLib.emailAuth = {
     *
     */
     sendCode(email) {
-
+        const { ajaxLoad } = commonLib;
+        ajaxLoad(`/api/email/auth/${email}`)
     },
     /**
     * 인증 코드 검증

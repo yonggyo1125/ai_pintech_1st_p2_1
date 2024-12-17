@@ -57,7 +57,13 @@ commonLib.ajaxLoad = function(url, callback, method = 'GET', data, headers) {
 
             alert(json.message); // 실패시에는 alert 메세지를 출력
         })
-        .catch(err => console.error(err))
+        .catch(err => {
+            console.error(err);
+
+            if (typeof callbackAjaxFailure == 'function') {
+                callbackAjaxFailure(err);
+            }
+        });
 };
 
 window.addEventListener("DOMContentLoaded", function() {

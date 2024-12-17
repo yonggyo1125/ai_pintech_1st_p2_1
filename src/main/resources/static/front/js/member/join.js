@@ -14,8 +14,35 @@ window.addEventListener("DOMContentLoaded", function() {
 
     // 인증코드 전송 버튼 처리
     sendButton.addEventListener("click", function() {
+        const email = frmJoin.email.value.trim();
+        if (!email) {
+            return;
+        }
 
+        /**
+         * 코드 전송 완료 후 후속 처리
+         *
+         * 1. 전송 버튼은 감추고, 재전송 버튼은 노출
+         * 2. 타이머에 남은 시간을 출력
+         */
+
+         // 1. 전송 버튼은 감추고, 재전송 버튼은 노출
+         sendButton.classList.remove("dn");
+         sendButton.classList.add("dn");
+
+         resendButton.classList.remove("dn");
+
+         // 2. 타이머에 남은 시간을 출력
+        emailAuth.sendCode(email, updateTimer);
     });
+
+    /**
+    * 타이머 출력 갱신
+    *
+    */
+    function updateTimer(seconds) {
+        console.log("seconds", seconds);
+    }
 });
 
 /**

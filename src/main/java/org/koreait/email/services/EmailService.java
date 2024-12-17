@@ -3,6 +3,7 @@ package org.koreait.email.services;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import org.koreait.email.controllers.RequestEmail;
+import org.springframework.context.annotation.Profile;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @Service
+@Profile("email")
 @RequiredArgsConstructor
 public class EmailService {
 
@@ -73,5 +75,18 @@ public class EmailService {
         }
 
         return false;
+    }
+
+    public boolean sendEmail(RequestEmail form, String tpl) {
+        return sendEmail(form, tpl, null);
+    }
+
+    public boolean sendEmail(String to, String subject, String content) {
+        RequestEmail form = new RequestEmail();
+        form.setTo(List.of(to));
+        form.setSubject(subject);
+        form.setContent(content);
+
+        return sendEmail(form, "general");
     }
 }

@@ -26,14 +26,13 @@ window.addEventListener("DOMContentLoaded", function() {
          * 2. 타이머에 남은 시간을 출력
          */
 
-         // 1. 전송 버튼은 감추고, 재전송 버튼은 노출
-         sendButton.classList.remove("dn");
-         sendButton.classList.add("dn");
+        emailAuth.sendCode(email, updateTimer, function() {
+             // 1. 전송 버튼은 감추고, 재전송 버튼은 노출
+             sendButton.classList.remove("dn");
+             sendButton.classList.add("dn");
 
-         resendButton.classList.remove("dn");
-
-         // 2. 타이머에 남은 시간을 출력
-        emailAuth.sendCode(email, updateTimer);
+             resendButton.classList.remove("dn");
+        });
     });
 
     /**

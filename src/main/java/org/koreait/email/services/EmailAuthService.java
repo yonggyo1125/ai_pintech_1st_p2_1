@@ -10,7 +10,7 @@ import org.koreait.global.libs.Utils;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +41,7 @@ public class EmailAuthService {
          */
         int authCode = random.nextInt(99999);
 
-        long expired = Instant.EPOCH.getEpochSecond() + 60 * 3;
+        LocalDateTime expired = LocalDateTime.now().plusMinutes(3L);
 
         session.setAttribute("authCode", authCode);
         session.setAttribute("expiredTime", expired);
@@ -66,15 +66,14 @@ public class EmailAuthService {
             throw new BadRequestException(utils.getMessage("NotBlank.authCode"));
         }
 
-        long expired = (long)session.getAttribute("expiredTime");
+        LocalDateTime expired = (LocalDateTime)session.getAttribute("expiredTime");
         int authCode = (int)session.getAttribute("authCode");
 
-        long now = Instant.EPOCH.getEpochSecond();
-        if (expired < now) { // 코드가 만료된 경우
+        if (expired.isBefore(LocalDateTime.now())) { // 코드가 만료된 경우
             throw new AuthCodeExpiredException();
         }
 
-        if (!code.equals(authCode)) { // 인증 코드가 일치하지 않는 경우
+        if (!code.equals(authCode)) {
             throw new AuthCodeMismatchException();
         }
     }

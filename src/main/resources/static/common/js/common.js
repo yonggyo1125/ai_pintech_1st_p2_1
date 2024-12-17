@@ -43,7 +43,10 @@ commonLib.ajaxLoad = function(url, callback, method = 'GET', data, headers) {
     }
 
     fetch(url, options)
-        .then(res => res.json())
+        .then(res => {
+            if (res.status !== 204)
+                return res.json();
+        })
         .then(json => {
             if (json.success) { // 응답 성공(처리 성공)
                if (typeof callback === 'function') { // 콜백 함수가 정의된 경우

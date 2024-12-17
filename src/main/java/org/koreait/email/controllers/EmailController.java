@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @Profile("email")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/email")
+@RequestMapping("/api/email")
 public class EmailController {
     private final EmailAuthService authService;
 
@@ -32,6 +32,7 @@ public class EmailController {
      *
      * @param authCode
      */
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @GetMapping("/verify")
     public void verify(@RequestParam(name="authCode", required = false) Integer authCode) {
         authService.verify(authCode);

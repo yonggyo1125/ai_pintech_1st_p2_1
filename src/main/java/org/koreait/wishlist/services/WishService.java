@@ -88,6 +88,9 @@ public class WishService {
         Context context = new Context();
         context.setVariable("seq", seq);
         context.setVariable("type", _type);
+        context.setVariable("myWishes", myWishes);
+        context.setVariable("isMine", myWishes.contains(seq));
+        context.setVariable("isLogin", memberUtil.isLogin());
 
         return templateEngine.process("common/_wish", context);
     }

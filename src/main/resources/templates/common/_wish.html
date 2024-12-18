@@ -1,5 +1,3 @@
-<div xmlns:th="http://www.thymeleaf.org">
-    [[${seq}]]
-    [[${type}]]
-    [[${myPokemons}]]
+<div xmlns:th="http://www.thymeleaf.org" class="wish" th:classappend="${isMine} ? 'on'"  th:data-seq="${seq}">
+    <i th:classappend="${isMine ? 'xi-heart' : 'xi-heart-o'}"></i>
 </div>

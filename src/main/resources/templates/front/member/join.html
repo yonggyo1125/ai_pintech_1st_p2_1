@@ -9,8 +9,8 @@
             <input type="text" name="email" th:field="*{email}" th:placeholder="#{이메일_주소를_입력해주세요.}" th:readonly="${authCodeVerified}">
             <div class="error" th:each="err : ${#fields.errors('email')}" th:text="${err}"></div>
         </div>
-        <div th:if="${!authCodeVerified}" class="row auth-box">
-            <div>
+        <div class="row auth-box">
+            <div th:if="${!authCodeVerified}">
                 <input type="number" id="auth-code" disabled>
                 <span class="timer">03:00</span>
                 <button type="button" id="verify-auth-code" class="dn" th:text="#{인증하기}"></button>

@@ -1,5 +1,6 @@
 package org.koreait.member.validators;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.koreait.global.validators.PasswordValidator;
 import org.koreait.member.controllers.RequestAgree;
@@ -19,6 +20,7 @@ import java.time.Period;
 public class JoinValidator implements Validator, PasswordValidator {
 
     private final MemberRepository memberRepository;
+    private final HttpSession session;
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -73,6 +75,7 @@ public class JoinValidator implements Validator, PasswordValidator {
          * 2. 비밀번호 복잡성 - 알파벳 대소문자 각각 1개 이상, 숫자 1개 이상, 특수 문자 포함
          * 3. 비밀번호, 비밀번호 확인 일치 여부
          * 4. 생년월일을 입력받으면 만 14세 이상만 가입 가능하게 통제
+         * 5. 이메일 인증 완료 여부 체크
          */
 
         String email = form.getEmail();
@@ -104,6 +107,12 @@ public class JoinValidator implements Validator, PasswordValidator {
             errors.rejectValue("birthDt", "UnderAge");
         }
         // 4. 생년월일을 입력받으면 만 14세 이상만 가입 가능하게 통제 E
+
+        // 5. 이메일 인증 여부 체크
+        Boolean authCodeVerified = (Boolean)session.getAttribute("authCodeVerified");
+        if (authCodeVerified == null || !authCodeVerified) {
+            errors.reject("NotVerified.authCode");
+        }
     }
 }
 

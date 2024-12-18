@@ -7,8 +7,10 @@
     <th:block th:replace="~{/front/pokemon/_navigator::navigator}"></th:block>
 
     <section class="details" th:object="${item}">
-        <div class="left"
-             th:utext="*{@utils.showImage(frontImage, 390, 390, 'image')}"></div>
+        <div class="left">
+            <th:block th:utext="${@wishService.showWish(item.seq, 'POKEMON', myPokemons)}"></th:block>
+            <th:block th:utext="*{@utils.showImage(frontImage, 390, 390, 'image')}"></th:block>
+        </div>
         <div class="right">
             <div class="item-no"
                  th:text="*{#strings.concat('No.', #numbers.formatInteger(seq, 4))}"></div>

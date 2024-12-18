@@ -13,6 +13,14 @@ commonLib.getMeta = function(mode) {
 };
 
 /**
+* 자바스크립트에서 만든 주소에 컨택스트 경로 추가
+*
+*/
+commonLib.url = function(url) {
+    return `${commonLib.getMeta('rootUrl').replace("/", "")}url`;
+};
+
+/**
 * Ajax 요청 처리
 *
 * @params url : 요청 주소, http[s] : 외부 URL - 컨텍스트 경로는 추가 X

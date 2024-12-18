@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <th:block th:fragment="items">
+        [[${myPokemons}]]
         <ul class="items">
             <li th:if="${#lists.isEmpty(items)}" class="no-data">
                 <h3 th:text="#{검색결과가_없습니다.}"></h3>

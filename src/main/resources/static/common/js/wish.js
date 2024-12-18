@@ -17,6 +17,39 @@ window.addEventListener("DOMContentLoaded", function() {
 
                 return;
             }
+
+            let apiUrl = commonLib.url("/api/wish/");
+            const classList = this.classList;
+            if (classList.contains("on")) { // 찜하기 제거
+                apiUrl += "remove";
+            } else { // 찜하기
+                apiUrl += "add";
+            }
+
+            const { seq, type } = this.dataset;
+
+            apiUrl += `?seq=${seq}&type=${type}`;
+
+            const { ajaxLoad } = commonLib;
+
+            const icon = this.querySelector("i");
+
+            (async() => {
+                try {
+                    await ajaxLoad(apiUrl);
+
+                    if (classList.contains("on")) { // 제거 처리
+                        icon.className = "xi-heart-o";
+                    } else { // 추가 처리
+                        icon.className = "xi-heart";
+                    }
+
+                    classList.toggle("on");
+
+                } catch (err) {
+                    alert(err.message);
+                }
+            })();
         });
     }
 });

@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <th:block th:fragment="items">
-        [[${myPokemons}]]
         <ul class="items">
             <li th:if="${#lists.isEmpty(items)}" class="no-data">
                 <h3 th:text="#{검색결과가_없습니다.}"></h3>
                 <div th:text="#{다른_키워드로_검색해주세요.}"></div>
             </li>
             <li th:unless="${#lists.isEmpty(items)}" class="item" th:each="item : ${items}" th:object="${item}">
+                <th:block th:utext="*{@wishService.showWish(seq, 'POKEMON')}"></th:block>
                 <a th:href="@{/pokemon/view/{seq}(seq=*{seq})}">
                     <th:block th:utext="*{@utils.showImage(frontImage, 390, 390, 'image')}"></th:block>
                     <div class="item-no"

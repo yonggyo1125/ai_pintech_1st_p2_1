@@ -27,7 +27,7 @@ import java.util.List;
 @ApplyErrorPage
 @RequestMapping("/member")
 @RequiredArgsConstructor
-@SessionAttributes({"requestAgree", "requestLogin"})
+@SessionAttributes({"requestAgree", "requestLogin", "authCodeVerified"})
 public class MemberController {
     
     private final Utils utils;
@@ -45,7 +45,13 @@ public class MemberController {
     public RequestLogin requestLogin() {
         return new RequestLogin();
     }
-
+    
+    // 이메일 인증 여부 
+    @ModelAttribute("authCodeVerified")
+    public boolean authCodeVerified() {
+        return false;
+    }
+    
     /* 회원 페이지 CSS */
     @ModelAttribute("addCss")
     public List<String> addCss() {

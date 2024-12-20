@@ -146,6 +146,7 @@ public class MypageController {
             addScript.add("mypage/profile");
             pageTitle = utils.getMessage("회원정보_수정");
         } else if (mode.equals("wishlist")) { // 찜하기 목록
+            addCommonScript.add("wish");
             pageTitle = utils.getMessage("나의_WISH");
         }
 

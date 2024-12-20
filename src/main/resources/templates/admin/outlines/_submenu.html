@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<nav th:fragment="sub">
+<nav th:if="${submenus != null && !#lists.isEmpty(submenus)}" th:fragment="sub">
 
 </nav>
 </html>

@@ -4,5 +4,17 @@
       layout:decorate="~{front/layouts/main}">
 <main layout:fragment="content">
     <h1 th:text="#{나의_WISH}"></h1>
+    <nav>
+        <a th:href="@{/mypage/wishlist/POKEMON}" class="tab" th:classappend="${mode == null || mode.name == 'POKEMON'} ? 'on'" th:text="#{포켓몬}"></a>
+        <a th:href="@{/mypage/wishlist/BOARD}" class="tab" th:classappend="${mode != null && mode.name == 'BOARD'} ? 'on'" th:text="#{게시글}"></a>
+    </nav>
+
+    <th:block th:if="${mode != null && mode.name == 'BOARD'}">
+        <th:block th:replace="~{front/mypage/_wish_board::board}"></th:block>
+    </th:block>
+    <th:block th:unless="${mode != null && mode.name == 'BOARD'}">
+        <th:block th:replace="~{front/mypage/_wish_pokemon::pokemon}"></th:block>
+    </th:block>
+    <th:block th:replace="~{common/_pagination::pagination}"></th:block>
 </main>
 </html>

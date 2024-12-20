@@ -4,12 +4,18 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.koreait.global.annotations.ApplyErrorPage;
 import org.koreait.global.libs.Utils;
+import org.koreait.global.paging.CommonSearch;
+import org.koreait.global.paging.ListData;
 import org.koreait.member.MemberInfo;
 import org.koreait.member.entities.Member;
 import org.koreait.member.libs.MemberUtil;
 import org.koreait.member.services.MemberInfoService;
 import org.koreait.member.services.MemberUpdateService;
 import org.koreait.mypage.validators.ProfileValidator;
+import org.koreait.pokemon.controllers.PokemonSearch;
+import org.koreait.pokemon.entities.Pokemon;
+import org.koreait.pokemon.services.PokemonInfoService;
+import org.koreait.wishlist.constants.WishType;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +27,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @ApplyErrorPage
@@ -34,6 +41,7 @@ public class MypageController {
     private final MemberUpdateService updateService;
     private final ProfileValidator profileValidator;
     private final MemberInfoService infoService;
+    private final PokemonInfoService pokemonInfoService;
 
     @ModelAttribute("profile")
     public Member getMember() {
@@ -94,6 +102,29 @@ public class MypageController {
         memberUtil.setMember(memberInfo.getMember());
 
         model.addAttribute("profile", memberInfo.getMember());
+    }
+
+    /**
+     * 찜하기 목록
+     *
+     * @param mode : POKEMON : 포켓몬 찜하기 목록, BOARD : 게시글 찜하기 목록
+     * @return
+     */
+    @GetMapping({"/wishlist", "/wishlist/{mode}"})
+    public String wishlist(@PathVariable(name="mode", required = false) WishType mode, CommonSearch search, Model model) {
+        commonProcess("wishlist", model);
+
+        mode = Objects.requireNonNullElse(mode, WishType.POKEMON);
+        if (mode == WishType.BOARD) { // 게시글 찜하기 목록
+
+        } else { // 포켓몬 찜하기 목록
+            PokemonSearch pSearch = modelMapper.map(search, PokemonSearch.class);
+            ListData<Pokemon> data = pokemonInfoService.getMyPokemons(pSearch);
+            model.addAttribute("items", data.getItems());
+            model.addAttribute("pagination", data.getPagination());
+        }
+
+        return utils.tpl("mypage/wishlist");
     }
 
     /**

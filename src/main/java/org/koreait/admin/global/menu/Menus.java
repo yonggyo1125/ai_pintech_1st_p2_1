@@ -30,4 +30,7 @@ public class Menus {
 
     }
 
+    public static List<MenuDetail> getMenus(String menuCode) {
+        return submenus.get(menuCode);
+    }
 }

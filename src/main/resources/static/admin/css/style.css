@@ -61,6 +61,8 @@ textarea {
     border-top: 1px solid #ccc;
 }
 /* 테이블 공통 E */
+
+/* 여백 공통 S */
 .mb10 {
     margin-bottom: 10px !important;
 }
@@ -72,10 +74,20 @@ textarea {
 .mb30 {
     margin-bottom: 30px !important;
 }
-
-/* 여백 공통 S */
-
 /* 여백 공통 E */
+
+/* 버튼 공통 S */
+.btn {
+    border: 2px solid #000;
+    color: #000;
+    background: #fff;
+    cursor: pointer;
+    height: 45px;
+    font-size: 1.35rem;
+    width: 100%;
+}
+
+/* 버튼 공통 E */
 
 /* 헤더 영역 S */
 header {

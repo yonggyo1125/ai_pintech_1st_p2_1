@@ -82,11 +82,26 @@ textarea {
     color: #000;
     background: #fff;
     cursor: pointer;
-    height: 45px;
+    height: 50px;
     font-size: 1.35rem;
     width: 100%;
 }
 
+.btn.black {
+    background: #000;
+    color: #fff;
+}
+
+.button-group {
+    display: flex;
+    width: 450px;
+    margin: 0 auto;
+}
+
+.button-group .btn {
+    flex-grow: 1;
+    width: 0;
+}
 /* 버튼 공통 E */
 
 /* 헤더 영역 S */

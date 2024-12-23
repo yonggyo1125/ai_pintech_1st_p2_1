@@ -4,5 +4,30 @@
       layout:decorate="~{admin/layouts/main}">
 <div layout:fragment="content">
     <h1>사이트 기본정보 설정</h1>
+    <form name="frmConfig" method="POST" autocomplete="off">
+        <h2>기본 정보</h2>
+        <table class="table-cols">
+            <tr>
+                <th width="150">사이트명</th>
+                <td>
+                    <input type="text" name="siteTitle">
+                </td>
+            </tr>
+            <tr>
+                <th>사이트 설명</th>
+                <td>
+                    <input type="text" name="description">
+                </td>
+            </tr>
+            <tr>
+                <th>검색 키워드</th>
+                <td>
+                    <input type="text" name="keyword">
+                </td>
+            </tr>
+        </table>
+
+        <h2>회원 가입설정</h2>
+    </form>
 </div>
 </html>

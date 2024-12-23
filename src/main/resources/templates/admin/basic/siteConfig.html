@@ -44,6 +44,23 @@
         </table>
 
         <h2>회원 가입설정</h2>
+        <table class="table-cols mb30">
+            <tr>
+                <th width="200">이메일 인증</th>
+                <td>
+                    <input type="radio" name="useEmailAuth" value="true" id="use-email-auth-true">
+                    <label for="use-email-auth-true">사용</label>
+
+                    <input type="radio" name="useEmailAuth" value="false" id="use-email-auth-false">
+                    <label for="use-email-auth-false">미사용</label>
+                </td>
+            </tr>
+        </table>
+
+        <div class="button-group">
+            <button type="reset" class="btn">다시입력</button>
+            <button type="submit"class="btn black">저장하기</button>
+        </div>
     </form>
 </div>
 </html>

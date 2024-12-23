@@ -6,9 +6,9 @@
     <h1>사이트 기본정보 설정</h1>
     <form name="frmConfig" method="POST" autocomplete="off">
         <h2>기본 정보</h2>
-        <table class="table-cols">
+        <table class="table-cols mb30">
             <tr>
-                <th width="150">사이트명</th>
+                <th width="200">사이트명</th>
                 <td>
                     <input type="text" name="siteTitle">
                 </td>
@@ -23,6 +23,22 @@
                 <th>검색 키워드</th>
                 <td>
                     <input type="text" name="keyword">
+                </td>
+            </tr>
+        </table>
+
+        <h2>CSS, JS 버전</h2>
+        <table class="table-cols mb30">
+            <tr>
+                <th width="200">CSS 버전</th>
+                <td>
+                    <input type="number" name="cssVersion">
+                </td>
+            </tr>
+            <tr>
+                <th>JS 버전</th>
+                <td>
+                    <input type="number" name="jsVersion">
                 </td>
             </tr>
         </table>

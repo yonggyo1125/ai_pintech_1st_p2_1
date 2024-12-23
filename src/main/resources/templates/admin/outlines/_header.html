@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <header th:fragment="common">
-        <h1>사이트  상단 영역</h1>
+        <div class="left">
+            <a th:href="@{/admin}" class="logo">
+                <img th:src="@{/admin/images/logo.png}">
+            </a>
+        </div>
     </header>
 </html>

@@ -85,6 +85,7 @@ textarea {
     height: 50px;
     font-size: 1.35rem;
     width: 100%;
+    border-radius: 3px;
 }
 
 .btn.black {
@@ -94,7 +95,7 @@ textarea {
 
 .button-group {
     display: flex;
-    width: 450px;
+    width: 550px;
     margin: 0 auto;
 }
 
@@ -102,7 +103,26 @@ textarea {
     flex-grow: 1;
     width: 0;
 }
+
+.button-group .btn + .btn {
+    margin-left: 5px;
+}
 /* 버튼 공통 E */
+
+/* 라디오 버튼 공통 S */
+
+input[type='radio'] {
+    display: none;
+}
+
+input[type='radio']+label {
+    padding-left: 33px;
+    height: 40px;
+    line-height: 40px;
+    background:url("../images/radio.png") no-repeat left center;
+}
+
+/* 라디오 버튼 공통 E */
 
 /* 헤더 영역 S */
 header {

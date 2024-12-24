@@ -34,20 +34,20 @@
 
         <th:block layout:fragment="addCss"></th:block>
 
-        <script th:src="@{/common/js/common.js}"></script>
+        <script th:src="@{/common/js/common.js?v={v}(v=*{jsVersion})}"></script>
 
         <th:block th:if="${addCommonScript != null}">
             <script th:each="jsPath : ${addCommonScript}"
-                    th:src="@{/common/js/{path}.js(path=${jsPath})}"></script>
+                    th:src="@{/common/js/{path}.js?v={v}(path=${jsPath}, v=*{jsVersion})}"></script>
         </th:block>
 
         <th:block layout:fragment="addCommonScript"></th:block>
 
-        <script th:src="@{/front/js/common.js}"></script>
+        <script th:src="@{/front/js/common.js?v={v}(v=*{jsVersion})}"></script>
 
         <th:block th:if="${addScript != null}">
             <script th:each="jsPath : ${addScript}"
-                    th:src="@{/front/js/{path}.js(path=${jsPath})}"></script>
+                    th:src="@{/front/js/{path}.js?v={v}(path=${jsPath}, v=*{jsVersion})}"></script>
         </th:block>
 
         <th:block layout:fragment="addScript"></th:block>

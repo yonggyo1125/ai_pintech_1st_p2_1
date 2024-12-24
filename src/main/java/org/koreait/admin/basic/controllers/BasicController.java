@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @ApplyErrorPage
@@ -37,7 +38,8 @@ public class BasicController {
     public String siteConfig(Model model) {
         commonProcess("siteConfig", model);
 
-        SiteConfig form = codeValueService.get("siteConfig", SiteConfig.class);
+        SiteConfig form = Objects.requireNonNullElseGet(codeValueService.get("siteConfig", SiteConfig.class), SiteConfig::new);
+
         model.addAttribute("siteConfig", form);
 
         return "admin/basic/siteConfig";

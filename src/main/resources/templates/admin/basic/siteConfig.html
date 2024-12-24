@@ -4,25 +4,26 @@
       layout:decorate="~{admin/layouts/main}">
 <div layout:fragment="content">
     <h1>사이트 기본정보 설정</h1>
-    <form name="frmConfig" method="POST" autocomplete="off">
+    <form name="frmConfig" method="POST" autocomplete="off" th:object="${siteConfig}">
+        <input type="hidden" name="_method" value="PATCH">
         <h2>기본 정보</h2>
         <table class="table-cols mb30">
             <tr>
                 <th width="200">사이트명</th>
                 <td>
-                    <input type="text" name="siteTitle">
+                    <input type="text" name="siteTitle" th:field="*{siteTitle}">
                 </td>
             </tr>
             <tr>
                 <th>사이트 설명</th>
                 <td>
-                    <input type="text" name="description">
+                    <input type="text" name="description" th:field="*{description}">
                 </td>
             </tr>
             <tr>
                 <th>검색 키워드</th>
                 <td>
-                    <input type="text" name="keyword">
+                    <input type="text" name="keywords" th:field="*{keywords}">
                 </td>
             </tr>
         </table>
@@ -32,13 +33,13 @@
             <tr>
                 <th width="200">CSS 버전</th>
                 <td>
-                    <input type="number" name="cssVersion">
+                    <input type="number" name="cssVersion" th:field="*{cssVersion}">
                 </td>
             </tr>
             <tr>
                 <th>JS 버전</th>
                 <td>
-                    <input type="number" name="jsVersion">
+                    <input type="number" name="jsVersion" th:field="*{jsVersion}">
                 </td>
             </tr>
         </table>
@@ -48,10 +49,10 @@
             <tr>
                 <th width="200">이메일 인증</th>
                 <td>
-                    <input type="radio" name="useEmailAuth" value="true" id="use-email-auth-true">
+                    <input type="radio" name="useEmailAuth" value="true" id="use-email-auth-true" th:field="*{useEmailAuth}">
                     <label for="use-email-auth-true">사용</label>
 
-                    <input type="radio" name="useEmailAuth" value="false" id="use-email-auth-false">
+                    <input type="radio" name="useEmailAuth" value="false" id="use-email-auth-false" th:field="*{useEmailAuth}">
                     <label for="use-email-auth-false">미사용</label>
                 </td>
             </tr>

@@ -8,7 +8,7 @@ import lombok.Data;
 public class SiteConfig {
     private String siteTitle;
     private String description;
-    private String keyword;
+    private String keywords;
     private int cssVersion;
     private int jsVersion;
     private boolean useEmailAuth;

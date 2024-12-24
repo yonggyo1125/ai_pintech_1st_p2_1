@@ -34,4 +34,19 @@ public class CodeValueService {
 
         } catch (JsonProcessingException e) {}
     }
+
+    public <R> R get(String code, Class<R> cls) {
+        CodeValue item = repository.findById(code).orElse(null);
+
+        if (item != null) {
+            String json = item.getValue();
+            try {
+               return om.readValue(json, cls);
+
+            } catch (JsonProcessingException e) {}
+
+        }
+
+        return null;
+    }
 }

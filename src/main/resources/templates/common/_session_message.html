@@ -1,0 +1,6 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <th:block th:fragment="message" th:if="${session.showMessage != null}">
+        <div class="message-dialog" th:text="${session.showMessage}"></div>
+    </th:block>
+</html>

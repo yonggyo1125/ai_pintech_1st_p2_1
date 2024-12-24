@@ -5,6 +5,7 @@ import org.koreait.admin.global.menu.MenuDetail;
 import org.koreait.admin.global.menu.Menus;
 import org.koreait.global.annotations.ApplyErrorPage;
 import org.koreait.global.entities.SiteConfig;
+import org.koreait.global.libs.Utils;
 import org.koreait.global.services.CodeValueService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +23,8 @@ import java.util.Objects;
 @RequestMapping("/admin/basic")
 public class BasicController {
 
-                private final CodeValueService codeValueService;
+    private final CodeValueService codeValueService;
+    private final Utils utils;
 
     @ModelAttribute("menuCode")
     public String menuCode() {
@@ -50,6 +52,8 @@ public class BasicController {
         commonProcess("siteConfig", model);
 
         codeValueService.save("siteConfig", form);
+
+        utils.showSessionMessage("저장되었습니다.");
 
         return "admin/basic/siteConfig";
     }

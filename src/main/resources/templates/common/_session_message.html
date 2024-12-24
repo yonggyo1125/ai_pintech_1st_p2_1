@@ -2,5 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <th:block th:fragment="message" th:if="${session.showMessage != null}">
         <div class="message-dialog" th:text="${session.showMessage}"></div>
+        <script>
+            const el = document.querySelector(".message-dialog");
+            setTimeout(function() {
+                el.classList.add("fade");
+
+                setTimeout(function() {
+                    el.parentElement.removeChild(el);
+                }, 3000);
+            }, 5000);
+        </script>
     </th:block>
 </html>

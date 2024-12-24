@@ -16,20 +16,20 @@
         </title>
 
         <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
-        <link rel="stylesheet" type="text/css" th:href="@{/common/css/style.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/common/css/style.css?v={v}(v=*{cssVersion})}">
 
         <th:block th:if="${addCommonCss != null}">
             <link rel="stylesheet" type="text/css"
-                  th:each="cssPath : ${addCommonCss}" th:href="@{/common/css/{path}.css(path=${cssPath})}">
+                  th:each="cssPath : ${addCommonCss}" th:href="@{/common/css/{path}.css?v={v}(path=${cssPath}, v=*{cssVersion})}">
         </th:block>
 
         <th:block layout:fragment="addCommonCss"></th:block>
 
-        <link rel="stylesheet" type="text/css" th:href="@{/front/css/style.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/front/css/style.css?v={v}(v=*{cssVersion})}">
 
         <th:block th:if="${addCss != null}">
         <link rel="stylesheet" type="text/css" th:each="cssPath : ${addCss}"
-              th:href="@{/front/css/{path}.css(path=${cssPath})}">
+              th:href="@{/front/css/{path}.css?v={v}(path=${cssPath}, v=*{cssVersion})}">
         </th:block>
 
         <th:block layout:fragment="addCss"></th:block>

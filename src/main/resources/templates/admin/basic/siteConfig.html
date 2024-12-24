@@ -4,7 +4,7 @@
       layout:decorate="~{admin/layouts/main}">
 <div layout:fragment="content">
     <h1>사이트 기본정보 설정</h1>
-    <form name="frmConfig" method="POST" autocomplete="off" th:object="${siteConfig}">
+    <form name="frmConfig" method="POST" th:action="@{/admin/basic/siteConfig}" autocomplete="off" th:object="${siteConfig}">
         <input type="hidden" name="_method" value="PATCH">
         <h2>기본 정보</h2>
         <table class="table-cols mb30">

@@ -51,7 +51,7 @@ public class BasicController {
 
         codeValueService.save("siteConfig", form);
 
-        return "admin/basic/siteConfig"; // 임시
+        return "admin/basic/siteConfig";
     }
 
     /**

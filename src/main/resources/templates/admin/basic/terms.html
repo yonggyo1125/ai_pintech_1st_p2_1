@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layouts/main}">
+<div layout:fragment="content">
+    <h1>약관 등록</h1>
+    <form name="frmTerms" method="POST" th:action="@{/admin/basic/terms}" autocomplete="off" th:object="${terms}">
+        <div class="error global" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
+        <table class="table-cols">
+            <tr>
+                <th width="150">약관코드</th>
+                <td>
+                    <input type="text" name="code" th:field="*{code}">
+                    <div class="error" th:each="err : ${#fields.errors('code')}" th:text="${err}"></div>
+                </td>
+            </tr>
+            <tr>
+                <th>약관제목</th>
+                <td>
+                    <input type="text" name="subject" th:field="*{subject}">
+                    <div class="error" th:each="err : ${#fields.errors('subject')}" th:text="${err}"></div>
+                </td>
+            </tr>
+            <tr>
+                <th>약관내용</th>
+                <td>
+                    <textarea name="content" th:field="*{content}"></textarea>
+                    <div class="error" th:each="err : ${#fields.errors('content')}" th:text="${err}"></div>
+                </td>
+            </tr>
+        </table>
+        <button type="submit" class="submit-btn">등록하기</button>
+    </form>
+
+    <h2>약관 목록</h2>
+</div>
+</html>

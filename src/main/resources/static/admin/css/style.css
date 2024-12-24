@@ -107,6 +107,19 @@ textarea {
 .button-group .btn + .btn {
     margin-left: 5px;
 }
+
+.submit-btn {
+    background: #000;
+    color: #fff;
+    min-width: 250px;
+    height: 45px;
+    border: 0;
+    border-radius: 3px;
+    display: block;
+    margin: 20px auto;
+    cursor: pointer;
+    font-size: 1.25rem;
+}
 /* 버튼 공통 E */
 
 /* 라디오 버튼 공통 S */

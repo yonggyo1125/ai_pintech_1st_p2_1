@@ -1,5 +1,6 @@
 package org.koreait.member.services;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.koreait.member.constants.Authority;
 import org.koreait.member.controllers.RequestJoin;
@@ -32,6 +33,7 @@ public class MemberUpdateService {
     private final ModelMapper modelMapper;
     private final MemberUtil memberUtil;
     private final MemberInfoService infoService;
+    private final HttpSession session;
 
     /**
      * 커맨드 객체의 타입에 따라서 RequestJoin이면 회원 가입 처리
@@ -112,7 +114,8 @@ public class MemberUpdateService {
         Member _member = memberRepository.findByEmail(member.getEmail()).orElse(null);
         if (_member != null) {
             infoService.addInfo(_member);
-            memberUtil.setMember(_member);
+            session.setAttribute("member", _member);
+            //memberUtil.setMember(_member);
         }
     }
 

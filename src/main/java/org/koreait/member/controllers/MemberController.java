@@ -1,5 +1,6 @@
 package org.koreait.member.controllers;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -145,10 +146,11 @@ public class MemberController {
     @ResponseBody
     @GetMapping("/refresh")
     @PreAuthorize("isAuthenticated()")
-    public void refresh(Principal principal) {
+    public void refresh(Principal principal, HttpSession session) {
 
         MemberInfo memberInfo = (MemberInfo) infoService.loadUserByUsername(principal.getName());
-        memberUtil.setMember(memberInfo.getMember());
+        session.setAttribute("member", memberInfo.getMember());
+        //memberUtil.setMember(memberInfo.getMember());
     }
 
     /**

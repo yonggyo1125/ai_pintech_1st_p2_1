@@ -240,11 +240,11 @@ h2 {
     color: #8789f7;
     left: 255px;
     bottom: 100px;
-    width: calc(100% - 255px);
+    width: calc(100% - 300px);
     padding: 25px;
     text-align: center;
     font-size: 1.25rem;
-    transition: all 0.5s;
+    transition: all 1s;
     border-radius: 10px;
 }
 .message-dialog.fade {

@@ -9,13 +9,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
-//@Setter
 @Component
 public class MemberUtil {
 
-    //private Member member;
     @Autowired
     private HttpSession session;
+
     public boolean isLogin() {
         return getMember() != null;
     }
@@ -43,7 +42,6 @@ public class MemberUtil {
             if (member == null) {
                 member = memberInfo.getMember();
                 session.setAttribute("member", member);
-                //setMember(memberInfo.getMember());
 
                 return member;
             } else {

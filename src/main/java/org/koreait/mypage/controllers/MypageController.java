@@ -100,8 +100,8 @@ public class MypageController {
     public void refresh(Principal principal, Model model, HttpSession session) {
 
         MemberInfo memberInfo = (MemberInfo) infoService.loadUserByUsername(principal.getName());
-        //memberUtil.setMember(memberInfo.getMember());
         session.setAttribute("member", memberInfo.getMember());
+
         model.addAttribute("profile", memberInfo.getMember());
     }
 

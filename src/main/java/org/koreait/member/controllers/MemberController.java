@@ -150,7 +150,6 @@ public class MemberController {
 
         MemberInfo memberInfo = (MemberInfo) infoService.loadUserByUsername(principal.getName());
         session.setAttribute("member", memberInfo.getMember());
-        //memberUtil.setMember(memberInfo.getMember());
     }
 
     /**

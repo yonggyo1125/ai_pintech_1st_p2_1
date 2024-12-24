@@ -115,7 +115,6 @@ public class MemberUpdateService {
         if (_member != null) {
             infoService.addInfo(_member);
             session.setAttribute("member", _member);
-            //memberUtil.setMember(_member);
         }
     }
 

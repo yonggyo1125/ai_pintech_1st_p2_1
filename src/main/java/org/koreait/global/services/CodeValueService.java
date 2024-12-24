@@ -49,4 +49,9 @@ public class CodeValueService {
 
         return null;
     }
+
+    public void remove(String code) {
+        repository.deleteById(code);
+        repository.flush();
+    }
 }

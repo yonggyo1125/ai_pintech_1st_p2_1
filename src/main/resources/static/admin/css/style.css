@@ -67,9 +67,9 @@ textarea {
 }
 
 .table-rows thead th {
-    background: #000;
+    background: #212121;
     color: #fff;
-    padding: 5px 10px;
+    padding: 7px 10px;
     font-size: 1.15rem;
 }
 .table-rows thead th + th {
@@ -82,6 +82,12 @@ textarea {
 
 .table-rows tbody tr:nth-of-type(2n) td {
     background: #f8f8f8;
+}
+
+.table-action {
+    padding: 20px 10px;
+    border-bottom: 1px solid #212121;
+    font-size: 1.15rem;
 }
 /* 테이블 공통 E */
 
@@ -142,6 +148,23 @@ textarea {
     margin: 20px auto;
     cursor: pointer;
     font-size: 1.25rem;
+}
+
+.sbtn {
+    display: inline-block;
+    height: 40px;
+    border: 1px solid #000;
+    color: #000;
+    font-size: 1rem;
+    line-height: 38px;
+    padding: 0 15px;
+    min-width: 80px;
+    border-radius: 3px;
+}
+
+.sbtn.black {
+    background: #000;
+    color: #fff;
 }
 /* 버튼 공통 E */
 

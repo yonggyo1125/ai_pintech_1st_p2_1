@@ -8,6 +8,8 @@ import org.koreait.global.repositories.CodeValueRepository;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Lazy
 @Service
 @RequiredArgsConstructor
@@ -51,7 +53,11 @@ public class CodeValueService {
     }
 
     public void remove(String code) {
-        repository.deleteById(code);
+        remove(List.of(code));
+    }
+
+    public void remove(List<String> codes) {
+        repository.deleteAllById(codes);
         repository.flush();
     }
 }

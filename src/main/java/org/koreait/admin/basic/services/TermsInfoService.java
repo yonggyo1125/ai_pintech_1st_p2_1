@@ -7,6 +7,7 @@ import org.koreait.global.entities.CodeValue;
 import org.koreait.global.entities.QCodeValue;
 import org.koreait.global.entities.Terms;
 import org.koreait.global.repositories.CodeValueRepository;
+import org.koreait.global.services.CodeValueService;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,12 @@ import static org.springframework.data.domain.Sort.Order.asc;
 @RequiredArgsConstructor
 public class TermsInfoService {
     private final CodeValueRepository repository;
+    private final CodeValueService service;
     private final ObjectMapper om;
+
+    public Terms get(String code) {
+        return service.get(String.format("term_%s", code), Terms.class);
+    }
 
     public List<Terms> getList() {
         QCodeValue codeValue = QCodeValue.codeValue;

@@ -34,7 +34,7 @@
     </form>
 
     <h2>약관 목록</h2>
-    <form name="frmList" th:action="@{/admin/basic/terms}" target="ifrmProcess" autocomplete="off">
+    <form name="frmList" method="POST" th:action="@{/admin/basic/terms}" target="ifrmProcess" autocomplete="off">
         <input type="hidden" name="_method" value="PATCH">
         <table class="table-rows">
             <thead>

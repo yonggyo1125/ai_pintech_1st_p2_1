@@ -4,7 +4,7 @@
       layout:decorate="~{admin/layouts/main}">
 <div layout:fragment="content">
     <h1>약관 등록</h1>
-    [[${items}]]
+
     <form name="frmTerms" method="POST" th:action="@{/admin/basic/terms}" autocomplete="off" th:object="${terms}" target="ifrmProcess">
         <div class="error global" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
         <table class="table-cols">
@@ -34,5 +34,48 @@
     </form>
 
     <h2>약관 목록</h2>
+    <form name="frmList" th:action="@{/admin/basic/terms}" target="ifrmProcess" autocomplete="off">
+        <input type="hidden" name="_method" value="PATCH">
+        <table class="table-rows">
+            <thead>
+                <tr>
+                    <th width="40">
+                        <input type="checkbox" class="checkall" data-target-name="code" id="checkall">
+                        <label for="checkall" class="standalone"></label>
+                    </th>
+                    <th width="220">약관코드</th>
+                    <th>약관제목/내용</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:if="${items != null && !#lists.isEmpty(items)}"
+                    th:each="item, status : ${items}" th:object="${item}">
+                    <td>
+                        <input type="hidden" th:name="${'code_' + status.index}" th:value="*{code}">
+                        <input type="checkbox" name="chk" th:value="${status.index}" th:id="${'chk-' + status.index}">
+                        <label th:for="${'chk-' + status.index}" class="standalone"></label>
+                    </td>
+                    <td th:text="*{code}"></td>
+                    <td>
+                        <dl>
+                            <dt>제목</dt>
+                            <dd>
+                                <input type="text" th:name="${'subject_' + status.index}" th:value="*{subject}">
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>내용</dt>
+                            <dd>
+                                <textarea th:name="${'content_' + status.index}" th:text="*{content}"></textarea>
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+                <tr th:unless="${items != null && !#lists.isEmpty(items)}">
+                    <td colspan="3" class="no-data">등록된 약관이 없습니다.</td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
 </div>
 </html>

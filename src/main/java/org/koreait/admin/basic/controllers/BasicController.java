@@ -2,6 +2,7 @@ package org.koreait.admin.basic.controllers;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.koreait.admin.basic.services.TermsInfoService;
 import org.koreait.admin.basic.services.TermsUpdateService;
 import org.koreait.admin.global.menu.MenuDetail;
 import org.koreait.admin.global.menu.Menus;
@@ -27,6 +28,7 @@ public class BasicController {
 
     private final CodeValueService codeValueService;
     private final TermsUpdateService termsUpdateService;
+    private final TermsInfoService termsInfoService;
 
     private final Utils utils;
 
@@ -79,6 +81,9 @@ public class BasicController {
     @GetMapping("/terms")
     public String terms(@ModelAttribute Terms form, Model model) {
         commonProcess("terms", model);
+
+        List<Terms> items = termsInfoService.getList();
+        model.addAttribute("items", items);
 
         return "admin/basic/terms";
     }

@@ -3,7 +3,7 @@ window.addEventListener("DOMContentLoaded", function() {
     const tableActions = document.getElementsByClassName("table-action");
     for (const tableAction of tableActions) {
         const { formName } = tableAction.dataset;
-        const frm = document[frmName];
+        const frm = document[formName];
         if (!frm) continue;
 
         const buttons = frm.querySelectorAll("button");

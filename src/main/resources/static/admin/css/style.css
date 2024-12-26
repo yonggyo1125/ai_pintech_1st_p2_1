@@ -60,6 +60,29 @@ textarea {
 .table-cols tr:first-of-type td {
     border-top: 1px solid #ccc;
 }
+
+.table-rows {
+    border-spacing: 0;
+    width: 100%;
+}
+
+.table-rows thead th {
+    background: #000;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 1.15rem;
+}
+.table-rows thead th + th {
+    border-left: 1px solid #f8f8f8;
+}
+.table-rows tbody td {
+    border-bottom: 1px solid #ccc;
+    padding: 5px 10px;
+}
+
+.table-rows tbody tr:nth-of-type(2n) td {
+    background: #f8f8f8;
+}
 /* 테이블 공통 E */
 
 /* 여백 공통 S */
@@ -159,6 +182,12 @@ input[type='checkbox'] + label {
 
 input[type='checkbox']:checked + label {
     background:url("../images/check_on.png") no-repeat left center;
+}
+
+input[type='checkbox'] + label.standalone {
+    padding: 0;
+    width: 23px;
+    height: 23px;
 }
 /* 체크박스 공통 E */
 

@@ -160,6 +160,8 @@ textarea {
     padding: 0 15px;
     min-width: 80px;
     border-radius: 3px;
+    background: #fff;
+    cursor: pointer;
 }
 
 .sbtn.black {

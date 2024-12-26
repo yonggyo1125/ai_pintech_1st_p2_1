@@ -4,7 +4,7 @@
       layout:decorate="~{admin/layouts/main}">
 <div layout:fragment="content">
     <h1>약관 등록</h1>
-    <form name="frmTerms" method="POST" th:action="@{/admin/basic/terms}" autocomplete="off" th:object="${terms}">
+    <form name="frmTerms" method="POST" th:action="@{/admin/basic/terms}" autocomplete="off" th:object="${terms}" target="ifrmProcess">
         <div class="error global" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
         <table class="table-cols">
             <tr>

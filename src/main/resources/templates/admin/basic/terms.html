@@ -40,7 +40,7 @@
             <thead>
                 <tr>
                     <th width="40">
-                        <input type="checkbox" class="checkall" data-target-name="chk" id="checkall">
+                        <input type="checkbox" class="check-all" data-target-class="chk" id="checkall">
                         <label for="checkall" class="standalone"></label>
                     </th>
                     <th width="220">약관코드</th>
@@ -52,7 +52,7 @@
                     th:each="item, status : ${items}" th:object="${item}">
                     <td>
                         <input type="hidden" th:name="${'code_' + status.index}" th:value="*{code}">
-                        <input type="checkbox" name="chk" th:value="${status.index}" th:id="${'chk-' + status.index}">
+                        <input type="checkbox" name="chk" th:value="${status.index}" th:id="${'chk-' + status.index}" class="chk">
                         <label th:for="${'chk-' + status.index}" class="standalone"></label>
                     </td>
                     <td th:text="*{code}"></td>

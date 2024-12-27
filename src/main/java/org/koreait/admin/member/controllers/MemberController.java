@@ -4,6 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.koreait.admin.global.menu.SubMenus;
 import org.koreait.global.annotations.ApplyErrorPage;
 import org.koreait.global.libs.Utils;
+import org.koreait.global.paging.ListData;
+import org.koreait.member.entities.Member;
+import org.koreait.member.services.MemberInfoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -18,6 +21,7 @@ import java.util.List;
 public class MemberController implements SubMenus {
 
     private final Utils utils;
+    private final MemberInfoService memberInfoService;
 
     @ModelAttribute("menuCode")
     public String menuCode() {
@@ -32,6 +36,11 @@ public class MemberController implements SubMenus {
     @GetMapping({"", "/list"})
     public String list(@ModelAttribute MemberSearch search, Model model) {
         commonProcess("list", model);
+
+        ListData<Member> data = memberInfoService.getList(search);
+
+        model.addAttribute("items", data.getItems());
+        model.addAttribute("pagination", data.getPagination());
 
         return "admin/member/list";
     }

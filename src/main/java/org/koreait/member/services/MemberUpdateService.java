@@ -177,6 +177,10 @@ public class MemberUpdateService {
             if (deletedAt != null) {
                 member.setDeletedAt(deletedAt.equals("CANCEL") ? null : LocalDateTime.now());
             }
+
+            members.add(member);
         }
+
+        memberRepository.saveAllAndFlush(members);
     }
 }

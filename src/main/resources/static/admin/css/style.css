@@ -103,7 +103,26 @@ textarea {
 .mb30 {
     margin-bottom: 30px !important;
 }
+
+.mr5 {
+    margin-right: 5px !important;
+}
+
+.mr10 {
+    margin-right: 10px !important;
+}
 /* 여백 공통 E */
+
+/* 너비 공통 S */
+.w180 {
+    width: 180px !important;
+}
+
+.w220 {
+    width: 220px !important;
+}
+
+/* 너비 공통 E */
 
 /* 버튼 공통 S */
 .btn {
@@ -196,7 +215,8 @@ input[type='checkbox'] {
     display: none;
 }
 
-input[type='checkbox'] + label {
+input[type='checkbox'] + label,
+.checkbox input[type='checkbox'] ~ label {
     background:url("../images/check.png") no-repeat left center;
     padding: 0 20px 0 33px;
     height: 40px;
@@ -205,7 +225,8 @@ input[type='checkbox'] + label {
     cursor: pointer;
 }
 
-input[type='checkbox']:checked + label {
+input[type='checkbox']:checked + label,
+.checkbox input[type='checkbox']:checked ~ label {
     background:url("../images/check_on.png") no-repeat left center;
 }
 

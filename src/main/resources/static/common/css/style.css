@@ -1,3 +1,11 @@
 .dn {
     display: none !important;
 }
+
+.flex {
+    display: flex;
+}
+
+.flex.ac {
+    align-items: center;
+}

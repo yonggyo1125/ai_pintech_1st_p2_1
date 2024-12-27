@@ -8,32 +8,32 @@
         <table class="table-cols">
             <tr>
                 <th width="180">날짜검색</th>
-                <td>
-                    <select name="dateType" th:field="*{dateType}">
+                <td class="flex ac">
+                    <select name="dateType" th:field="*{dateType}" class="w180 mr5">
                         <option value="createdAt">가입일</option>
                         <option value="credentialChangedAt">비밀번호 변경일</option>
                         <option value="deletedAt">탈퇴일</option>
                     </select>
-                    <input type="date" name="sDate" th:field="*{sDate}">
+                    <input type="date" name="sDate" th:field="*{sDate}" class="w220">
                     <span class="error" th:each="err : ${#fields.errors('sDate')}" th:text="${err}"></span>
                     ~
-                    <input type="date" name="eDate" th:field="*{eDate}">
+                    <input type="date" name="eDate" th:field="*{eDate}" class="w220">
                     <span class="error" th:each="err : ${#fields.errors('eDate')}" th:text="${err}"></span>
                 </td>
             </tr>
             <tr>
                 <th>회원권한</th>
                 <td>
-                    <th:block th:each="authority, status : ${authorities}">
+                    <span class="checkbox" th:each="authority, status : ${authorities}">
                         <input type="checkbox" name="authority" th:value="${authority.name}" th:id="${'authority-' + status.index}" th:field="*{authority}">
                         <label th:for="${'authority-' + status.index}" th:text="${#messages.msg(authority.name)}"></label>
-                    </th:block>
+                    </span>
                 </td>
             </tr>
             <tr>
                 <th>키워드 검색</th>
-                <td>
-                    <select name="sopt" th:field="*{sopt}">
+                <td class="flex">
+                    <select name="sopt" th:field="*{sopt}" class="w180 mr5">
                         <option value="ALL">통합검색</option>
                         <option value="EMAIL">이메일</option>
                         <option value="NAME">이름</option>
@@ -46,6 +46,35 @@
     </form>
 
     <h2>회원목록</h2>
+    <form name="frmList" method="POST" th:action="@{/admin/member/list}" target="ifrmProcess">
+        <input type="hidden" name="_method" value="PATCH">
+
+        <table class="table-rows">
+            <thead>
+                <tr>
+                    <th width="40">
+                        <input type="checkbox" class="check-all" data-target-class="chk" id="check-all">
+                        <label for="check-all" class="standalone"></label>
+                    </th>
+                    <th>이메일</th>
+                    <th>회원권한</th>
+                    <th>회원명</th>
+                    <th>닉네임</th>
+                    <th>비밀번호 변경일시</th>
+                    <th>탈퇴일시</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+
+
+        <div class="table-action" data-form-name="frmList">
+            선택 회원을 <button type="button" class="sbtn modify">수정하기</button>
+        </div>
+    </form>
 
     <th:block th:replace="~{common/_pagination::pagination}"></th:block>
 </div>

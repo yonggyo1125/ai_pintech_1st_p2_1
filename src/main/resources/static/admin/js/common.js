@@ -6,7 +6,7 @@ window.addEventListener("DOMContentLoaded", function() {
         const frm = document[formName];
         if (!frm) continue;
 
-        const buttons = frm.querySelectorAll("button");
+        const buttons = tableAction.querySelectorAll("button");
 
         for (const button of buttons) {
             button.addEventListener("click", function() {

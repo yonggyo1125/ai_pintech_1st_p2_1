@@ -56,11 +56,11 @@
                         <input type="checkbox" class="check-all" data-target-class="chk" id="check-all">
                         <label for="check-all" class="standalone"></label>
                     </th>
-                    <th>이메일</th>
-                    <th>회원권한</th>
-                    <th>회원명/닉네임</th>
-                    <th>비밀번호 변경일시</th>
-                    <th>탈퇴일시</th>
+                    <th width="200">이메일</th>
+                    <th width="200">회원권한</th>
+                    <th width="200">회원명/닉네임</th>
+                    <th width="200">비밀번호 변경일시</th>
+                    <th width="200">탈퇴일시</th>
                     <th></th>
                 </tr>
             </thead>
@@ -74,18 +74,18 @@
                         <input type="checkbox" name="chk" class="chk" th:value="${status.index}" th:id="${'chk-' + status.index}">
                         <label th:for="${'chk-' + status.index}" class="standalone"></label>
                     </td>
-                    <td th:text="*{email}"></td>
-                    <td>
+                    <td th:text="*{email}" align="center"></td>
+                    <td align="center">
                         <span th:each="authority : *{authorities}" th:text="${#messages.msg(authority.authority.name)}" class="mr10"></span>
                     </td>
-                    <td th:text="*{#strings.concat(name, '/', nickName)}"></td>
-                    <td>
+                    <td th:text="*{#strings.concat(name, '/', nickName)}" align="center"></td>
+                    <td align="center">
                         <div th:if="*{credentialChangedAt != null}"
                              th:text="*{#temporals.format(credentialChangedAt, 'yyyy.MM.dd HH:mm:ss')}"></div>
                         <input type="checkbox" th:name="${'updateCredentialChangedAt_' + status.index}" value="true" th:id="${'updateCredentialChangedAt_' + status.index}">
                         <label th:for="${'updateCredentialChangedAt_' + status.index}">갱신하기</label>
                     </td>
-                    <td>
+                    <td align="center">
                         <th:block th:if="*{deletedAt != null}">
                             <div th:text="*{#temporals.format(deletedAt, 'yyyy.MM.dd HH:mm:ss')}"></div>
                             <input type="checkbox" th:name="${'deletedAt_' + status.index}" value="CANCEL" th:id="${'deletedAt_' + status.index}">
@@ -95,6 +95,9 @@
                             <input type="checkbox" th:name="${'deletedAt_' + status.index}" value="RESIGN" th:id="${'deletedAt_' + status.index}">
                             <label th:for="${'deletedAt_' + status.index}">탈퇴하기</label>
                         </th:block>
+                    </td>
+                    <td>
+                        <button type="button" class="sbtn">정보수정</button>
                     </td>
                 </tr>
             </tbody>

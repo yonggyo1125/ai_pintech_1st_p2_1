@@ -127,11 +127,14 @@ public class MemberInfoService implements UserDetailsService {
         dateType = StringUtils.hasText(dateType) ? dateType : "createdAt"; // 가입일 기준
         LocalDate sDate = search.getSDate();
         LocalDate eDate = search.getEDate();
+
+        DateTimePath<LocalDateTime> condition;
+        if (dateType.equals("deletedAt")) condition = member.deletedAt; // 탈퇴일 기준
+        else if (dateType.equals("credentialChangedAt")) condition = member.credentialChangedAt; // 비밀번호 변경일 기준
+        else condition = member.createdAt; // 가입일 기준
+
         if (sDate != null) {
-            DateTimePath<LocalDateTime> condition;
-            if (dateType.equals("deletedAt")) condition = member.deletedAt; // 탈퇴일 기준
-            else if (dateType.equals("credentialChangedAt")) condition = member.credentialChangedAt; // 비밀번호 변경일 기준
-            else condition = member.createdAt; // 가입일 기준
+
         }
 
         // 날짜 검색 E

@@ -5,8 +5,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.koreait.admin.basic.services.TermsInfoService;
 import org.koreait.admin.basic.services.TermsUpdateService;
-import org.koreait.admin.global.menu.MenuDetail;
-import org.koreait.admin.global.menu.Menus;
+import org.koreait.admin.global.menu.SubMenus;
 import org.koreait.global.annotations.ApplyErrorPage;
 import org.koreait.global.entities.SiteConfig;
 import org.koreait.global.entities.Terms;
@@ -25,7 +24,7 @@ import java.util.Objects;
 @ApplyErrorPage
 @RequiredArgsConstructor
 @RequestMapping("/admin/basic")
-public class BasicController {
+public class BasicController implements SubMenus {
 
     private final CodeValueService codeValueService;
     private final TermsUpdateService termsUpdateService;
@@ -37,11 +36,6 @@ public class BasicController {
     @ModelAttribute("menuCode")
     public String menuCode() {
         return "basic";
-    }
-
-    @ModelAttribute("submenus")
-    public List<MenuDetail> submenus() {
-        return Menus.getMenus(menuCode());
     }
 
     /**

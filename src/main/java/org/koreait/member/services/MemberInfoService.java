@@ -27,6 +27,7 @@ import org.springframework.util.StringUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Lazy
@@ -134,7 +135,11 @@ public class MemberInfoService implements UserDetailsService {
         else condition = member.createdAt; // 가입일 기준
 
         if (sDate != null) {
+            andBuilder.and(condition.after(sDate.atStartOfDay()));
+        }
 
+        if (eDate != null) {
+            andBuilder.and(condition.before(eDate.atTime(LocalTime.of(23,59, 59))));
         }
 
         // 날짜 검색 E

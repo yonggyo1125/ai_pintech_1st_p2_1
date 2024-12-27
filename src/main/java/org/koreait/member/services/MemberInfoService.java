@@ -147,8 +147,8 @@ public class MemberInfoService implements UserDetailsService {
         /* 검색 처리 E */
 
         List<Member> items = queryFactory.select(member)
-                .leftJoin(member.authorities)
-                .fetchJoin()
+                //.leftJoin(member.authorities)
+                //.fetchJoin()
                 .where(andBuilder)
                 .orderBy(member.createdAt.desc())
                 .offset(offset)

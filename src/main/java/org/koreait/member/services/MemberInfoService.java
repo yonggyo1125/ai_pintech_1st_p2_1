@@ -135,7 +135,7 @@ public class MemberInfoService implements UserDetailsService {
         else condition = member.createdAt; // 가입일 기준
 
         if (sDate != null) {
-            andBuilder.and(condition.after(sDate.atStartOfDay()));
+            //andBuilder.and(condition.after(sDate.atStartOfDay()));
         }
 
         if (eDate != null) {
@@ -146,9 +146,9 @@ public class MemberInfoService implements UserDetailsService {
 
         /* 검색 처리 E */
 
-        List<Member> items = queryFactory.select(member)
-                //.leftJoin(member.authorities)
-                //.fetchJoin()
+        List<Member> items = queryFactory.selectFrom(member)
+                .leftJoin(member.authorities)
+                .fetchJoin()
                 .where(andBuilder)
                 .orderBy(member.createdAt.desc())
                 .offset(offset)

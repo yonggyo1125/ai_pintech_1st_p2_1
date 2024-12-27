@@ -8,7 +8,7 @@
         <table class="table-cols">
             <tr>
                 <th width="180">날짜검색</th>
-                <td colspan="3">
+                <td>
                     <select name="dateType" th:field="*{dateType}">
                         <option value="createdAt">가입일</option>
                         <option value="credentialChangedAt">비밀번호 변경일</option>
@@ -19,6 +19,15 @@
                     ~
                     <input type="date" name="eDate" th:field="*{eDate}">
                     <span class="error" th:each="err : ${#fields.errors('eDate')}" th:text="${err}"></span>
+                </td>
+            </tr>
+            <tr>
+                <th>회원권한</th>
+                <td>
+                    <th:block th:each="authority, status : ${authorities}">
+                        <input type="checkbox" name="authority" th:value="${authority.name}" th:id="${'authority-' + status.index}" th:field="*{authority}">
+                        <label th:for="${'authority-' + status.index}" th:text="${#messages.msg(authority.name)}"></label>
+                    </th:block>
                 </td>
             </tr>
         </table>

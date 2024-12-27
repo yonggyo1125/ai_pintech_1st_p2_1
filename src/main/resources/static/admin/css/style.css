@@ -318,3 +318,30 @@ h2 {
     opacity: 0;
 }
 /* 세션 메세지 E */
+
+/* 페이징 공통 S */
+.pagination {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.pagination > a {
+    display: inline-block;
+    height: 30px;
+    min-width: 30px;
+    padding: 0 5px;
+    text-align: center;
+    line-height: 28px;
+    border: 1px solid #000;
+    border-radius: 3px;
+}
+
+.pagination > a + a {
+    margin-left: 2px;
+}
+
+.pagination > a.on {
+    background: #000;
+    color: #fff;
+}
+/* 페이징 공통 E */

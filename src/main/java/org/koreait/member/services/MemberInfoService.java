@@ -135,7 +135,7 @@ public class MemberInfoService implements UserDetailsService {
         else condition = member.createdAt; // 가입일 기준
 
         if (sDate != null) {
-            //andBuilder.and(condition.after(sDate.atStartOfDay()));
+            andBuilder.and(condition.after(sDate.atStartOfDay()));
         }
 
         if (eDate != null) {

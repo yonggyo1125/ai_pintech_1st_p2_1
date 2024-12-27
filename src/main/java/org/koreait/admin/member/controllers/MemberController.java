@@ -6,6 +6,7 @@ import org.koreait.global.annotations.ApplyErrorPage;
 import org.koreait.global.libs.Utils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -56,6 +57,15 @@ public class MemberController implements SubMenus {
      * @param model
      */
     private void commonProcess(String mode, Model model) {
+        mode = StringUtils.hasText(mode) ? mode : "list";
+        String pageTitle = "";
+        if (mode.equals("list")) {
+            pageTitle = "회원목록";
+        }
+        
+        pageTitle += " - 회원관리";
 
+        model.addAttribute("pageTitle", pageTitle);
+        model.addAttribute("subMenuCode", mode);
     }
 }

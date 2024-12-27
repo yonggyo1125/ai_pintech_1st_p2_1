@@ -30,7 +30,19 @@
                     </th:block>
                 </td>
             </tr>
+            <tr>
+                <th>키워드 검색</th>
+                <td>
+                    <select name="sopt" th:field="*{sopt}">
+                        <option value="ALL">통합검색</option>
+                        <option value="EMAIL">이메일</option>
+                        <option value="NAME">이름</option>
+                    </select>
+                    <input type="text" name="skey" th:field="*{skey}" placeholder="검색할 키워드를 입력하세요.">
+                </td>
+            </tr>
         </table>
+        <button type="submit" class="submit-btn">검색하기</button>
     </form>
 
     <h2>회원목록</h2>

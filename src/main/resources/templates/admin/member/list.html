@@ -56,17 +56,18 @@
                         <input type="checkbox" class="check-all" data-target-class="chk" id="check-all">
                         <label for="check-all" class="standalone"></label>
                     </th>
-                    <th width="200">이메일</th>
-                    <th width="200">회원권한</th>
-                    <th width="200">회원명/닉네임</th>
-                    <th width="200">비밀번호 변경일시</th>
-                    <th width="200">탈퇴일시</th>
+                    <th width="180">이메일</th>
+                    <th width="180">회원권한</th>
+                    <th width="180">회원명/닉네임</th>
+                    <th width="180">가입일시</th>
+                    <th width="180">비밀번호 변경일시</th>
+                    <th width="180">탈퇴일시</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr th:if="${items == null || items.isEmpty()}">
-                    <td colspan="7" class="no-data">조회된 회원이 없습니다.</td>
+                    <td colspan="8" class="no-data">조회된 회원이 없습니다.</td>
                 </tr>
                 <tr th:unless="${items == null || items.isEmpty()}" th:each="item, status : ${items}" th:object="${item}">
                     <input type="hidden" th:name="${'seq_' + status.index}" th:value="*{seq}">
@@ -79,6 +80,7 @@
                         <span th:each="authority : *{authorities}" th:text="${#messages.msg(authority.authority.name)}" class="mr10"></span>
                     </td>
                     <td th:text="*{#strings.concat(name, '/', nickName)}" align="center"></td>
+                    <td align="center" th:text="*{#temporals.format(createdAt, 'yyyy.MM.dd HH:mm:ss')}"></td>
                     <td align="center">
                         <div th:if="*{credentialChangedAt != null}"
                              th:text="*{#temporals.format(credentialChangedAt, 'yyyy.MM.dd HH:mm:ss')}"></div>

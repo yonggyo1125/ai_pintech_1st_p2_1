@@ -66,7 +66,16 @@
                 </tr>
             </thead>
             <tbody>
-
+                <tr th:if="${items == null || items.isEmpty()}">
+                    <td colspan="8" class="no-data">조회된 회원이 없습니다.</td>
+                </tr>
+                <tr th:unless="${items == null || items.isEmpty()}" th:each="item, status : ${items}" th:object="${item}">
+                    <input type="hidden" th:name="${'seq_' + status.index}" th:value="*{seq}">
+                    <td align="center">
+                        <input type="checkbox" name="chk" class="chk" th:value="${status.index}" th:id="${'chk-' + status.index}">
+                        <label th:for="${'chk-' + status.index}" class="standalone"></label>
+                    </td>
+                </tr>
             </tbody>
         </table>
 

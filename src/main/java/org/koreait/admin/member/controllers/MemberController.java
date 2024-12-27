@@ -29,7 +29,7 @@ public class MemberController implements SubMenus {
      * @return
      */
     @GetMapping({"", "/list"})
-    public String list(Model model) {
+    public String list(@ModelAttribute MemberSearch search, Model model) {
         commonProcess("list", model);
 
         return "admin/member/list";

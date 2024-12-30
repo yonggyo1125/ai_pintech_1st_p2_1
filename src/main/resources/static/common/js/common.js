@@ -108,7 +108,18 @@ commonLib.popup = function(url, width = 350, height = 350, isAjax = false) {
     document.body.append(layerDim);
     /* 레이어팝업 요소 동적 추가 E */
 
+    /* 팝업 컨텐츠 로드 S */
+    if (isAjax) { // 컨텐트를 ajax로 로드
 
+    } else { // iframe으로 로드
+        const iframe = document.createElement("iframe");
+        iframe.width = width;
+        iframe.height = height;
+        iframe.frameBorder = 0;
+        iframe.src = url;
+        layerPopup.append(iframe);
+    }
+    /* 팝업 컨텐츠 로드 E */
 }
 
 window.addEventListener("DOMContentLoaded", function() {

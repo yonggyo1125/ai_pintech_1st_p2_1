@@ -4,6 +4,123 @@
       layout:decorate="~{admin/layouts/popup}">
 <div layout:fragment="content">
     <h1>회원 정보</h1>
+    <form name="frmProfile" method="POST" th:action="@{/admin/member/info}" th:object="${requestProfile}" autocomplete="off">
+        <input type="hidden" name="_method" value="PATCH">
+        <div class="error global" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
+        <table class="table-cols">
+        <tr>
+            <th width="180" th:text="#{프로필_이미지}"></th>
+            <td>
+                <div class="drag-upload profile-image"
+                     data-image-only="true"
+                     data-single="true"
+                     th:data-gid="*{email}"
+                     data-location="profile"
+                     data-done="true"
+                     th:data-seq="*{profileImage != null ? profileImage.seq : ''}"
+                >
+                    <th:block th:if="*{profileImage != null}"
+                              th:utext="*{@utils.showImage(profileImage.seq, 250, 350, 'image')}"></th:block>
+                </div>
+                <button type="button" class='file-upload'
+                        data-image-only="true"
+                        data-single="true"
+                        th:data-gid="*{email}"
+                        data-location="profile"
+                        data-done="true"
+                        th:text="#{이미지_업로드}"></button>
+            </td>
+        </tr>
+        <tr>
+            <th th:text="#{이메일}"></th>
+            <td>
+                <th:block th:text="*{email}"></th:block>
+                <input type="hidden" name="email" th:field="*{email}">
+            </td>
+        </tr>
 
+        <dl>
+            <dt th:text="#{회원명}"></dt>
+            <dd>
+                <input type="text" name="name" th:field="*{name}">
+                <div class="error" th:each="err : ${#fields.errors('name')}" th:text="${err}"></div>
+            </dd>
+        </dl>
+
+        <dl>
+            <dt th:text="#{비밀번호}"></dt>
+            <dd>
+                <input type="password" name="password" th:field="*{password}">
+                <div class="error" th:each="err : ${#fields.errors('password')}" th:text="${err}"></div>
+            </dd>
+        </dl>
+
+        <dl>
+            <dt th:text="#{비밀번호_확인}"></dt>
+            <dd>
+                <input type="password" name="confirmPassword" th:field="*{confirmPassword}">
+                <div class="error" th:each="err : ${#fields.errors('confirmPassword')}" th:text="${err}"></div>
+            </dd>
+        </dl>
+
+        <dl>
+            <dt th:text="#{닉네임}"></dt>
+            <dd>
+                <input type="text" name="nickName" th:field="*{nickName}">
+                <div class="error" th:each="err : ${#fields.errors('nickName')}" th:text="${err}"></div>
+            </dd>
+        </dl>
+        <dl>
+            <dt th:text="#{성별}"></dt>
+            <dd>
+                <input type="radio" name="gender" value="FEMALE" th:field="*{gender}" id="gender-female">
+                <label for="gender-female" th:text="#{여성}"></label>
+
+                <input type="radio" name="gender" value="MALE" th:field="*{gender}" id="gender-male">
+                <label for="gender-male" th:text="#{남성}"></label>
+
+                <div class="error" th:each="err : ${#fields.errors('gender')}" th:text="${err}"></div>
+            </dd>
+        </dl>
+
+        <dl>
+            <dt th:text="#{생년월일}"></dt>
+            <dd>
+                <input type="date" name="birthDt" th:field="*{birthDt}">
+                <div class="error" th:each="err : ${#fields.errors('birthDt')}" th:text="${err}"></div>
+            </dd>
+        </dl>
+
+        <dl>
+            <dt th:text="#{주소}"></dt>
+            <dd>
+                <div class="row">
+                    <button type='button' class='search-address' th:text="#{주소찾기}"></button>
+                    <input type="text" name="zipCode" th:field="*{zipCode}" th:placeholder="#{우편번호를_입력해주세요.}" readonly>
+
+                    <div class="error" th:each="err : ${#fields.errors('zipCode')}" th:text="${err}"></div>
+                </div>
+                <div class="row">
+                    <input type="text" name="address" th:field="*{address}" th:placeholder="#{기존주소를_입력해주세요.}" readonly>
+
+                    <div class="error" th:each="err : ${#fields.errors('address')}" th:text="${err}"></div>
+                </div>
+                <div class="row">
+                    <input type="text" name="addressSub" th:field="*{addressSub}" th:placeholder="#{상세주소를_입력해주세요.}">
+
+                    <div class="error" th:each="err : ${#fields.errors('addressSub')}" th:text="${err}"></div>
+                </div>
+            </dd>
+        </dl>
+        <dl>
+            <dt th:text="#{약관동의}"></dt>
+            <dd>
+                <input type="checkbox" name="optionalTerms" value="advertisement" th:field="*{optionalTerms}" id="optionalTerms0" class="terms">
+                <label for="optionalTerms0" th:text="#{광고성_정보_전송에_대해_동의합니다.(선택)}"></label>
+            </dd>
+        </dl>
+        </table>
+        <button type="submit" th:text="#{수정하기}"></button>
+    </form>
 </div>
 </html>

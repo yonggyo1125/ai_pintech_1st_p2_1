@@ -1,5 +1,6 @@
 package org.koreait.admin.member.controllers;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.koreait.admin.global.menu.SubMenus;
 import org.koreait.global.annotations.ApplyErrorPage;
@@ -9,9 +10,12 @@ import org.koreait.member.constants.Authority;
 import org.koreait.member.entities.Member;
 import org.koreait.member.services.MemberInfoService;
 import org.koreait.member.services.MemberUpdateService;
+import org.koreait.mypage.controllers.RequestProfile;
+import org.koreait.mypage.validators.ProfileValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +29,7 @@ public class MemberController implements SubMenus {
     private final Utils utils;
     private final MemberInfoService memberInfoService;
     private final MemberUpdateService memberUpdateService;
+    private final ProfileValidator profileValidator;
 
     @ModelAttribute("menuCode")
     public String menuCode() {
@@ -68,10 +73,34 @@ public class MemberController implements SubMenus {
         return "common/_execute_script";
     }
 
+    /**
+     * 회원정보 수정
+     * @param email
+     * @param model
+     * @return
+     */
     @GetMapping("/info/{email}")
     public String info(@PathVariable("email") String email, Model model) {
 
+        RequestProfile form = memberInfoService.getProfile(email);
+        model.addAttribute("requestProfile", form);
+
         return "admin/member/info";
+    }
+
+    @PatchMapping("/info")
+    public String infoPs(@Valid RequestProfile form, Errors errors, Model model) {
+
+        profileValidator.validate(form, errors);
+
+        if (errors.hasErrors()) {
+            return "admin/member/info";
+        }
+
+        memberUpdateService.process(form, form.getAuthorities());
+
+        model.addAttribute("script", "parent.location.reload();");
+        return "common/_execute_script";
     }
 
     /**

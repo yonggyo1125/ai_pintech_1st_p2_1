@@ -3,6 +3,7 @@ package org.koreait.mypage.controllers;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.koreait.member.constants.Authority;
 import org.koreait.member.constants.Gender;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -11,6 +12,8 @@ import java.util.List;
 
 @Data
 public class RequestProfile {
+
+    private String email;
 
     @NotBlank
     private String name; // 회원명
@@ -37,4 +40,6 @@ public class RequestProfile {
     private String addressSub;
 
     private List<String> optionalTerms; // 추가 선택 약관
+
+    private List<Authority> authorities;
 }

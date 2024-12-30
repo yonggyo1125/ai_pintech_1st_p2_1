@@ -154,7 +154,7 @@ commonLib.popup = function(url, width = 350, height = 350, isAjax = false) {
 *
 */
 commonLib.popupClose = function() {
-    const layerEls = document.querySelectorAll(".layer-dim", ".layer-popup");
+    const layerEls = document.querySelectorAll(".layer-dim, .layer-popup");
     layerEls.forEach(el => el.parentElement.removeChild(el));
 };
 

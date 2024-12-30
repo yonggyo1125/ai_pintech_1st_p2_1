@@ -175,4 +175,14 @@ window.addEventListener("DOMContentLoaded", function() {
         });
     }
     // 체크박스 전체 토글 기능 E
+
+    // 팝업 버튼 클릭 처리 S
+    const showPopups = document.getElementsByClassName("show-popup");
+    for (const el of showPopups) {
+        el.addEventListener("click", function() {
+            const { url, width, height } = this.dataset;
+            commonLib.popup(url, width, height);
+        });
+    }
+    // 팝업 버튼 클릭 처리 E
 });

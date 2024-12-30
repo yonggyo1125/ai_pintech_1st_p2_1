@@ -99,7 +99,7 @@
                         </th:block>
                     </td>
                     <td>
-                        <button type="button" class="sbtn" th:onclick="*{'commonLib.popup(\'/admin/member/info/\'' + seq + ', 700, 800);'}">정보수정</button>
+                        <button type="button" class="sbtn show-popup" th:data-url="@{/admin/member/info/{seq}=(seq=*{seq})}" th:data-width='900' th:data-height="700">정보수정</button>
                     </td>
                 </tr>
             </tbody>

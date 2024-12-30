@@ -36,6 +36,7 @@
             <td>
                 <th:block th:text="*{email}"></th:block>
                 <input type="hidden" name="email" th:field="*{email}">
+                <div class="error" th:each="err : ${#fields.errors('email')}" th:text="${err}"></div>
             </td>
         </tr>
 
@@ -127,8 +128,10 @@
         <tr>
             <th th:text="#{약관동의}"></th>
             <td>
-                <input type="checkbox" name="optionalTerms" value="advertisement" th:field="*{optionalTerms}" id="optionalTerms0" class="terms">
-                <label for="optionalTerms0" th:text="#{광고성_정보_전송에_대해_동의합니다.(선택)}"></label>
+                <span class="checkbox">
+                    <input type="checkbox" name="optionalTerms" value="advertisement" th:field="*{optionalTerms}" id="optionalTerms0" class="terms">
+                    <label for="optionalTerms0" th:text="#{광고성_정보_전송에_대해_동의합니다.(선택)}"></label>
+                </span>
             </td>
         </tr>
         </table>

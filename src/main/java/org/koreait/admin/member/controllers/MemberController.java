@@ -106,6 +106,13 @@ public class MemberController implements SubMenus {
         return "common/_execute_script";
     }
 
+    @GetMapping("/message")
+    public String messageList(Model model) {
+        commonProcess("message", model);
+
+        return "admin/member/message";
+    }
+
     /**
      * 공통 처리 부분
      *
@@ -128,6 +135,8 @@ public class MemberController implements SubMenus {
             addCommonScript.add("address");
             addCommonScript.add("fileManager");
             addScript.add("member/info");
+        } else if (mode.equals("message")) {
+            pageTitle = "쪽지관리";
         }
         
         pageTitle += " - 회원관리";

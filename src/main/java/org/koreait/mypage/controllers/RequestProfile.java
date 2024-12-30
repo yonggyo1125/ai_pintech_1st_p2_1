@@ -14,6 +14,8 @@ import java.util.List;
 @Data
 public class RequestProfile {
 
+    private String mode;
+
     private String email;
 
     @NotBlank

@@ -18,6 +18,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @ApplyErrorPage
@@ -81,6 +82,7 @@ public class MemberController implements SubMenus {
      */
     @GetMapping("/info/{email}")
     public String info(@PathVariable("email") String email, Model model) {
+        commonProcess("info", model);
 
         RequestProfile form = memberInfoService.getProfile(email);
         model.addAttribute("requestProfile", form);
@@ -90,6 +92,7 @@ public class MemberController implements SubMenus {
 
     @PatchMapping("/info")
     public String infoPs(@Valid RequestProfile form, Errors errors, Model model) {
+        commonProcess("info", model);
 
         profileValidator.validate(form, errors);
 
@@ -111,9 +114,20 @@ public class MemberController implements SubMenus {
      */
     private void commonProcess(String mode, Model model) {
         mode = StringUtils.hasText(mode) ? mode : "list";
+
+        List<String> addCommonScript = new ArrayList<>();
+        List<String> addScript = new ArrayList<>();
+
         String pageTitle = "";
         if (mode.equals("list")) {
             pageTitle = "회원목록";
+
+        } else if (mode.equals("info")) {
+            pageTitle = "회원정보 수정";
+
+            addCommonScript.add("address");
+            addCommonScript.add("fileManager");
+            addScript.add("member/info");
         }
         
         pageTitle += " - 회원관리";

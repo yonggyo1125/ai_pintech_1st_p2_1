@@ -39,40 +39,52 @@
             </td>
         </tr>
 
-        <dl>
-            <dt th:text="#{회원명}"></dt>
-            <dd>
+            <tr>
+                <th>회원 권한</th>
+                <td>
+                    <input type="hidden" name="authorities" value="USER">
+                    일반 회원
+                    <span class="checkbox" th:each="authority, status : ${authorities}">
+                        <input type="checkbox" name="authorities" th:value="${authority.name}" th:id="${'authorities-' + status.index}" th:field="*{authorities}">
+                        <label th:for="${'authorities-' + status.index}" th:text="${#messages.msg(authority.name)}"></label>
+                    </span>
+                </td>
+            </tr>
+
+        <tr>
+            <th th:text="#{회원명}"></th>
+            <td>
                 <input type="text" name="name" th:field="*{name}">
                 <div class="error" th:each="err : ${#fields.errors('name')}" th:text="${err}"></div>
-            </dd>
-        </dl>
+            </td>
+        </tr>
 
-        <dl>
-            <dt th:text="#{비밀번호}"></dt>
-            <dd>
+        <tr>
+            <th th:text="#{비밀번호}"></th>
+            <td>
                 <input type="password" name="password" th:field="*{password}">
                 <div class="error" th:each="err : ${#fields.errors('password')}" th:text="${err}"></div>
-            </dd>
-        </dl>
+            </td>
+        </tr>
 
-        <dl>
-            <dt th:text="#{비밀번호_확인}"></dt>
-            <dd>
+        <tr>
+            <th th:text="#{비밀번호_확인}"></th>
+            <td>
                 <input type="password" name="confirmPassword" th:field="*{confirmPassword}">
                 <div class="error" th:each="err : ${#fields.errors('confirmPassword')}" th:text="${err}"></div>
-            </dd>
-        </dl>
+            </td>
+        </tr>
 
-        <dl>
-            <dt th:text="#{닉네임}"></dt>
-            <dd>
+        <tr>
+            <th th:text="#{닉네임}"></th>
+            <td>
                 <input type="text" name="nickName" th:field="*{nickName}">
                 <div class="error" th:each="err : ${#fields.errors('nickName')}" th:text="${err}"></div>
-            </dd>
-        </dl>
-        <dl>
-            <dt th:text="#{성별}"></dt>
-            <dd>
+            </td>
+        </tr>
+        <tr>
+            <th th:text="#{성별}"></th>
+            <td>
                 <input type="radio" name="gender" value="FEMALE" th:field="*{gender}" id="gender-female">
                 <label for="gender-female" th:text="#{여성}"></label>
 
@@ -80,20 +92,20 @@
                 <label for="gender-male" th:text="#{남성}"></label>
 
                 <div class="error" th:each="err : ${#fields.errors('gender')}" th:text="${err}"></div>
-            </dd>
-        </dl>
+            </td>
+        </tr>
 
-        <dl>
-            <dt th:text="#{생년월일}"></dt>
-            <dd>
+        <tr>
+            <th th:text="#{생년월일}"></th>
+            <td>
                 <input type="date" name="birthDt" th:field="*{birthDt}">
                 <div class="error" th:each="err : ${#fields.errors('birthDt')}" th:text="${err}"></div>
-            </dd>
-        </dl>
+            </td>
+        </tr>
 
-        <dl>
-            <dt th:text="#{주소}"></dt>
-            <dd>
+        <tr>
+            <th th:text="#{주소}"></th>
+            <td>
                 <div class="row">
                     <button type='button' class='search-address' th:text="#{주소찾기}"></button>
                     <input type="text" name="zipCode" th:field="*{zipCode}" th:placeholder="#{우편번호를_입력해주세요.}" readonly>
@@ -110,17 +122,20 @@
 
                     <div class="error" th:each="err : ${#fields.errors('addressSub')}" th:text="${err}"></div>
                 </div>
-            </dd>
-        </dl>
-        <dl>
-            <dt th:text="#{약관동의}"></dt>
-            <dd>
+            </td>
+        </tr>
+        <tr>
+            <th th:text="#{약관동의}"></th>
+            <td>
                 <input type="checkbox" name="optionalTerms" value="advertisement" th:field="*{optionalTerms}" id="optionalTerms0" class="terms">
                 <label for="optionalTerms0" th:text="#{광고성_정보_전송에_대해_동의합니다.(선택)}"></label>
-            </dd>
-        </dl>
+            </td>
+        </tr>
         </table>
-        <button type="submit" th:text="#{수정하기}"></button>
+        <div class="button-group">
+            <button type="reset" class="btn">다시입력</button>
+            <button type="submit" class="btn black" th:text="#{수정하기}"></button>
+        </div>
     </form>
 </div>
 </html>

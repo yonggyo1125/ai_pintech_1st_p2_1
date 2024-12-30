@@ -80,9 +80,20 @@ commonLib.ajaxLoad = function(url, callback, method = 'GET', data, headers) {
     }); // Promise
 };
 
-
+/**
+* 레이어 팝업
+*
+*/
 commonLib.popup = function(url, width = 350, height = 350, isAjax = false) {
+    const layerEls = document.querySelectorAll(".layer-dim, .layer-popup");
+    layerEls.forEach(el => el.parentElement.removeChild(el));
 
+
+    layerDim = document.createElement("div");
+    layerDim.className = "layer-dim";
+
+    layerPopup = document.createElement("div");
+    layerPopup.className = "layer-popup";
 }
 
 window.addEventListener("DOMContentLoaded", function() {

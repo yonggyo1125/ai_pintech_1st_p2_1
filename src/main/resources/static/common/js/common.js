@@ -140,10 +140,10 @@ commonLib.popup = function(url, width = 350, height = 350, isAjax = false) {
 
     } else { // iframe으로 로드
         const iframe = document.createElement("iframe");
-        iframe.width = width;
-        iframe.height = height;
+        iframe.width = width - 80;
+        iframe.height = height - 80;
         iframe.frameBorder = 0;
-        iframe.src = url;
+        iframe.src = commonLib.url(url);
         content.append(iframe);
     }
     /* 팝업 컨텐츠 로드 E */

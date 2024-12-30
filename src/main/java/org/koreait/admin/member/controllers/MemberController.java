@@ -68,6 +68,12 @@ public class MemberController implements SubMenus {
         return "common/_execute_script";
     }
 
+    @GetMapping("/info/{email}")
+    public String info(@PathVariable("email") String email, Model model) {
+
+        return "admin/member/info";
+    }
+
     /**
      * 공통 처리 부분
      *

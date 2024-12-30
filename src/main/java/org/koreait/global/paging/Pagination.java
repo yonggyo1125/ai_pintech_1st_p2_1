@@ -70,7 +70,7 @@ public class Pagination {
         }
 
         /* 쿼리스트링 값 처리 S */
-        String qs = request.getQueryString();
+        String qs = request == null ? "" : request.getQueryString();
         baseUrl = "?";
         if (StringUtils.hasText(qs)) {
             baseUrl += Arrays.stream(qs.split("&"))

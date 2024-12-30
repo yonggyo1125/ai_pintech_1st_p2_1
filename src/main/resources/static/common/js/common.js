@@ -122,6 +122,8 @@ commonLib.popup = function(url, width = 350, height = 350, isAjax = false) {
     icon.className = "xi-close";
     button.append(icon);
     layerPopup.prepend(button);
+
+    button.addEventListener("click", commonLib.popupClose);
     /* 레이어 팝업 닫기 버튼 추가 E */
 
     document.body.append(layerPopup);
@@ -146,6 +148,15 @@ commonLib.popup = function(url, width = 350, height = 350, isAjax = false) {
     }
     /* 팝업 컨텐츠 로드 E */
 }
+
+/**
+* 레이어팝업 제거
+*
+*/
+commonLib.popupClose = function() {
+    const layerEls = document.querySelectorAll(".layer-dim", ".layer-popup");
+    layerEls.forEach(el => el.parentElement.removeChild(el));
+};
 
 window.addEventListener("DOMContentLoaded", function() {
     // 체크박스 전체 토글 기능 S

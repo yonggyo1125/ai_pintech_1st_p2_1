@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<script th:fragment="file-item" type="text/html">
+<script th:fragment="file-item" type="text/html" id="tpl-file-item">
     <span class="file-item" id="file-[seq]">
        <a th:href="@{/api/file/download/[seq]}">[fileName]</a>
         <i class="insert-editor xi-upload" data-url="[fileUrl]"></i>

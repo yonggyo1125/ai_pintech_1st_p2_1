@@ -22,6 +22,11 @@ public class MessageController {
 
     private final Utils utils;
 
+    @ModelAttribute("addCss")
+    public List<String> addCss() {
+        return List.of("message/style");
+    }
+
     /**
      * 쪽지 작성 양식
      *

@@ -26,11 +26,24 @@ function callbackFileUpload(files) {
     const domParser = new DOMParser();
 
     for (const {seq, fileUrl, fileName, location} of files) {
+        let html = tpl;
+        html = html.replace(/\[seq\]/g, seq)
+                    .replace(/\[fileName\]/g, fileName)
+                    .replace(/\[fileUrl\]/g, fileUrl);
+
+        const dom = domParser.parseFromString(html, "text/html");
+        const fileItem = dom.querySelector(".file-item");
+
         if (location === 'editor') { // 에디터에 추가될 이미지
             imageUrls.push(fileUrl);
 
-        } else { // 다운로드를 위한 첨부 파일
+            targetEditor.append(fileItem);
 
+        } else { // 다운로드를 위한 첨부 파일
+            const el = fileItem.querySelector(".insert-editor");
+            el.parentElement.removeChild(el);
+
+            targetAttach.append(fileItem);
         }
     }
 

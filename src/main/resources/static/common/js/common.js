@@ -163,6 +163,7 @@ commonLib.popupClose = function() {
 *
 */
 commonLib.loadEditor = function(id, height = 350) {
+
     if (typeof ClassicEditor === 'undefined' || !id) {
         return;
     }
@@ -173,12 +174,17 @@ commonLib.loadEditor = function(id, height = 350) {
                 const editor = await ClassicEditor.create(document.getElementById(id));
                 resolve(editor);
 
+                const editorAreas = document.getElementsByClassName("ck-editor__editable");
+                for (const el of editorAreas) {
+                    el.style.height = `${height}px`;
+                }
+
             } catch (err) {
                 console.error(err);
 
                 reject(err);
             }
-        });
+        })();
     });
 
 };

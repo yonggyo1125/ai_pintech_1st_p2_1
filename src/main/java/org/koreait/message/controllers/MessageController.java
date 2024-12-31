@@ -4,10 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.koreait.global.annotations.ApplyErrorPage;
 import org.koreait.global.libs.Utils;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @ApplyErrorPage
@@ -54,5 +53,11 @@ public class MessageController {
     public String view(@PathVariable("seq") Long seq) {
 
         return utils.tpl("message/view");
+    }
+
+    @DeleteMapping
+    public String delete(@RequestParam(name="seq", required = false) List<String> seq) {
+
+        return "redirect:/message/list";
     }
 }

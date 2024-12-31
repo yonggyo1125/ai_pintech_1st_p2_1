@@ -30,6 +30,8 @@
             <dd>
                 <textarea name="content" th:field="*{content}" id="content"></textarea>
                 <div class="error" th:each="err : ${#fields.errors('content')}" th:text="${err}"></div>
+                <button type="button" class="file-upload image" th:text="#{이미지_업로드}" th:data-gid="*{gid}" data-location="editor" data-image-only="true"></button>
+
             </dd>
         </dl>
         <div class="button-group">

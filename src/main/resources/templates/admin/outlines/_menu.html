@@ -13,5 +13,9 @@
             <i class="xi-list"></i>
             게시판관리
         </a>
+        <a th:href="@{/admin/product}" class="menu" th:classappend="${menuCode == 'product'} ? 'on'">
+            <i class="xi-cart"></i>
+            상품관리
+        </a>
     </aside>
 </html>

@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.koreait.global.annotations.ApplyErrorPage;
 import org.koreait.global.libs.Utils;
+import org.koreait.message.validators.MessageValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -21,6 +22,7 @@ import java.util.UUID;
 public class MessageController {
 
     private final Utils utils;
+    private final MessageValidator messageValidator;
 
     @ModelAttribute("addCss")
     public List<String> addCss() {
@@ -49,6 +51,8 @@ public class MessageController {
     @PostMapping
     public String process(@Valid RequestMessage form, Errors errors, Model model) {
         commonProcess("send", model);
+
+        messageValidator.validate(form, errors);
 
         if (errors.hasErrors()) {
             return utils.tpl("message/form");

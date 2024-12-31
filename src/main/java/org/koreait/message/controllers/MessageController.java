@@ -6,9 +6,11 @@ import org.koreait.global.annotations.ApplyErrorPage;
 import org.koreait.global.libs.Utils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -82,6 +84,19 @@ public class MessageController {
      * @param model
      */
     private void commonProcess(String mode, Model model) {
+        mode = StringUtils.hasText(mode) ? mode : "list";
+        String pageTitle = "";
+        List<String> addCommonScript = new ArrayList<>();
+        List<String> addScript = new ArrayList<>();
 
+        if (mode.equals("send")) { // 쪽지 보내기
+            pageTitle = utils.getMessage("쪽지_보내기");
+            addCommonScript.add("fileManager");
+            addScript.add("message/send");
+        }
+
+        model.addAttribute("pageTitle", pageTitle);
+        model.addAttribute("addCommonScript", addCommonScript);
+        model.addAttribute("addScript", addScript);
     }
 }

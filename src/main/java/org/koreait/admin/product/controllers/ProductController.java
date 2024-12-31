@@ -99,6 +99,31 @@ public class ProductController implements SubMenus {
         return "admin/product/category/add";
     }
 
+    /**
+     * 분류 등록, 수정 처리
+     *
+     * @param model
+     * @return
+     */
+    @PostMapping("/category/save")
+    public String categorySave(Model model) {
+        commonProcess("category_save", model);
+
+        return "redirect:/admin/product/category";
+    }
+
+    /**
+     * 배송 정책 관리
+     *
+     * @param model
+     * @return
+     */
+    @GetMapping("/delivery")
+    public String delivery(Model model) {
+        commonProcess("delivery", model);
+
+        return "admin/product/delivery/list";
+    }
 
 
     /**
@@ -109,5 +134,6 @@ public class ProductController implements SubMenus {
      */
     private void commonProcess(String mode, Model model) {
 
+        model.addAttribute("subMenuCode", mode);
     }
 }

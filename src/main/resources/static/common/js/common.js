@@ -173,11 +173,13 @@ commonLib.loadEditor = function(id, height = 350) {
             try {
                 const editor = await ClassicEditor.create(document.getElementById(id));
                 resolve(editor);
-
-                const editorAreas = document.getElementsByClassName("ck-editor__editable");
-                for (const el of editorAreas) {
-                    el.style.height = `${height}px`;
-                }
+                editor.editing.view.change((writer) => {
+                    writer.setStyle(
+                           "height",
+                           `${height}px`,
+                           editor.editing.view.document.getRoot()
+                        );
+                });
 
             } catch (err) {
                 console.error(err);

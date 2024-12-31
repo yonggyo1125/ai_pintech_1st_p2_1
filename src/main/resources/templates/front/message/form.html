@@ -3,6 +3,39 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{front/layouts/main}">
 <main layout:fragment="content">
+    <h1 th:text="#{쪽지_보내기}"></h1>
+    <form name="frmSend" method="POST" th:action="@{/message}" autocomplete="off" th:object="${requestMessage}">
+        <div class="error global" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
+        <input type="hidden" name="email" th:field="*{email}">
+        <input type="hidden" name="gid" th:field="*{gid}">
 
+        <dl th:if="${@memberUtil.isAdmin()}">
+            <dt th:text="#{공지}"></dt>
+            <dd>
+                <input type="checkbox" name="notice" value="true" id="notice" th:field="*{notice}">
+                <label for="notice" th:text="#{전체_메세지}"></label>
+            </dd>
+        </dl>
+
+        <dl>
+            <dt th:text="#{제목}"></dt>
+            <dd>
+                <input type="text" name="subject" th:field="*{subject}">
+                <div class="error" th:each="err : ${#fields.errors('subject')}" th:text="${err}"></div>
+            </dd>
+        </dl>
+
+        <dl>
+            <dt th:text="#{내용}"></dt>
+            <dd>
+                <textarea name="content" th:field="*{content}" id="content"></textarea>
+                <div class="error" th:each="err : ${#fields.errors('content')}" th:text="${err}"></div>
+            </dd>
+        </dl>
+        <div class="button-group">
+            <button type="reset" class="btn" th:text="#{다시작성}"></button>
+            <button type="submit" class="btn" th:text="#{전송하기}"></button>
+        </div>
+    </form>
 </main>
 </html>

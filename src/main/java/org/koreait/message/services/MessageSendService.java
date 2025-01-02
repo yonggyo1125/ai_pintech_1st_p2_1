@@ -1,6 +1,7 @@
 package org.koreait.message.services;
 
 import lombok.RequiredArgsConstructor;
+import org.koreait.file.services.FileDoneService;
 import org.koreait.member.entities.Member;
 import org.koreait.member.libs.MemberUtil;
 import org.koreait.member.repositories.MemberRepository;
@@ -18,6 +19,7 @@ public class MessageSendService {
     private final MemberUtil memberUtil;
     private final MemberRepository memberRepository;
     private final MessageRepository repository;
+    private final FileDoneService fileDoneService;
 
     public void process(RequestMessage form) {
 
@@ -35,5 +37,6 @@ public class MessageSendService {
                 .build();
 
         repository.saveAndFlush(message);
+        fileDoneService.process(form.getGid()); // 파일 업로드 완료 처리
     }
 }

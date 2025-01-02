@@ -25,6 +25,8 @@ function callbackFileUpload(files) {
 
     const domParser = new DOMParser();
 
+    const { fileManager } = commonLib;
+
     for (const {seq, fileUrl, fileName, location} of files) {
         let html = tpl;
         html = html.replace(/\[seq\]/g, seq)
@@ -34,6 +36,7 @@ function callbackFileUpload(files) {
         const dom = domParser.parseFromString(html, "text/html");
         const fileItem = dom.querySelector(".file-item");
         const el = fileItem.querySelector(".insert-editor");
+        const removeEl = fileItem.querySelector(".remove");
 
         if (location === 'editor') { // 에디터에 추가될 이미지
             imageUrls.push(fileUrl);
@@ -49,6 +52,17 @@ function callbackFileUpload(files) {
 
             targetAttach.append(fileItem);
         }
+
+        removeEl.addEventListener("click", function() {
+            if (!confirm('정말 삭제하겠습니까?')) {
+                return;
+            }
+
+            fileManager.delete(seq, f => {
+                const el = document.getElementById(`file-${f.seq}`);
+                if (el) el.parentElement.removeChild(el);
+            });
+        });
     }
 
     if (imageUrls.length > 0) insertImage(imageUrls);

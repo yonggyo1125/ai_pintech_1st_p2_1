@@ -96,14 +96,16 @@ window.addEventListener("DOMContentLoaded", function() {
              fileEl.removeEventListener("change", fileEventHandler);
              fileEl.addEventListener("change", fileEventHandler);
 
-             function fileEventHandler(e) {
-                const files = e.currentTarget.files;
-                const {gid, location, single, imageOnly, done} = fileEl;
 
-                const { fileManager } = commonLib;
-                fileManager.upload(files, gid, location, single, imageOnly, done);
-             }
         });
+
+        function fileEventHandler(e) {
+            const files = e.currentTarget.files;
+            const {gid, location, single, imageOnly, done} = fileEl;
+
+            const { fileManager } = commonLib;
+            fileManager.upload(files, gid, location, single, imageOnly, done);
+        }
     }
 
     // 드래그 앤 드롭 파일 업로드 처리

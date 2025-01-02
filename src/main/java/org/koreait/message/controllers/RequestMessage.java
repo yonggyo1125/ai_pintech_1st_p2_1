@@ -3,6 +3,9 @@ package org.koreait.message.controllers;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+import org.koreait.file.entities.FileInfo;
+
+import java.util.List;
 
 @Data
 public class RequestMessage {
@@ -24,4 +27,7 @@ public class RequestMessage {
 
     @NotBlank
     private String content;
+
+    private List<FileInfo> editorImages;
+    private List<FileInfo> attachFiles;
 }

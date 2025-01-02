@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.Arrays;
 import java.util.List;
 
 @SpringBootTest
@@ -18,8 +19,7 @@ public class SentimentServiceTest {
     void predictTest() {
         List<String> items = List.of("재미없음", "재미있음, 10점 만점");
 
-        //List<Double> predictions = service.predict(items);
-
-        System.out.println();
+        double[] predictions = service.predict(items);
+        System.out.println(Arrays.toString(predictions));
     }
 }

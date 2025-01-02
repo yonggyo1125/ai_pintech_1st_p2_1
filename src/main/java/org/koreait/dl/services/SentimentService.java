@@ -29,11 +29,14 @@ public class SentimentService {
 
     public double[] predict(List<String> items) {
         try {
-            String data = om.writeValueAsString(items);
+            String data = String.join("__", items);
 
             ProcessBuilder builder = new ProcessBuilder(runPath, scriptPath + "naver.py", bertPath, data);
             Process process = builder.start();
             InputStream in = process.getInputStream();
+
+            process.waitFor();
+
             return om.readValue(in.readAllBytes(), double[].class);
 
         } catch (Exception e) {

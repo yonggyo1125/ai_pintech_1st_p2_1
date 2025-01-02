@@ -5,6 +5,12 @@ window.addEventListener("DOMContentLoaded", function() {
         .then((editor) => {
             window.editor = editor; // 전역 변수로 등록, then 구간 외부에서도 접근 가능하게 처리
         });
+
+    // 이미지 본문 추가 이벤트 처리
+    const insertEditors = document.querySelectorAll(".insert-editor")
+    insertEditors.forEach(el => {
+        el.addEventListener("click", e => insertImage(e.currentTarget.dataset.url));
+    })
 });
 
 

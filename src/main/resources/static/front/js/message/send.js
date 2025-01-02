@@ -17,8 +17,6 @@ function callbackFileUpload(files) {
         return;
     }
 
-    console.log(files);
-
     const imageUrls = [];
 
     const targetEditor = document.getElementById("editor-files");
@@ -35,14 +33,18 @@ function callbackFileUpload(files) {
 
         const dom = domParser.parseFromString(html, "text/html");
         const fileItem = dom.querySelector(".file-item");
+        const el = fileItem.querySelector(".insert-editor");
 
         if (location === 'editor') { // 에디터에 추가될 이미지
             imageUrls.push(fileUrl);
 
             targetEditor.append(fileItem);
+            el.addEventListener("click", function() {
+                const { url } = this.dataset;
+                insertImage(url);
+            });
 
         } else { // 다운로드를 위한 첨부 파일
-            const el = fileItem.querySelector(".insert-editor");
             el.parentElement.removeChild(el);
 
             targetAttach.append(fileItem);
@@ -53,5 +55,7 @@ function callbackFileUpload(files) {
 }
 
 function insertImage(imageUrls) {
+    imageUrls = typeof imageUrls === 'string' ? [imageUrls] : imageUrls;
+
     editor.execute('insertImage', { source: imageUrls });
 }

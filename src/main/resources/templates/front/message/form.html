@@ -45,7 +45,12 @@
             <dt>파일첨부</dt>
             <dd>
                 <button type="button" class="file-upload" th:text="#{파일_업로드}" th:data-gid="*{gid}" data-location="attach"></button>
-                <div class="uploaded-files" id="attach-files"></div>
+                <div class="uploaded-files" id="attach-files">
+                    <span th:if="*{attachFiles != null}" th:each="item : *{attachFiles}" class="file-item" th:id="${'file-' + item.seq}">
+                       <a th:href="@{/api/file/download/{seq}(seq=${item.seq})}" th:text="${item.fileName}"></a>
+                        <i class="remove xi-close" th:data-seq="${item.seq}"></i>
+                    </span>
+                </div>
             </dd>
         </dl>
         <div class="button-group">

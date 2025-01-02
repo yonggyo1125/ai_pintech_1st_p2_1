@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
@@ -25,6 +26,7 @@ public class ApiDlControllerTest {
         mockMvc.perform(post("/api/dl/sentiment")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("items", "재미없음", "재미있음")
+                        .with(csrf().asHeader())
                 )
                 .andDo(print());
     }

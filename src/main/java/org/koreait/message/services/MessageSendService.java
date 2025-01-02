@@ -3,6 +3,7 @@ package org.koreait.message.services;
 import lombok.RequiredArgsConstructor;
 import org.koreait.file.services.FileDoneService;
 import org.koreait.member.entities.Member;
+import org.koreait.member.exceptions.MemberNotFoundException;
 import org.koreait.member.libs.MemberUtil;
 import org.koreait.member.repositories.MemberRepository;
 import org.koreait.message.constants.MessageStatus;
@@ -24,7 +25,7 @@ public class MessageSendService {
     public void process(RequestMessage form) {
 
         String email = form.getEmail();
-        Member receiver = !form.isNotice() ? memberRepository.findByEmail(email).orElse(null) : null;
+        Member receiver = !form.isNotice() ? memberRepository.findByEmail(email).orElseThrow(MemberNotFoundException::new) : null;
 
         Message message = Message.builder()
                 .gid(form.getGid())

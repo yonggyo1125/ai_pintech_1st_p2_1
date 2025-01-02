@@ -31,7 +31,14 @@
                 <textarea name="content" th:field="*{content}" id="content"></textarea>
                 <div class="error" th:each="err : ${#fields.errors('content')}" th:text="${err}"></div>
                 <button type="button" class="file-upload image" th:text="#{이미지_업로드}" th:data-gid="*{gid}" data-location="editor" data-image-only="true"></button>
-                <div class="uploaded-files" id="editor-files"></div>
+                <div class="uploaded-files" id="editor-files">
+
+                    <span th:if="*{editorImages != null}" th:each="item : *{editorImages}" class="file-item" th:id="${'file-' + item.seq}">
+                       <a th:href="@{/api/file/download/{seq}(seq=${item.seq})}" th:text="${item.fileName}"></a>
+                        <i class="insert-editor xi-upload" th:data-url="${item.fileUrl}"></i>
+                        <i class="remove xi-close" th:data-seq="${item.seq}"></i>
+                    </span>
+                </div>
             </dd>
         </dl>
         <dl>

@@ -12,12 +12,18 @@
         <div class="date" th:text="*{#temporals.format(createdAt, 'yyyy.MM.dd HH:mm:ss')}"></div>
     </div>
     <!--// info -->
+
     <div class="content" th:utext="*{content}"></div>
     <ul th:if="*{attachFiles != null && !attachFiles.isEmpty()}">
-        <li th:each="file, status : ${attachFiles}" th:object="${file}">
+        <li th:each="file, status : *{attachFiles}" th:object="${file}">
             <span class="badge">#<th:block th:text="${status.count}"></th:block></span>
             <a th:href="@{/api/file/download/{seq}(seq=*{seq})}" th:text="*{fileName}"></a>
         </li>
     </ul>
+    <div class="links">
+        <a th:href="@{/message}" th:text="#{쪽지_보내기}"></a>
+        <a th:text="#{삭제하기}"></a>
+        <a th:href="@{/message/list}" th:text="#{쪽지함}"></a>
+    </div>
 </main>
 </html>

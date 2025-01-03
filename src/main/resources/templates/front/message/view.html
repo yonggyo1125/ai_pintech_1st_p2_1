@@ -13,5 +13,11 @@
     </div>
     <!--// info -->
     <div class="content" th:utext="*{content}"></div>
+    <ul th:if="*{attachFiles != null && !attachFiles.isEmpty()}">
+        <li th:each="file, status : ${attachFiles}" th:object="${file}">
+            <span class="badge">#<th:block th:text="${status.count}"></th:block></span>
+            <a th:href="@{/api/file/download/{seq}(seq=*{seq})}" th:text="*{fileName}"></a>
+        </li>
+    </ul>
 </main>
 </html>

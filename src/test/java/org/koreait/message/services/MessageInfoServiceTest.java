@@ -1,5 +1,6 @@
 package org.koreait.message.services;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.koreait.member.entities.Member;
 import org.koreait.member.repositories.MemberRepository;
 import org.koreait.member.services.MemberUpdateService;
@@ -25,4 +26,14 @@ public class MessageInfoServiceTest {
 
     private Member sender;
     private Member receiver;
+
+    @BeforeEach
+    void init() {
+
+
+
+        for (int i = 1; i <= 10; i++) {
+
+        }
+    }
 }

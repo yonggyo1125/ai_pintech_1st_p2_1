@@ -14,5 +14,10 @@ public class MemberLoginService {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         System.out.printf("%s, %s%n", email, password);
+
+        request.setAttribute("email", email);
+        request.setAttribute("password", password);
     }
+
+
 }

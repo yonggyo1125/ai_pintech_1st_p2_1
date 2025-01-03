@@ -3,6 +3,26 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{front/layouts/main}">
 <main layout:fragment="content">
+    <h1 th:text="#{쪽지함}"></h1>
 
+    <form name="frmSearch" method="GET" th:action="@{/message/list}" autocomplete="off">
+
+    </form>
+
+    <ul class="items">
+        <li th:if="${items != null && !items.isEmpty()}" class="item" th:each="item : ${items}" th:object="${item}">
+            <a th:href="@{/message/view/{seq}(seq=*{seq})}" class="subject">
+                <span class="badge" th:text="*{#messages.msg(status)}"></span>
+                <th:block th:text="*{subject}"></th:block>
+            </a>
+            <div class="info">
+                <span class="sender" th:text="*{#strings.concat(sender.name, '(', sender.email, ')')}"></span>
+                <span class="date" th:text="*{#temporals.format(createdAt, 'yy.MM.dd HH:mm')}"></span>
+            </div>
+        </li>
+        <li th:unless="${items != null && !items.isEmpty()}" class="no-data" th:text="#{조회된_쪽지가_없습니다.}"></li>
+    </ul>
+
+    <th:block th:replace="~{common/_pagination::pagination}"></th:block>
 </main>
 </html>

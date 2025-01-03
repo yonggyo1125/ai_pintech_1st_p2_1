@@ -194,8 +194,8 @@ public class Utils {
      * @return
      */
     public String nl2br(String text) {
-        return text.replaceAll("\\r", "")
-                .replaceAll("\\n", "<br>");
+        return text == null ? "" : text.replaceAll("\\r", "")
+                                        .replaceAll("\\n", "<br>");
     }
 
     public String popup(String url, int width, int height) {

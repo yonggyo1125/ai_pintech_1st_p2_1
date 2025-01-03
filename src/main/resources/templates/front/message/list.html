@@ -5,8 +5,18 @@
 <main layout:fragment="content">
     <h1 th:text="#{쪽지함}"></h1>
 
-    <form name="frmSearch" method="GET" th:action="@{/message/list}" autocomplete="off">
+    <form name="frmSearch" method="GET" th:action="@{/message/list}" autocomplete="off" th:object="${messageSearch}">
 
+        <div class="tab-group">
+            <label class="tab">
+                <input type="radio" name="mode" value="receive" th:field="*{mode}" onclick="frmSearch.submit()">
+                <th:block th:text="#{받은_쪽지}"></th:block>
+            </label>
+            <label class="tab">
+                <input type="radio" name="mode" value="send" th:field="*{mode}" onclick="frmSearch.submit()">
+                <th:block th:text="#{보낸_쪽지}"></th:block>
+            </label>
+        </div>
     </form>
 
     <ul class="items">

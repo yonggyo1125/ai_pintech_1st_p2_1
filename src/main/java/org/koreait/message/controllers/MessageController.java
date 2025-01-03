@@ -85,6 +85,8 @@ public class MessageController {
     @GetMapping("/list")
     public String list(@ModelAttribute MessageSearch search, Model model) {
         commonProcess("list", model);
+        String mode = search.getMode();
+        search.setMode(StringUtils.hasText(mode) ? mode : "receive");
 
         ListData<Message> data = infoService.getList(search);
         model.addAttribute("items", data.getItems());

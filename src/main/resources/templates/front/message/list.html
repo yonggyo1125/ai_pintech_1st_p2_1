@@ -5,7 +5,19 @@
 <main layout:fragment="content">
     <h1 th:text="#{쪽지함}"></h1>
 
+    <a th:href="@{/message}" th:text="#{쪽지_보내기}"></a>
+
     <form name="frmSearch" method="GET" th:action="@{/message/list}" autocomplete="off" th:object="${messageSearch}">
+
+        <div class="search-box">
+            <select name="sopt" th:field="*{sopt}">
+                <option value="SUBJECT" th:text="#{제목}"></option>
+                <option value="ALL" th:text="#{제목+내용}"></option>
+            </select>
+            <input type="text" name="skey" th:field="*{skey}" th:placeholder="#{검색어를_입력하세요.}">
+            <button type="submit" th:text="#{조회하기}"></button>
+        </div>
+
 
         <div class="tab-group">
             <label class="tab">

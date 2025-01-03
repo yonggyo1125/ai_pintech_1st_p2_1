@@ -11,11 +11,13 @@ import org.koreait.mypage.controllers.RequestProfile;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.TestExecutionEvent;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles({"default", "test"})
@@ -55,9 +57,14 @@ public class MemberUpdateServiceTest2 {
 
     @Test
     @DisplayName("회원정보 수정 성공시 예외가 발생하지 않는 테스트")
+    @WithUserDetails(value="user01@test.org", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     void updateSuccessTest() {
+        profile.setName("(수정)이이름");
         assertDoesNotThrow(() -> {
             service.process(profile);
         });
+
+        Member member = repository.findByEmail(profile.getEmail()).orElse(null);
+        assertEquals(profile.getName(), member.getName());
     }
 }

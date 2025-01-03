@@ -2,7 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{front/layouts/main}">
-<main layout:fragment="content">
-
+<main layout:fragment="content" th:object="${item}">
+    <div class="subject" th:text="*{subject}"></div>
+    <div class="info">
+        <div class="sender">
+            <th:block th:text="#{보낸사람}"></th:block>:
+            <th:block th:text="*{#strings.concat(sender.name, '(', sender.email + ')')}"></th:block>
+        </div>
+        <div class="date" th:text="*{#temporals.format(createdAt, 'yyyy.MM.dd HH:mm:ss')}"></div>
+    </div>
+    <!--// info -->
+    <div class="content" th:utext="*{content}"></div>
 </main>
 </html>

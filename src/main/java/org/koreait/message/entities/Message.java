@@ -49,4 +49,7 @@ public class Message extends BaseEntity {
 
     @Transient
     private List<FileInfo> attachFiles;
+
+    @Transient
+    private boolean received;
 }

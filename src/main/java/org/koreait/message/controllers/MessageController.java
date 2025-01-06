@@ -1,5 +1,6 @@
 package org.koreait.message.controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.koreait.file.constants.FileStatus;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Controller
@@ -100,13 +102,16 @@ public class MessageController {
     }
 
     @GetMapping("/view/{seq}")
-    public String view(@PathVariable("seq") Long seq, Model model) {
+    public String view(@PathVariable("seq") Long seq, Model model, HttpServletRequest request) {
         commonProcess("view", model);
 
         Message item = infoService.get(seq);
         model.addAttribute("item", item);
 
         statusService.change(seq); // 열람 상태로 변경
+
+        String referer = Objects.requireNonNullElse(request.getHeader("referer"),"");
+        model.addAttribute("mode", referer.contains("mode=send") ? "send":"receive");
 
         return utils.tpl("message/view");
     }

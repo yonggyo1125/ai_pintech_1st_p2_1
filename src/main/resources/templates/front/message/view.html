@@ -22,7 +22,7 @@
     </ul>
     <div class="links">
         <a th:href="@{/message}" th:text="#{쪽지_보내기}"></a>
-        <a th:text="#{삭제하기}"></a>
+        <a th:if="*{deletable}" th:href="@{/message/delete/{seq}?mode={mode}(seq=*{seq}, mode=${mode})}" th:text="#{삭제하기}" onclick="return confirm('정말 삭제하겠습니까?');"></a>
         <a th:href="@{/message/list}" th:text="#{쪽지함}"></a>
     </div>
 </main>

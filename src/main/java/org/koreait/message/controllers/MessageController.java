@@ -8,6 +8,7 @@ import org.koreait.global.annotations.ApplyErrorPage;
 import org.koreait.global.libs.Utils;
 import org.koreait.global.paging.ListData;
 import org.koreait.message.entities.Message;
+import org.koreait.message.services.MessageDeleteService;
 import org.koreait.message.services.MessageInfoService;
 import org.koreait.message.services.MessageSendService;
 import org.koreait.message.services.MessageStatusService;
@@ -34,6 +35,7 @@ public class MessageController {
     private final MessageSendService sendService;
     private final MessageInfoService infoService;
     private final MessageStatusService statusService;
+    private final MessageDeleteService deleteService;
 
     @ModelAttribute("addCss")
     public List<String> addCss() {
@@ -110,8 +112,9 @@ public class MessageController {
     }
 
     @GetMapping("/delete/{seq}")
-    public String delete(@PathVariable("seq") Long seq) {
+    public String delete(@PathVariable("seq") Long seq, @RequestParam(name="mode", defaultValue = "receive") String mode) {
 
+        deleteService.process(seq, mode);
 
         return "redirect:/message/list";
     }

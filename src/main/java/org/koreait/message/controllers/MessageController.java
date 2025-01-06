@@ -97,8 +97,6 @@ public class MessageController {
 
         sb.append(String.format("location.replace('%s');",request.getContextPath() + "/message/list"));
 
-        System.out.println(sb);
-
         model.addAttribute("script", sb.toString());
 
         return "common/_execute_script";

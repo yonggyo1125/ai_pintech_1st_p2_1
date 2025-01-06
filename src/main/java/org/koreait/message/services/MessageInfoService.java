@@ -83,7 +83,19 @@ public class MessageInfoService {
 
         mode = StringUtils.hasText(mode) ? mode : "receive";
         // send - 보낸 쪽지 목록, receive - 받은 쪽지 목록
-        andBuilder.and(mode.equals("send") ? message.sender.eq(member) : message.receiver.eq(member));
+        if (mode.equals("send")) {
+            andBuilder.and(message.sender.eq(member));
+        } else {
+            BooleanBuilder orBuilder = new BooleanBuilder();
+            BooleanBuilder andBuilder1 = new BooleanBuilder();
+
+            orBuilder.or(andBuilder1.and(message.notice.eq(true)).and(message.receiver.isNull())) // 공지쪽지
+                    .or(message.receiver.eq(member));
+
+            andBuilder.and(orBuilder);
+        }
+
+
         andBuilder.and(mode.equals("send") ? message.deletedBySender.eq(false) : message.deletedByReceiver.eq(false));
 
         // 보낸사람 조건 검색

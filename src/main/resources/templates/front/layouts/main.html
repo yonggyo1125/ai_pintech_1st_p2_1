@@ -34,6 +34,7 @@
 
         <th:block layout:fragment="addCss"></th:block>
 
+        <script th:src="@{/common/js/message.js?v={v}(v=*{jsVersion})}"></script>
         <script th:src="@{/common/js/common.js?v={v}(v=*{jsVersion})}"></script>
 
         <th:block th:if="${addCommonScript != null}">

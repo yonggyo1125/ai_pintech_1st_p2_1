@@ -80,7 +80,8 @@ public class MessageController {
 
         sendService.process(form);
 
-        return "redirect:/message/list";
+
+        return "common/_execute_script";
     }
 
     /**

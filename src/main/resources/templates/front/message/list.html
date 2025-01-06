@@ -34,7 +34,8 @@
     <ul class="items">
         <li th:if="${items != null && !items.isEmpty()}" class="item" th:each="item : ${items}" th:object="${item}">
             <a th:href="@{/message/view/{seq}(seq=*{seq})}" class="subject">
-                <span class="badge" th:text="*{#messages.msg(status)}"></span>
+                <span class="badge notice" th:if="*{notice}" th:text="#{공지}"></span>
+                <span class="badge" th:unless="*{notice}" th:text="*{#messages.msg(status)}"></span>
                 <th:block th:text="*{subject}"></th:block>
             </a>
             <div class="info">

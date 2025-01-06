@@ -109,8 +109,9 @@ public class MessageController {
         return utils.tpl("message/view");
     }
 
-    @DeleteMapping
-    public String delete(@RequestParam(name="seq", required = false) List<String> seq) {
+    @GetMapping("/delete/{seq}")
+    public String delete(@PathVariable("seq") Long seq) {
+
 
         return "redirect:/message/list";
     }

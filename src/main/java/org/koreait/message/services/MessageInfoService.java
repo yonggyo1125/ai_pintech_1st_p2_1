@@ -48,9 +48,15 @@ public class MessageInfoService {
 
         if (!memberUtil.isAdmin()) {
             Member member = memberUtil.getMember();
+            BooleanBuilder orBuilder2 = new BooleanBuilder();
+            BooleanBuilder andBuilder = new BooleanBuilder();
+
+            orBuilder2.or(andBuilder.and(message.notice.eq(true)).and(message.receiver.isNull()))
+                            .or(message.receiver.eq(member));
 
             orBuilder.or(message.sender.eq(member))
-                    .or(message.receiver.eq(member));
+                            .or(orBuilder2);
+
 
             builder.and(orBuilder);
         }

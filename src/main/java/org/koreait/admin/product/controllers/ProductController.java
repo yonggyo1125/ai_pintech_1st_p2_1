@@ -1,12 +1,19 @@
 package org.koreait.admin.product.controllers;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.koreait.admin.global.menu.SubMenus;
+import org.koreait.file.constants.FileStatus;
+import org.koreait.file.services.FileInfoService;
 import org.koreait.global.annotations.ApplyErrorPage;
 import org.koreait.global.libs.Utils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @ApplyErrorPage
 @RequiredArgsConstructor
@@ -15,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 public class ProductController implements SubMenus {
 
     private final Utils utils;
+    private final FileInfoService fileInfoService;
 
     @Override
     @ModelAttribute("menuCode")
@@ -42,9 +50,10 @@ public class ProductController implements SubMenus {
      * @return
      */
     @GetMapping("/add")
-    public String add(Model model) {
+    public String add(@ModelAttribute RequestProduct form, Model model) {
         commonProcess("add", model);
 
+        form.setGid(UUID.randomUUID().toString());
 
         return "admin/product/add";
     }
@@ -69,8 +78,22 @@ public class ProductController implements SubMenus {
      * @return
      */
     @PostMapping("/save")
-    public String save(Model model) {
-        commonProcess("", model);
+    public String save(@Valid RequestProduct form, Errors errors, Model model) {
+        String mode = form.getMode();
+        mode = StringUtils.hasText(mode) ? mode : "add";
+
+        commonProcess(mode, model);
+
+        if (errors.hasErrors()) {
+            String gid = form.getGid();
+            form.setMainImages(fileInfoService.getList(gid, "main", FileStatus.ALL));
+            form.setListImages(fileInfoService.getList(gid, "list", FileStatus.ALL));
+            form.setEditorImages(fileInfoService.getList(gid, "editor", FileStatus.ALL));
+
+            return "admin/product/" + mode;
+        }
+
+        //  상품 등록, 수정 처리 서비스
 
         return "redirect:/admin/product/list";
     }

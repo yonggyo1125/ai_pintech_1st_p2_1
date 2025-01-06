@@ -1,4 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <th:block th:fragment="common"></th:block>
+    <th:block th:fragment="common" th:object="${requestProduct}">
+        <input type="hidden"  name="gid" th:field="*{gid}">
+        <h2>분류 설정</h2>
+
+        <h2>기본 정보</h2>
+        <table class="table-cols">
+            <tr>
+                <th width="180">상품명</th>
+                <td></td>
+            </tr>
+        </table>
+
+        <h2>상품 이미지</h2>
+
+        <h2>할인 설정</h2>
+
+        <h2>상품 옵션</h2>
+
+        <h2>배송 설정</h2>
+    </th:block>
 </html>

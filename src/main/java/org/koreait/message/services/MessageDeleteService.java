@@ -1,6 +1,7 @@
 package org.koreait.message.services;
 
 import lombok.RequiredArgsConstructor;
+import org.koreait.file.services.FileDeleteService;
 import org.koreait.global.exceptions.UnAuthorizedException;
 import org.koreait.member.libs.MemberUtil;
 import org.koreait.message.entities.Message;
@@ -15,6 +16,7 @@ import org.springframework.util.StringUtils;
 public class MessageDeleteService {
     private final MessageInfoService infoService;
     private final MessageRepository repository;
+    private final FileDeleteService fileDeleteService;
     private final MemberUtil memberUtil;
 
     /**
@@ -42,6 +44,26 @@ public class MessageDeleteService {
             }
         } // endif
 
+        if (mode.equals("send")) { // 보낸 쪽 
+            item.setDeletedBySender(true);
+        } else { // 받는 쪽
+            item.setDeletedByReceiver(true);
+        }
 
+        if (item.isDeletedBySender() && item.isDeletedByReceiver()) {
+            isProceedDelete = true; // 보낸쪽, 받는쪽 모두 삭제 한 경우 -> DB에서 삭제
+        }
+
+        // 삭제 진행이 필요한 경우 처리
+        if (isProceedDelete) {
+            String gid = item.getGid();
+
+            // DB에서 삭제
+            repository.delete(item);
+            repository.flush();
+
+            // 파일 삭제
+            fileDeleteService.deletes(gid);
+        }
     }
 }

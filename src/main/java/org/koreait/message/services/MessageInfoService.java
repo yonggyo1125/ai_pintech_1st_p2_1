@@ -149,9 +149,15 @@ public class MessageInfoService {
         item.setEditorImages(fileInfoService.getList(gid, "editor"));
         item.setAttachFiles(fileInfoService.getList(gid, "attach"));
 
+        Member member = memberUtil.getMember();
         item.setReceived(
                 (item.isNotice() && item.getReceiver() == null) ||
-                item.getReceiver().getSeq().equals(memberUtil.getMember().getSeq())
+                item.getReceiver().getSeq().equals(member.getSeq())
         );
+
+        // 삭제 가능 여부
+        boolean deletable = (item.isNotice() && memberUtil.isAdmin())
+                || (!item.isNotice() && (item.getSender().getSeq().equals(member.getSeq()) || item.getReceiver().getSeq().equals(member.getSeq())));
+        item.setDeletable(deletable);
     }
 }

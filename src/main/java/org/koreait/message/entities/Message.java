@@ -16,6 +16,7 @@ import java.util.List;
 @Entity
 @Builder
 @NoArgsConstructor @AllArgsConstructor
+@Table(indexes = @Index(name="idx_notice_created_at", columnList = "notice DESC, createdAt DESC"))
 public class Message extends BaseEntity {
     @Id @GeneratedValue
     private Long seq;

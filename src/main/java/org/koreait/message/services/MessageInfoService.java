@@ -128,7 +128,7 @@ public class MessageInfoService {
                 .where(andBuilder)
                 .limit(limit)
                 .offset(offset)
-                .orderBy(message.createdAt.desc())
+                .orderBy(message.notice.desc(), message.createdAt.desc())
                 .fetch();
 
         items.forEach(this::addInfo); // 추가 정보 처리
@@ -149,6 +149,9 @@ public class MessageInfoService {
         item.setEditorImages(fileInfoService.getList(gid, "editor"));
         item.setAttachFiles(fileInfoService.getList(gid, "attach"));
 
-        item.setReceived(item.getReceiver().getSeq().equals(memberUtil.getMember().getSeq()));
+        item.setReceived(
+                (item.isNotice() && item.getReceiver() == null) ||
+                item.getReceiver().getSeq().equals(memberUtil.getMember().getSeq())
+        );
     }
 }

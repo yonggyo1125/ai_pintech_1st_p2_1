@@ -1,5 +1,6 @@
 package org.koreait.member.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
@@ -55,6 +56,7 @@ public class Member extends BaseEntity implements Serializable {
     @Column(length=50)
     private String optionalTerms; // 선택 약관
 
+    @JsonIgnore
     @ToString.Exclude
     @OneToMany(mappedBy = "member")
     private List<Authorities> authorities;

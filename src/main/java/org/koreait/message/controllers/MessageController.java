@@ -89,11 +89,15 @@ public class MessageController {
 
         try {
             String json = om.writeValueAsString(data);
-            sb.append(String.format("if (typeof webSocket != undefined) webSocket.send('%s');", json));
+            sb.append(String.format("if (typeof webSocket != undefined) { webSocket.onopen = () => webSocket.send('%s'); }", json));
 
-        } catch (JsonProcessingException e) {}
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
 
         sb.append(String.format("location.replace('%s');",request.getContextPath() + "/message/list"));
+
+        System.out.println(sb);
 
         model.addAttribute("script", sb.toString());
 

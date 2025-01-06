@@ -1,4 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<script th:src="@{/common/js/message.js?v={v}(v=${siteConfig.jsVersion})}"></script>
 <script th:if="${script != null}" th:utext="${script}"></script>
 </html>

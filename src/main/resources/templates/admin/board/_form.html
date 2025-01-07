@@ -106,6 +106,19 @@
                     </span>
                 </td>
             </tr>
+            <tr>
+                <th>게시판 스킨</th>
+                <td>
+                    <span class="radio">
+                        <input type="radio" name="skin" value="default" th:field="*{skin}" id="skin-default">
+                        <label for="skin-default">기본(default)</label>
+                    </span>
+                    <span class="radio">
+                        <input type="radio" name="skin" value="gallery" th:field="*{skin}" id="skin-gallery">
+                        <label for="skin-gallery">갤러리(gallery)</label>
+                    </span>
+                </td>
+            </tr>
         </table>
     </th:block>
 </html>

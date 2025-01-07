@@ -9,6 +9,7 @@
         <meta name="_csrf" th:content="${_csrf.token}">
         <meta name="_csrf_header" th:content="${_csrf.headerName}">
         <meta name="rootUrl" th:content="@{/}">
+        <meta th:if="${@memberUtil.isLogin()}" name="user" th:content="${profile.email}">
 
         <title>
             <th:block th:if="${pageTitle != null}"

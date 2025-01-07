@@ -6,6 +6,9 @@ import org.koreait.member.constants.Authority;
 
 @Data
 public class RequestBoard {
+
+    private String mode;
+
     @NotBlank
     private String bid; // 게시판 아이디
 

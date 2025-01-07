@@ -1,19 +1,60 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <th:block th:fragment="common" th:object="${requestBoard}">
+        <div class="error global" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
+
         <h2>기본 설정</h2>
         <table class="table-cols mb30">
             <tr>
                 <th width="180">게시판 아이디</th>
-                <td th:if="*{mode === 'edit'}">
+                <td th:if="*{mode == 'edit'}">
                     <input type="hidden" name="bid" th:field="*{bid}">
                     <th:block th:text="*{bid}"></th:block>
                 </td>
-                <td th:unless="*{mode === 'edit'}">
+                <td th:unless="*{mode == 'edit'}">
                     <input type="text" name="bid" th:field="*{bid}">
                     <div class="error" th:each="err : ${#fields.errors('bid')}" th:text="${err}"></div>
                 </td>
             </tr>
+            <tr>
+                <th>게시판 이름</th>
+                <td>
+                    <input type="text" name="name" th:field="*{name}">
+                    <div class="error" th:each="err : ${#fields.errors('name')}" th:text="${err}"></div>
+                </td>
+            </tr>
+            <tr>
+                <th>사용여부</th>
+                <td>
+                    <span class="radio">
+                        <input type="radio" name="open" value="true" th:field="*{open}" id="open-true">
+                        <label for="open-true">사용</label>
+                    </span>
+                    <span class="radio">
+                        <input type="radio" name="open" value="false" th:field="*{open}" id="open-false">
+                        <label for="open-false">미사용</label>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th>1페이지 게시글 수</th>
+                <td>
+                    <input type="number" name="rowsPerPage" th:field="*{rowsPerPage}">
+                </td>
+            </tr>
+            <tr>
+                <th>페이지 링크수(front)</th>
+                <td>
+                    <input type="number" name="pageRanges" th:field="*{pageRanges}">
+                </td>
+            </tr>
+            <tr>
+                <th>페이지 링크수(Mobile)</th>
+                <td>
+                    <input type="number" name="pageRangesMobile" th:field="*{pageRangesMobile}">
+                </td>
+            </tr>
+
         </table>
     </th:block>
 </html>

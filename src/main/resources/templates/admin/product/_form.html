@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <th:block th:fragment="common" th:object="${requestProduct}">
         <input type="hidden"  name="gid" th:field="*{gid}">
-        <div class="error global" th:each="err : ${#fields.globalErrors())}" th:text="${err}"></div>
+        <div class="error global" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
 
         <h2>분류 설정</h2>
 

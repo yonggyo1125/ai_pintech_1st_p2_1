@@ -37,7 +37,7 @@
                 <th>상세설명</th>
                 <td>
                     <textarea name="description" th:field="*{description}" id="description"></textarea>
-                    <button type="button" class="sbtn">이미지 업로드</button>
+                    <button type="button" class="sbtn file-upload" th:data-gid="*{gid}" data-location="editor" data-image-only="true" ->이미지 업로드</button>
                     <div class="upload-files" id="editor-images"></div>
                 </td>
             </tr>

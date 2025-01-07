@@ -20,6 +20,8 @@ public class RequestBoard {
     private boolean useEditor; // 에디터 사용 여부
     private boolean useEditorImage; // 에디터 첨부 이미지 사용 여부
     private boolean useAttachFile; // 다운로드용 첨부 파일 사용 여부
+    private boolean useComment; // 댓글 사용 여부
+    private String skin; // 게시판 스킨
 
     /**
      * ALL - 비회원 + 회원 + 관리자

@@ -27,8 +27,23 @@ public class Board extends BaseMemberEntity {
     private boolean useEditor;
     private boolean useEditorImage;
     private boolean useAttachFile;
+    private boolean useComment; // 댓글 사용 여부
+
+    private String skin;
 
     @Enumerated(EnumType.STRING)
     @Column(length=20, nullable = false)
     private Authority listAuthority;
+
+    @Enumerated(EnumType.STRING)
+    @Column(length=20, nullable = false)
+    private Authority viewAuthority;
+
+    @Enumerated(EnumType.STRING)
+    @Column(length=20, nullable = false)
+    private Authority writeAuthority;
+
+    @Enumerated(EnumType.STRING)
+    @Column(length=20, nullable = false)
+    private Authority commentAuthority;
 }

@@ -167,7 +167,7 @@
                 </td>
             </tr>
             <tr>
-                <th width="180">글쓰기 접근 권한</th>
+                <th width="180">글쓰기 권한</th>
                 <td>
                     <span class="radio">
                         <input type="radio" name="writeAuthority" value="ALL" id="writeAuthority-ALL" th:field="*{writeAuthority}">
@@ -184,19 +184,19 @@
                 </td>
             </tr>
             <tr>
-                <th width="180">글목록 접근 권한</th>
+                <th width="180">댓글 작성권한</th>
                 <td>
                     <span class="radio">
-                        <input type="radio" name="listAuthority" value="ALL" id="listAuthority-ALL" th:field="*{listAuthority}">
-                        <label for="listAuthority-ALL">비회원 + 회원 + 관리자</label>
+                        <input type="radio" name="commentAuthority" value="ALL" id="commentAuthority-ALL" th:field="*{commentAuthority}">
+                        <label for="commentAuthority-ALL">비회원 + 회원 + 관리자</label>
                     </span>
                     <span class="radio">
-                        <input type="radio" name="listAuthority" value="USER" id="listAuthority-USER" th:field="*{listAuthority}">
-                        <label for="listAuthority-USER">회원 + 관리자</label>
+                        <input type="radio" name="commentAuthority" value="USER" id="commentAuthority-USER" th:field="*{commentAuthority}">
+                        <label for="commentAuthority-USER">회원 + 관리자</label>
                     </span>
                     <span class="radio">
-                        <input type="radio" name="listAuthority" value="ADMIN" id="listAuthority-ADMIN" th:field="*{listAuthority}">
-                        <label for="listAuthority-ADMIN">관리자</label>
+                        <input type="radio" name="commentAuthority" value="ADMIN" id="commentAuthority-ADMIN" th:field="*{commentAuthority}">
+                        <label for="commentAuthority-ADMIN">관리자</label>
                     </span>
                 </td>
             </tr>

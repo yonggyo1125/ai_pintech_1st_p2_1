@@ -2,13 +2,32 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <th:block th:fragment="common" th:object="${requestProduct}">
         <input type="hidden"  name="gid" th:field="*{gid}">
+        <div class="error global" th:each="err : ${#fields.globalErrors())}" th:text="${err}"></div>
+
         <h2>분류 설정</h2>
 
         <h2>기본 정보</h2>
         <table class="table-cols">
             <tr>
                 <th width="180">상품명</th>
-                <td></td>
+                <td>
+                    <input type="text" name="name" th:field="*{name}">
+                    <div class="error" th:each="err : ${#fields.errors('name')}" th:text="${err}"></div>
+                </td>
+            </tr>
+            <tr>
+                <th>요약설명</th>
+                <td>
+                    <textarea name="summary" th:field="*{summary}"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <th>상세설명</th>
+                <td>
+                    <textarea name="description" th:field="*{description}" id="description"></textarea>
+                    <button type="button" class="sbtn">이미지 업로드</button>
+                    <div class="upload-files" id="editor-images"></div>
+                </td>
             </tr>
         </table>
 

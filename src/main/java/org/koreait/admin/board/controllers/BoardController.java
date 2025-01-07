@@ -6,7 +6,11 @@ import org.koreait.global.annotations.ApplyErrorPage;
 import org.koreait.global.libs.Utils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @ApplyErrorPage
 @RequiredArgsConstructor
@@ -28,7 +32,7 @@ public class BoardController implements SubMenus {
      * @param model
      * @return
      */
-    @GetMapping("/list")
+    @GetMapping({"", "/list"})
     public String list(Model model) {
         commonProcess("list", model);
 
@@ -92,6 +96,22 @@ public class BoardController implements SubMenus {
      * @param model
      */
     private void commonProcess(String mode, Model model) {
+        mode = StringUtils.hasText(mode) ? mode : "list";
 
+        List<String> addCommonScript = new ArrayList<>();
+
+
+        String pageTitle = "";
+        if (mode.equals("list")) {
+            pageTitle = "게시판 목록";
+        } else if (mode.equals("add") || mode.equals("edit")) {
+            pageTitle = mode.equals("edit") ? "게시판 수정" : "게시판 등록";
+            addCommonScript.add("fileManager");
+
+        } else if (mode.equals("posts")) {
+            pageTitle = "게시글 관리";
+        }
+        
+        pageTitle += " - 게시판 관리";
     }
 }

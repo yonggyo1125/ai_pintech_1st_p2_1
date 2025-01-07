@@ -13,4 +13,12 @@ webSocket.addEventListener("message", function(data) {
     if (isShow) { // 메세지 팝업
         commonLib.message("쪽지가 왔습니다.");
     }
+
+    if (totalUnRead > 0) {
+        const badge = document.querySelector(".link-mypage .badge");
+        if (badge) {
+            badge.innerText = totalUnRead;
+            badge.classList.remove("dn");
+        }
+    }
 });

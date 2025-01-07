@@ -4,5 +4,23 @@
       layout:decorate="~{admin/layouts/main}">
 <div layout:fragment="content">
     <h1>게시판 목록</h1>
+    <form name="frmSearch" method="GET" th:action="@{/admin/board/list}" autocomplete="off" th:object="${boardSearch}">
+        <table class="table-cols">
+            <tr>
+                <th width="180">키워드</th>
+                <td class="flex ac">
+                    <select name="sopt" th:field="*{sopt}">
+                        <option value="ALL">통합검색</option>
+                        <option value="BID">게시판 아이디</option>
+                        <option value="NAME">게시판 이름</option>
+                    </select>
+                    <input type="text" name="skey" th:field="*{skey}">
+                </td>
+            </tr>
+        </table>
+        <button type="submit" class="submit-btn">검색하기</button>
+    </form>
+
+    <th:block th:replace="~{common/_pagination::pagination}"></th:block>
 </div>
 </html>

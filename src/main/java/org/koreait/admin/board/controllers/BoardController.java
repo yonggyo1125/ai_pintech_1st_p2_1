@@ -4,9 +4,12 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.koreait.admin.board.validators.BoardValidator;
 import org.koreait.admin.global.menu.SubMenus;
+import org.koreait.board.entities.Board;
+import org.koreait.board.services.configs.BoardConfigInfoService;
 import org.koreait.board.services.configs.BoardConfigUpdateService;
 import org.koreait.global.annotations.ApplyErrorPage;
 import org.koreait.global.libs.Utils;
+import org.koreait.global.paging.ListData;
 import org.koreait.member.constants.Authority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +29,7 @@ public class BoardController implements SubMenus {
     private final Utils utils;
     private final BoardValidator boardValidator;
     private final BoardConfigUpdateService configUpdateService;
+    private final BoardConfigInfoService configInfoService;
 
     @Override
     @ModelAttribute("menuCode")
@@ -40,8 +44,13 @@ public class BoardController implements SubMenus {
      * @return
      */
     @GetMapping({"", "/list"})
-    public String list(Model model) {
+    public String list(@ModelAttribute BoardConfigSearch search, Model model) {
         commonProcess("list", model);
+
+        ListData<Board> data = configInfoService.getList(search);
+
+        model.addAttribute("items", data.getItems());
+        model.addAttribute("pagination", data.getPagination());
 
         return "admin/board/list";
     }
@@ -74,6 +83,9 @@ public class BoardController implements SubMenus {
     @GetMapping("/edit/{bid}")
     public String edit(@PathVariable("bid") String bid, Model model) {
         commonProcess("edit", model);
+
+        RequestBoard form = configInfoService.getForm(bid);
+        model.addAttribute("requestBoard", form);
 
         return "admin/board/edit";
     }

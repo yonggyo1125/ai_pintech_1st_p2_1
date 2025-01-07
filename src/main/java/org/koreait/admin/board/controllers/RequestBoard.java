@@ -21,6 +21,11 @@ public class RequestBoard {
     private boolean useEditorImage; // 에디터 첨부 이미지 사용 여부
     private boolean useAttachFile; // 다운로드용 첨부 파일 사용 여부
 
+    /**
+     * ALL - 비회원 + 회원 + 관리자
+     * USER - 회원 + 관리자
+     * ADMIN - 관리자
+     */
     private Authority listAuthority; // 목록 접근 권한
     private Authority viewAuthority; // 글보기 접근 권한
     private Authority writeAuthority; // 글쓰기, 수정, 삭제 권한

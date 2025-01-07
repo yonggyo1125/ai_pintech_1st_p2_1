@@ -27,9 +27,9 @@ public class BoardConfigUpdateService {
         board.setName(form.getName());
         board.setOpen(form.isOpen());
         board.setCategory(form.getCategory());
-        board.setRowsPerPage(form.getRowsPerPage() < 0 ? 20 : form.getRowsPerPage());
-        board.setPageRanges(form.getPageRanges() < 0 ? 10 : form.getPageRanges());
-        board.setPageRangesMobile(form.getPageRangesMobile() < 0 ? 5 : form.getPageRangesMobile());
+        board.setRowsPerPage(form.getRowsPerPage() < 1 ? 20 : form.getRowsPerPage());
+        board.setPageRanges(form.getPageRanges() < 1 ? 10 : form.getPageRanges());
+        board.setPageRangesMobile(form.getPageRangesMobile() < 1 ? 5 : form.getPageRangesMobile());
         board.setUseEditor(form.isUseEditor());
         board.setUseEditorImage(form.isUseEditorImage());
         board.setUseAttachFile(form.isUseAttachFile());
@@ -39,5 +39,7 @@ public class BoardConfigUpdateService {
         board.setViewAuthority(Objects.requireNonNullElse(form.getViewAuthority(), Authority.ALL));
         board.setWriteAuthority(Objects.requireNonNullElse(form.getWriteAuthority(), Authority.ALL));
         board.setCommentAuthority(Objects.requireNonNullElse(form.getCommentAuthority(), Authority.ALL));
+
+        boardRepository.saveAndFlush(board);
     }
 }

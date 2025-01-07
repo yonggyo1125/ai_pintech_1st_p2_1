@@ -5,6 +5,8 @@ import lombok.Data;
 import org.koreait.global.entities.BaseMemberEntity;
 import org.koreait.member.constants.Authority;
 
+import java.util.List;
+
 @Data
 @Entity
 public class Board extends BaseMemberEntity {
@@ -46,4 +48,7 @@ public class Board extends BaseMemberEntity {
     @Enumerated(EnumType.STRING)
     @Column(length=20, nullable = false)
     private Authority commentAuthority;
+
+    @Transient
+    private List<String> categories;
 }

@@ -49,11 +49,6 @@ public class MypageController {
         return memberUtil.getMember();
     }
 
-    @ModelAttribute("addCss")
-    public List<String> addCss() {
-        return List.of("mypage/style");
-    }
-
     @GetMapping
     public String index(Model model) {
         commonProcess("main", model);

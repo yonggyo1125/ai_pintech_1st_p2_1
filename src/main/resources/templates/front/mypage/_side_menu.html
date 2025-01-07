@@ -1,4 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <aside th:fragment="menu"></aside>
+    <aside th:fragment="menu">
+        <a th:href="@{/mypage/profile}" th:text="#{회원정보_수정}"></a>
+        <a th:href="@{/message/list}" th:text="${#strings.concat(#messages.msg('쪽지함'), '(', totalUnRead, ')')}"></a>
+    </aside>
 </html>

@@ -1,3 +1,21 @@
+/* 마이페이지 레이아웃 S */
+main {
+    display: flex;
+    padding: 40px 0 100px;
+}
+
+
+main > aside {
+    width: 200px;
+}
+
+main > section {
+    flex-grow: 1;
+    padding: 30px;
+}
+
+/* 마이페이지 레이아웃 E */
+
 .profile-image {
     width: 250px;
     height: 300px;

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{front/layouts/main}">
-<main layout:fragment="content">
-    <h1>마이페이지</h1>
-</main>
+      layout:decorate="~{front/layouts/mypage}">
+<section layout:fragment="content">
+    <h1 th:text="#{마이페이지}"></h1>
+</section>
 </html>

@@ -6,6 +6,7 @@ import org.koreait.admin.board.validators.BoardValidator;
 import org.koreait.admin.global.menu.SubMenus;
 import org.koreait.global.annotations.ApplyErrorPage;
 import org.koreait.global.libs.Utils;
+import org.koreait.member.constants.Authority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -52,6 +53,12 @@ public class BoardController implements SubMenus {
     @GetMapping("/add")
     public String add(@ModelAttribute RequestBoard form, Model model) {
         commonProcess("add", model);
+
+        form.setSkin("default");
+        form.setListAuthority(Authority.ALL);
+        form.setViewAuthority(Authority.ALL);
+        form.setWriteAuthority(Authority.ALL);
+        form.setCommentAuthority(Authority.ALL);
 
         return "admin/board/add";
     }

@@ -27,7 +27,7 @@
     <th:block layout:fragment="addCommonCss"></th:block>
 
     <link rel="stylesheet" type="text/css" th:href="@{/front/css/style.css?v={v}(v=*{cssVersion})}">
-    <link rel="stylesheet" type="text/css" th:href="@{/front/css/mypage/style.css?v={v}(v=*{jsVersion})}">
+    <link rel="stylesheet" type="text/css" th:href="@{/front/css/mypage/style.css?v={v}(v=*{cssVersion})}">
 
     <th:block th:if="${addCss != null}">
         <link rel="stylesheet" type="text/css" th:each="cssPath : ${addCss}"

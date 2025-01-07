@@ -4,7 +4,7 @@
       layout:decorate="~{admin/layouts/main}">
 <div layout:fragment="content">
     <h1>게시판 목록</h1>
-    <form name="frmSearch" method="GET" th:action="@{/admin/board/list}" autocomplete="off" th:object="${boardSearch}">
+    <form name="frmSearch" method="GET" th:action="@{/admin/board/list}" autocomplete="off" th:object="${boardConfigSearch}">
         <table class="table-cols">
             <tr>
                 <th width="180">키워드</th>

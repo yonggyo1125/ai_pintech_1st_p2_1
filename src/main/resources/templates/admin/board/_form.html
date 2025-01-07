@@ -54,7 +54,58 @@
                     <input type="number" name="pageRangesMobile" th:field="*{pageRangesMobile}">
                 </td>
             </tr>
-
+            <tr>
+                <th>에디터 사용</th>
+                <td>
+                    <span class="radio">
+                        <input type="radio" name="useEditor" value="true" id="useEditor-true" th:field="*{useEditor}">
+                        <label for="useEditor-true">사용</label>
+                    </span>
+                    <span class="radio">
+                        <input type="radio" name="useEditor" value="false" id="useEditor-false" th:field="*{useEditor}">
+                        <label for="useEditor-false">미사용</label>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th>에디터 이미지 첨부</th>
+                <td>
+                    <span class="radio">
+                        <input type="radio" name="useEditorImage" value="true" id="useEditorImage-true" th:field="*{useEditorImage}">
+                        <label for="useEditorImage-true">사용</label>
+                    </span>
+                    <span class="radio">
+                        <input type="radio" name="useEditorImage" value="false" id="useEditorImage-false" th:field="*{useEditorImage}">
+                        <label for="useEditorImage-false">미사용</label>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th>파일 첨부</th>
+                <td>
+                    <span class="radio">
+                        <input type="radio" name="useAttachFile" value="true" id="useAttachFile-true" th:field="*{useAttachFile}">
+                        <label for="useAttachFile-true">사용</label>
+                    </span>
+                    <span class="radio">
+                        <input type="radio" name="useAttachFile" value="false" id="useAttachFile-false" th:field="*{useAttachFile}">
+                        <label for="useAttachFile-false">미사용</label>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th>댓글 사용</th>
+                <td>
+                    <span class="radio">
+                        <input type="radio" name="useComment" value="true" id="useComment-true" th:field="*{useComment}">
+                        <label for="useComment-true">사용</label>
+                    </span>
+                    <span class="radio">
+                        <input type="radio" name="useComment" value="false" id="useComment-false" th:field="*{useComment}">
+                        <label for="useComment-false">미사용</label>
+                    </span>
+                </td>
+            </tr>
         </table>
     </th:block>
 </html>

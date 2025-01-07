@@ -113,5 +113,9 @@ public class BoardController implements SubMenus {
         }
         
         pageTitle += " - 게시판 관리";
+
+        model.addAttribute("pageTitle", pageTitle);
+        model.addAttribute("addCommonScript", addCommonScript);
+        model.addAttribute("subMenuCode", mode);
     }
 }

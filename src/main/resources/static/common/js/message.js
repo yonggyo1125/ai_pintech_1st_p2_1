@@ -10,6 +10,7 @@ webSocket.addEventListener("message", function(data) {
         isShow = true;
     }
 
-
-
+    if (isShow) { // 메세지 팝업
+        commonLib.message("쪽지가 왔습니다.");
+    }
 });

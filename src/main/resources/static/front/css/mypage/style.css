@@ -14,6 +14,16 @@ main > section {
     padding: 30px;
 }
 
+main > aside > a {
+    display: block;
+    height: 45px;
+    line-height: 44px;
+}
+
+main > aside > a + a {
+    border-top: 1px solid #ccc;
+}
+
 /* 마이페이지 레이아웃 E */
 
 .profile-image {

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{front/layouts/main}">
-<main layout:fragment="content">
+      layout:decorate="~{front/layouts/mypage}">
+<section layout:fragment="content">
     <form name="frmProfile" method="POST" th:action="@{/mypage/profile}" th:object="${requestProfile}" autocomplete="off">
         <input type="hidden" name="_method" value="PATCH">
         <div class="error global" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
@@ -116,5 +116,5 @@
         </dl>
         <button type="submit" th:text="#{수정하기}"></button>
     </form>
-</main>
+</section>
 </html>

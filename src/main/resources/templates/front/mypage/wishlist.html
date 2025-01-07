@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{front/layouts/main}">
-<main layout:fragment="content">
+      layout:decorate="~{front/layouts/mypage}">
+<section layout:fragment="content">
     <h1 th:text="#{나의_WISH}"></h1>
     <nav>
         <a th:href="@{/mypage/wishlist/POKEMON}" class="tab" th:classappend="${mode == null || mode.name == 'POKEMON'} ? 'on'" th:text="#{포켓몬}"></a>
@@ -16,5 +16,5 @@
         <th:block th:replace="~{front/mypage/_wish_pokemon::pokemon}"></th:block>
     </th:block>
     <th:block th:replace="~{common/_pagination::pagination}"></th:block>
-</main>
+</section>
 </html>

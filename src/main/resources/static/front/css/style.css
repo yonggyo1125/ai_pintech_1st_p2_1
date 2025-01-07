@@ -240,3 +240,9 @@ header .link-mypage .badge {
     color: #fff;
 }
 /* 페이지네이션 E */
+
+/* 제목 공통 S */
+h1 {
+    margin: 0;
+}
+/* 제목 공통 E */

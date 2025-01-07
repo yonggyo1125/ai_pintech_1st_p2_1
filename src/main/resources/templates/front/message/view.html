@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{front/layouts/main}">
-<main layout:fragment="content" th:object="${item}">
+      layout:decorate="~{front/layouts/mypage}">
+<section layout:fragment="content" th:object="${item}">
     <div class="subject" th:text="*{subject}"></div>
     <div class="info">
         <div class="sender">
@@ -25,5 +25,5 @@
         <a th:if="*{deletable}" th:href="@{/message/delete/{seq}?mode={mode}(seq=*{seq}, mode=${mode})}" th:text="#{삭제하기}" onclick="return confirm('정말 삭제하겠습니까?');"></a>
         <a th:href="@{/message/list}" th:text="#{쪽지함}"></a>
     </div>
-</main>
+</section>
 </html>

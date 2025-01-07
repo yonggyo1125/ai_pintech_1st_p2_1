@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:object="${siteConfig}">
+    <meta charset="UTF-8">
+    <meta name="keywords" th:if="*{keywords != null}" th:content="*{keywords}">
+    <meta name="description" th:if="*{description != null}" th:content="*{description}">
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+    <meta name="rootUrl" th:content="@{/}">
+    <meta th:if="${@memberUtil.isLogin()}" name="user" th:content="${profile.email}">
+
+    <title>
+        <th:block th:if="${pageTitle != null}"
+        th:text="${#strings.concat(pageTitle, ' - ')}"></th:block>
+        <th:block th:text="*{siteTitle}"></th:block>
+    </title>
+
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/common/css/style.css?v={v}(v=*{cssVersion})}">
+
+    <th:block th:if="${addCommonCss != null}">
+        <link rel="stylesheet" type="text/css"
+              th:each="cssPath : ${addCommonCss}" th:href="@{/common/css/{path}.css?v={v}(path=${cssPath}, v=*{cssVersion})}">
+    </th:block>
+
+    <th:block layout:fragment="addCommonCss"></th:block>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/front/css/style.css?v={v}(v=*{cssVersion})}">
+
+    <th:block th:if="${addCss != null}">
+        <link rel="stylesheet" type="text/css" th:each="cssPath : ${addCss}"
+              th:href="@{/front/css/{path}.css?v={v}(path=${cssPath}, v=*{cssVersion})}">
+    </th:block>
+
+    <th:block layout:fragment="addCss"></th:block>
+
+    <script th:src="@{/common/js/message.js?v={v}(v=*{jsVersion})}"></script>
+    <script th:src="@{/common/js/common.js?v={v}(v=*{jsVersion})}"></script>
+
+    <th:block th:if="${addCommonScript != null}">
+        <script th:each="jsPath : ${addCommonScript}"
+                th:src="@{/common/js/{path}.js?v={v}(path=${jsPath}, v=*{jsVersion})}"></script>
+    </th:block>
+
+    <th:block layout:fragment="addCommonScript"></th:block>
+
+    <script th:src="@{/front/js/common.js?v={v}(v=*{jsVersion})}"></script>
+
+    <th:block th:if="${addScript != null}">
+        <script th:each="jsPath : ${addScript}"
+                th:src="@{/front/js/{path}.js?v={v}(path=${jsPath}, v=*{jsVersion})}"></script>
+    </th:block>
+
+    <th:block layout:fragment="addScript"></th:block>
+
+</head>
+<body>
+<header th:replace="~{front/outlines/_header::common}"></header>
+
+<main class="layout-width">
+    <aside th:replacec="~{front/mypage/_side_menu::menu}"></aside>
+    <section layout:fragment="content"></section>
+</main>
+
+<footer th:replace="~{front/outlines/_footer::common}"></footer>
+</body>
+</html>

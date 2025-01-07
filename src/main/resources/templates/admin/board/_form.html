@@ -120,5 +120,86 @@
                 </td>
             </tr>
         </table>
+        <h2>게시판 분류</h2>
+        <table class="table-cols mb30">
+            <tr>
+                <th width="180">분류</th>
+                <td>
+                    <textarea name="category" th:field="*{category}" placeholder="분류 여러개는 엔터키를 눌러서 다음칸에 입력"></textarea>
+                </td>
+            </tr>
+        </table>
+
+        <h2>게시판 권한</h2>
+        <table class="table-cols mb30">
+            <tr>
+                <th width="180">글목록 접근 권한</th>
+                <td>
+                    <span class="radio">
+                        <input type="radio" name="listAuthority" value="ALL" id="listAuthority-ALL" th:field="*{listAuthority}">
+                        <label for="listAuthority-ALL">비회원 + 회원 + 관리자</label>
+                    </span>
+                    <span class="radio">
+                        <input type="radio" name="listAuthority" value="USER" id="listAuthority-USER" th:field="*{listAuthority}">
+                        <label for="listAuthority-USER">회원 + 관리자</label>
+                    </span>
+                    <span class="radio">
+                        <input type="radio" name="listAuthority" value="ADMIN" id="listAuthority-ADMIN" th:field="*{listAuthority}">
+                        <label for="listAuthority-ADMIN">관리자</label>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th width="180">글보기 접근 권한</th>
+                <td>
+                    <span class="radio">
+                        <input type="radio" name="viewAuthority" value="ALL" id="viewAuthority-ALL" th:field="*{viewAuthority}">
+                        <label for="viewAuthority-ALL">비회원 + 회원 + 관리자</label>
+                    </span>
+                    <span class="radio">
+                        <input type="radio" name="viewAuthority" value="USER" id="viewAuthority-USER" th:field="*{viewAuthority}">
+                        <label for="viewAuthority-USER">회원 + 관리자</label>
+                    </span>
+                    <span class="radio">
+                        <input type="radio" name="viewAuthority" value="ADMIN" id="viewAuthority-ADMIN" th:field="*{viewAuthority}">
+                        <label for="viewAuthority-ADMIN">관리자</label>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th width="180">글쓰기 접근 권한</th>
+                <td>
+                    <span class="radio">
+                        <input type="radio" name="writeAuthority" value="ALL" id="writeAuthority-ALL" th:field="*{writeAuthority}">
+                        <label for="writeAuthority-ALL">비회원 + 회원 + 관리자</label>
+                    </span>
+                    <span class="radio">
+                        <input type="radio" name="writeAuthority" value="USER" id="writeAuthority-USER" th:field="*{writeAuthority}">
+                        <label for="writeAuthority-USER">회원 + 관리자</label>
+                    </span>
+                    <span class="radio">
+                        <input type="radio" name="writeAuthority" value="ADMIN" id="writeAuthority-ADMIN" th:field="*{writeAuthority}">
+                        <label for="writeAuthority-ADMIN">관리자</label>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th width="180">글목록 접근 권한</th>
+                <td>
+                    <span class="radio">
+                        <input type="radio" name="listAuthority" value="ALL" id="listAuthority-ALL" th:field="*{listAuthority}">
+                        <label for="listAuthority-ALL">비회원 + 회원 + 관리자</label>
+                    </span>
+                    <span class="radio">
+                        <input type="radio" name="listAuthority" value="USER" id="listAuthority-USER" th:field="*{listAuthority}">
+                        <label for="listAuthority-USER">회원 + 관리자</label>
+                    </span>
+                    <span class="radio">
+                        <input type="radio" name="listAuthority" value="ADMIN" id="listAuthority-ADMIN" th:field="*{listAuthority}">
+                        <label for="listAuthority-ADMIN">관리자</label>
+                    </span>
+                </td>
+            </tr>
+        </table>
     </th:block>
 </html>

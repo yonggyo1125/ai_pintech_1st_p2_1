@@ -36,6 +36,18 @@
         <dd>
             <textarea name="content" id="content" th:field="*{content}"></textarea>
             <div class="error" th:each="err : ${#fields.errors('content')}" th:text="${err}"></div>
+
+            <th:block th:if="${board.useEditor() && board.useEditorImage()}">
+                <button type="button" class="file-upload image" th:text="#{이미지_업로드}" th:data-gid="*{gid}" data-location="editor" data-image-only="true"></button>
+                <div class="uploaded-files" id="editor-files"></div>
+            </th:block>
+        </dd>
+    </dl>
+    <dl th:if="${board.useAttachFile()}">
+        <dt th:text="#{파일_첨부}"></dt>
+        <dd>
+            <button type="button" class="file-upload attach" th:text="#{파일_업로드}" th:data-gid="*{gid}" data-location="attach"></button>
+            <div class="uploaded-files" id="attach-files"></div>
         </dd>
     </dl>
 </th:block>

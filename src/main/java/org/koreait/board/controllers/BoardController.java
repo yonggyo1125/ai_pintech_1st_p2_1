@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.koreait.board.entities.Board;
 import org.koreait.board.services.configs.BoardConfigInfoService;
+import org.koreait.board.validators.BoardValidator;
 import org.koreait.file.constants.FileStatus;
 import org.koreait.file.services.FileInfoService;
 import org.koreait.global.annotations.ApplyErrorPage;
@@ -31,6 +32,7 @@ public class BoardController {
     private final MemberUtil memberUtil;
     private final BoardConfigInfoService configInfoService;
     private final FileInfoService fileInfoService;
+    private final BoardValidator boardValidator;
 
     /**
      * 사용자별 공통 데이터
@@ -113,6 +115,8 @@ public class BoardController {
         String mode = form.getMode();
         mode = StringUtils.hasText(mode) ? mode : "write";
         commonProcess(form.getBid(), mode, model);
+
+        boardValidator.validate(form, errors);
 
         if (errors.hasErrors()) {
             String gid = form.getGid();

@@ -132,7 +132,7 @@ public class BoardController {
 
         Board board = commonValue.getBoard();
         // 글작성, 수정 성공시 글보기 또는 글목록으로 이동
-        String redirectUrl = String.format("board/%s", board.getLocationAfterWriting().equals("view") ? "view/.." : "list/" + board.getBid());
+        String redirectUrl = String.format("/board/%s", board.getLocationAfterWriting().equals("view") ? "view/.." : "list/" + board.getBid());
         return "redirect:" + redirectUrl;
     }
 

@@ -54,9 +54,30 @@
                     <td>
                         <input type="text" th:name="${'name_' + status.index}" th:value="*{name}">
                     </td>
+                    <td>
+                        <select th:name="${'open_' + status.index}">
+                            <option value="true" th:selected="*{open}">사용</option>
+                            <option value="false" th:selected="*{!open}">미사용</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select th:name="${'skin_' + status.index}">
+                            <option value="default" th:selected="*{skin == 'default'}">기본(default)</option>
+                            <option value="gallery" th:selected="*{skin == 'gallery'}">갤러리(gallery)</option>
+                        </select>
+                    </td>
+                    <td>
+                        <a th:href="@{/admin/board/edit/{bid}(bid=*{bid})}" class="sbtn">게시판설정</a>
+                        <a th:href="@{/board/list/{bid}(bid=*{bid})}" class="sbtn black" target="_blank">미리보기</a>
+                    </td>
                 </tr>
             </tbody>
         </table>
+        <div class="table-action" data-form-name="frmList">
+            선택한 게시판을
+            <button type="button" class="sbtn delete">삭제하기</button>
+            <button type="button" class="sbtn black edit">수정하기</button>
+        </div>
     </form>
 
     <th:block th:replace="~{common/_pagination::pagination}"></th:block>

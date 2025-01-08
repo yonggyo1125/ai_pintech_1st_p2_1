@@ -9,7 +9,7 @@ window.addEventListener("DOMContentLoaded", function() {
     // 이미지 본문 추가 이벤트 처리
     const insertEditors = document.querySelectorAll(".insert-editor")
     insertEditors.forEach(el => {
-        el.addEventListener("click", e => insertImage(e.currentTarget.dataset.url));
+        el.addEventListener("click", e => commonLib.insertEditorImage(e.currentTarget.dataset.url));
     });
 
     // 파일 삭제 버튼 이벤트 처리
@@ -86,11 +86,6 @@ function callbackFileUpload(files) {
         });
     }
 
-    if (imageUrls.length > 0) insertImage(imageUrls);
+    if (imageUrls.length > 0) commonLib.insertEditorImage(imageUrls);
 }
 
-function insertImage(imageUrls) {
-    imageUrls = typeof imageUrls === 'string' ? [imageUrls] : imageUrls;
-
-    editor.execute('insertImage', { source: imageUrls });
-}

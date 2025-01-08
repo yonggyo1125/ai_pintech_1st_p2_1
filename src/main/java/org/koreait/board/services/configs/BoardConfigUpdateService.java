@@ -4,11 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.koreait.admin.board.controllers.RequestBoard;
 import org.koreait.board.entities.Board;
 import org.koreait.board.repositories.BoardRepository;
+import org.koreait.global.libs.Utils;
 import org.koreait.member.constants.Authority;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.List;
 import java.util.Objects;
 
 @Lazy
@@ -16,6 +18,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class BoardConfigUpdateService {
     private final BoardRepository boardRepository;
+    private final Utils utils;
 
     public void process(RequestBoard form) {
 
@@ -41,5 +44,14 @@ public class BoardConfigUpdateService {
         board.setCommentAuthority(Objects.requireNonNullElse(form.getCommentAuthority(), Authority.ALL));
 
         boardRepository.saveAndFlush(board);
+    }
+
+    /**
+     * 게시판 설정 목록 수정, 삭제 처리
+     *
+     * @param chks
+     */
+    public void process(List<Integer> chks, String mode) {
+
     }
 }

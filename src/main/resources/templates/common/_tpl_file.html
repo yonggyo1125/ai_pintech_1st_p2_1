@@ -7,4 +7,11 @@
         <i class="remove xi-close" data-seq="[seq]"></i>
     </span>
 </script>
+
+<script th:fragment="image-item" type="text/html" id="tpl-image-item">
+    <div class="image-item" id="file-[seq]">
+        <i class="remove xi-close" data-seq="[seq]"></i>
+        <div class="inner show-image" style="background:url('[thumbUrl]') no-repeat center center;background-size: cover;" data-seq="[seq]"></div>
+    </div>
+</script>
 </html>

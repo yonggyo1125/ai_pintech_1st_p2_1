@@ -39,6 +39,23 @@
                     <th></th>
                 </tr>
             </thead>
+            <tbody>
+                <tr th:if="${items == null || items.isEmpty()}">
+                    <td colspan="6" class="no-data">조회된 게시판이 없습니다.</td>
+                </tr>
+                <tr th:unless="${items == null || items.isEmpty()}"
+                    th:each="item, status : ${items}" th:object="${item}">
+                    <td>
+                        <input type="checkbox" name="chk" th:value="${status.index}" th:id="${'chk-' + status.index}" class="chk">
+                        <label th:for="${'chk-' + status.index}" class="standalone"></label>
+                        <input type="hidden" th:name="${'bid_' + status.index}" th:value="*{bid}">
+                    </td>
+                    <td th:text="*{bid}"></td>
+                    <td>
+                        <input type="text" th:name="${'name_' + status.index}" th:value="*{name}">
+                    </td>
+                </tr>
+            </tbody>
         </table>
     </form>
 

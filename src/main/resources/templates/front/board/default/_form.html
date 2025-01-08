@@ -1,6 +1,42 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<th:block th:fragment="common">
+<th:block th:fragment="common" th:object="${requestBoard}">
+    <input type="hidden" name="bid" th:field="*{bid}">
+    <input type="hidden" name="gid" th:field="*{gid}">
+    <div class="error global" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
 
+    <dl>
+        <dt th:text="#{작성자}"></dt>
+        <dd>
+            <input type="text" name="poster" th:field="*{poster}">
+            <div class="error" th:each="err : ${#fields.errors('poster')}" th:text="${err}"></div>
+
+            <th:block th:if="${@memberUtil.isAdmin()}">
+                <input type="checkbox" name="notice" value="true" id="notice" th:field="*{notice}">
+                <label for="notice" th:text="#{공지글}"></label>
+            </th:block>
+        </dd>
+    </dl>
+    <dl th:if="${!@memberUtil.isLogin()}">
+        <dt th:text="#{비밀번호}"></dt>
+        <dd>
+            <input type="password" name="guestPw" th:field="*{guestPw}">
+            <div class="error" th:each="err : ${#fields.errors('guestPw')}" th:text="${err}"></div>
+        </dd>
+    </dl>
+    <dl>
+        <dt th:text="#{제목}"></dt>
+        <dd>
+            <input type="text" name="subject" th:field="*{subject}">
+            <div class="error" th:each="err : ${#fields.errors('subject')}" th:text="${err}"></div>
+        </dd>
+    </dl>
+    <dl>
+        <dt th:text="#{내용}"></dt>
+        <dd>
+            <textarea name="content" id="content" th:field="*{content}"></textarea>
+            <div class="error" th:each="err : ${#fields.errors('content')}" th:text="${err}"></div>
+        </dd>
+    </dl>
 </th:block>
 </html>

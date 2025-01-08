@@ -16,19 +16,40 @@ function callbackFileUpload(files) {
     }
 
     const imageUrls = [];
+    const tpl = document.getElementById("tpl-file-item").innerHTML;
+
+    const targetEditor = document.getElementById("editor-files");
+    const targetAttach = document.getElementById("attach-files");
+
+    const domParser = new DOMParser();
+    const { insertEditorImage } = commonLib;
 
     for (const {seq, location, fileName, fileUrl} of files) {
+
+        let html = tpl;
+        html = html.replace(/\[seq\]/g, seq)
+                   .replace(/\[fileName\]/g, fileName)
+                    .replace(/\[fileUrl\]/g, fileUrl);
+
+        const dom = domParser.parseFromString(html, "text/html");
+        const el = dom.querySelector(".file-item");
+        const insertEditor = el.querySelector(".insert-editor");
 
         if (location === 'editor') {
            imageUrls.push(fileUrl);
 
-        } else {
+            insertEditor.addEventListener("click", () => insertEditorImage(fileUrl));
 
+            targetEditor.append(el);
+        } else {
+            // 파일 첨부에서는 에디터에 추가하는것이 아니므로 제거
+            insertEditor.parentElement.removeChild(insertEditor);
+
+            targetAttach.append(el);
         }
     } // endfor
 
     if (imageUrls.length > 0) { // 에디터에 추가할 이미지
-        const { insertEditorImage } = commonLib;
         insertEditorImage(imageUrls);
     }
 }

@@ -97,9 +97,14 @@ public class BoardController {
      * @return
      */
     @PostMapping("/save")
-    public String save() {
+    public String save(@SessionAttribute("commonValue") CommonValue commonValue) {
 
-        return null;
+        Board board = commonValue.getBoard();
+
+        
+        // 글작성, 수정 성공시 글보기 또는 글목록으로 이동
+        String redirectUrl = String.format("board/%s", board.getLocationAfterWriting().equals("view") ? "view/.." : "list/" + board.getBid());
+        return "redirect:" + redirectUrl;
     }
 
     /**

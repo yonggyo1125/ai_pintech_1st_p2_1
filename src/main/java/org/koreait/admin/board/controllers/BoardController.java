@@ -77,6 +77,7 @@ public class BoardController implements SubMenus {
         commonProcess("add", model);
 
         form.setSkin("default");
+        form.setLocationAfterWriting("list");
         form.setListAuthority(Authority.ALL);
         form.setViewAuthority(Authority.ALL);
         form.setWriteAuthority(Authority.ALL);

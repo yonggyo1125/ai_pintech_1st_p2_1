@@ -11,5 +11,24 @@ window.addEventListener("DOMContentLoaded", function() {
 *
 */
 function callbackFileUpload(files) {
+    if (!files || files.length === 0) {
+        return;
+    }
 
+    const imageUrls = [];
+
+    for (const {seq, location, fileName, fileUrl} of files) {
+
+        if (location === 'editor') {
+           imageUrls.push(fileUrl);
+
+        } else {
+
+        }
+    } // endfor
+
+    if (imageUrls.length > 0) { // 에디터에 추가할 이미지
+        const { insertEditorImage } = commonLib;
+        insertEditorImage(imageUrls);
+    }
 }

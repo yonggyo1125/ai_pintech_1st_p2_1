@@ -65,7 +65,7 @@ function callbackFileUpload(files) {
             targetEditor.append(fileItem);
             el.addEventListener("click", function() {
                 const { url } = this.dataset;
-                insertImage(url);
+                commonLib.insertEditorImage(url);
             });
 
         } else { // 다운로드를 위한 첨부 파일

@@ -55,6 +55,13 @@ public class BoardController implements SubMenus {
         return "admin/board/list";
     }
 
+    @RequestMapping(path="/list", method={RequestMethod.PATCH, RequestMethod.DELETE})
+    public String listPs(@RequestParam(name="chk", required = false) List<Integer> chks, Model model) {
+
+        model.addAttribute("script", "parent.location.reload();");
+        return "common/_execute_script";
+    }
+
     /**
      * 게시판 설정 등록
      *

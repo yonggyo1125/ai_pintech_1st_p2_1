@@ -11,6 +11,10 @@ import java.util.List;
 
 @Data
 @Entity
+@Table(indexes = {
+        @Index(name="idx_bd_created_at", columnList = "createdAt DESC"),
+        @Index(name="idx_bd_notice_created_at", columnList = "notice DESC, createdAt DESC")
+})
 public class BoardData extends BaseEntity implements Serializable {
     @Id @GeneratedValue
     private Long seq;

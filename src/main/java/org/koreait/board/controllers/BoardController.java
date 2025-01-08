@@ -4,6 +4,8 @@ import jakarta.validation.Valid;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.koreait.board.entities.Board;
+import org.koreait.board.entities.BoardData;
+import org.koreait.board.services.BoardUpdateService;
 import org.koreait.board.services.configs.BoardConfigInfoService;
 import org.koreait.board.validators.BoardValidator;
 import org.koreait.file.constants.FileStatus;
@@ -34,6 +36,7 @@ public class BoardController {
     private final BoardConfigInfoService configInfoService;
     private final FileInfoService fileInfoService;
     private final BoardValidator boardValidator;
+    private final BoardUpdateService boardUpdateService;
 
     /**
      * 사용자별 공통 데이터
@@ -130,9 +133,11 @@ public class BoardController {
             return utils.tpl("board/" + mode);
         }
 
+        BoardData data = boardUpdateService.process(form);
+
         Board board = commonValue.getBoard();
         // 글작성, 수정 성공시 글보기 또는 글목록으로 이동
-        String redirectUrl = String.format("/board/%s", board.getLocationAfterWriting().equals("view") ? "view/.." : "list/" + board.getBid());
+        String redirectUrl = String.format("/board/%s", board.getLocationAfterWriting().equals("view") ? "view/" + data.getSeq() : "list/" + board.getBid());
         return "redirect:" + redirectUrl;
     }
 

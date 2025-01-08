@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @ApplyErrorPage
@@ -83,6 +84,9 @@ public class BoardController {
     @GetMapping("/write/{bid}")
     public String write(@PathVariable("bid") String bid, @ModelAttribute RequestBoard form, Model model) {
         commonProcess(bid, "write", model);
+
+        form.setBid(bid);
+        form.setGid(UUID.randomUUID().toString());
 
         if (memberUtil.isLogin()) {
             form.setPoster(memberUtil.getMember().getName());

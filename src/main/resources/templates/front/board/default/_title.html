@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <div th:fragment="title" class="board-title" th:object="${board}">
+        <h1>
+            <a th:href="@{/board/list/{bid}(bid=*{bid})}" th:text="*{name}"></a>
+        </h1>
+        <a th:href="@{/board/write/{bid}(bid=*{bid})}" th:text="#{글쓰기}" class="btn"></a>
+    </div>
+</html>

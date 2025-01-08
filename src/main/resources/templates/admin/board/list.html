@@ -9,7 +9,7 @@
             <tr>
                 <th width="180">키워드</th>
                 <td class="flex ac">
-                    <select name="sopt" th:field="*{sopt}">
+                    <select name="sopt" th:field="*{sopt}" class="w180 mr5">
                         <option value="ALL">통합검색</option>
                         <option value="BID">게시판 아이디</option>
                         <option value="NAME">게시판 이름</option>
@@ -19,6 +19,27 @@
             </tr>
         </table>
         <button type="submit" class="submit-btn">검색하기</button>
+    </form>
+
+    <form name="frmList" method="POST" th:action="@{/admin/board/list}" target="ifrmProcess" autocomplete="off">
+        <input type="hidden" name="_method" value="PATCH">
+        <table class="table-rows">
+            <thead>
+                <tr>
+                    <th width="40">
+                        <span class="radio">
+                            <input type="checkbox" class="checkall" id="checkall" data-target-class="chk">
+                            <label for="checkall" class="standalone"></label>
+                        </span>
+                    </th>
+                    <th width="180">게시판 아이디</th>
+                    <th width="200">게시판 이름</th>
+                    <th width="180">사용여부</th>
+                    <th width="180">스킨</th>
+                    <th></th>
+                </tr>
+            </thead>
+        </table>
     </form>
 
     <th:block th:replace="~{common/_pagination::pagination}"></th:block>

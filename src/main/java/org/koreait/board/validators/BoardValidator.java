@@ -28,8 +28,16 @@ public class BoardValidator implements Validator {
         }
 
         RequestBoard form = (RequestBoard) target;
+        // 비회원 비밀번호 검증
         if (!memberUtil.isLogin()) {
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "guestPw", "NotBlank");
+        }
+
+        // 수정일때 seq 필수 여부
+        String mode = form.getMode();
+        Long seq = form.getSeq();
+        if (mode != null && mode.equals("edit") && (seq == null || seq < 1L)) {
+            errors.rejectValue("seq", "NotNull");
         }
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,10 +84,22 @@ public class BoardController {
      * @param model
      * @return
      */
+    @GetMapping("/edit/{seq}")
     public String edit(@PathVariable("seq") Long seq, Model model) {
         commonProcess(seq, "edit", model);
 
         return utils.tpl("board/edit");
+    }
+
+    /**
+     * 글등록, 수정 처리
+     *
+     * @return
+     */
+    @PostMapping("/save")
+    public String save() {
+
+        return null;
     }
 
     /**
@@ -96,10 +109,11 @@ public class BoardController {
      * @return
      */
     @GetMapping("/delete/{seq}")
-    public String delete(@PathVariable("seq") Long seq, Model model) {
+    public String delete(@PathVariable("seq") Long seq, Model model, @SessionAttribute("commonValue") CommonValue commonValue) {
         commonProcess(seq, "delete", model);
+        Board board = commonValue.getBoard();
 
-        return "redirect:/board/list/...";
+        return "redirect:/board/list/" + board.getBid();
     }
 
 
@@ -118,7 +132,21 @@ public class BoardController {
         // 게시판 스킨별 CSS, JS
         addScript.add(String.format("board/%s/common", board.getSkin()));
         addCss.add(String.format("board/%s/style", board.getSkin()));
+        
+        if (mode.equals("add") || mode.equals("edit")) { // 글작성, 글수정
+            if (board.isUseEditor()) { // 에디터를 사용하는 경우
+                addCommonScript.add("ckeditor5/ckeditor");
+            } else { // 에디터를 사용하지 않는 경우는 이미지 첨부 불가
+                board.setUseEditorImage(false);
+            }
 
+            // 파일 업로드가 필요한 설정이라면
+            if (board.isUseAttachFile() || board.isUseEditorImage()) {
+                addCommonScript.add("fileManager");
+            }
+
+            addScript.add(String.format("board/%s/form", board.getSkin()));
+        }
 
         CommonValue commonValue = commonValue();
         commonValue.setBoard(board);
@@ -138,7 +166,7 @@ public class BoardController {
     }
 
     @Data
-    static class CommonValue {
+    static class CommonValue implements Serializable {
         private Board board;
     }
 }

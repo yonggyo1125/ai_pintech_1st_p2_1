@@ -107,6 +107,19 @@
                 </td>
             </tr>
             <tr>
+                <th>글작성 후 이동</th>
+                <td>
+                    <span class="radio">
+                        <input type="radio" name="locationAfterWriting" value="list" id="locationAfterWriting-list" th:field="*{locationAfterWriting}">
+                        <label for="locationAfterWriting-list">글목록</label>
+                    </span>
+                    <span class="radio">
+                        <input type="radio" name="locationAfterWriting" value="view" id="locationAfterWriting-view" th:field="*{locationAfterWriting}">
+                        <label for="locationAfterWriting-view">글보기</label>
+                    </span>
+                </td>
+            </tr>
+            <tr>
                 <th>게시판 스킨</th>
                 <td>
                     <span class="radio">

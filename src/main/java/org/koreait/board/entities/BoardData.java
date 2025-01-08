@@ -2,10 +2,12 @@ package org.koreait.board.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.koreait.file.entities.FileInfo;
 import org.koreait.global.entities.BaseEntity;
 import org.koreait.member.entities.Member;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @Entity
@@ -49,4 +51,16 @@ public class BoardData extends BaseEntity implements Serializable {
 
     @Column(length=60)
     private String youtubeUrl; // Youtube 영상 링크
+
+    @Transient
+    private BoardData prev; // 이전 게시글
+
+    @Transient
+    private BoardData next; // 다음 게시글
+
+    @Transient
+    private List<FileInfo> editorImages; // 에디터 첨부 이미지
+
+    @Transient
+    private List<FileInfo> attachFiles; // 다운로드용 첨부 파일
 }

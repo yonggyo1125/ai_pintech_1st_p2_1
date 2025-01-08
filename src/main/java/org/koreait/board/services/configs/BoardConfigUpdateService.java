@@ -74,7 +74,13 @@ public class BoardConfigUpdateService {
             item.setName(utils.getParam("name_" + chk));
             item.setOpen(Boolean.parseBoolean(utils.getParam("open_" + chk)));
             item.setSkin(utils.getParam("skin_" + chk));
+            items.add(item);
         }
 
+        if (!items.isEmpty()) { // 수정 처리
+            boardRepository.saveAll(items);
+        }
+
+        boardRepository.flush();
     }
 }

@@ -7,7 +7,7 @@
         <h2>분류 설정</h2>
 
         <h2>기본 정보</h2>
-        <table class="table-cols">
+        <table class="table-cols mb30">
             <tr>
                 <th width="180">상품명</th>
                 <td>
@@ -44,8 +44,63 @@
         </table>
 
         <h2>상품 이미지</h2>
+        <table class="table-cols mb30">
+            <tr>
+                <th width="180">메인이미지</th>
+                <td>
+                    <button type="button" class="file-upload sbtn" th:data-gid="*{gid}" data-location="main" data-image-only="true">이미지 업로드</button>
+                    <div class="uploaded-files" id="main-images"></div>
+                </td>
+            </tr>
+            <tr>
+                <th>목록이미지</th>
+                <td>
+                    <button type="button" class="file-upload sbtn" th:data-gid="*{gid}" data-location="list" data-image-only="true">이미지 업로드</button>
+                    <div class="uploaded-files" id="list-images"></div>
+                </td>
+            </tr>
+        </table>
 
-        <h2>할인 설정</h2>
+        <h2>할인/적립 설정</h2>
+        <table class="table-cols mb30">
+            <tr>
+                <th width="180">할인 타입</th>
+                <td colspan="3">
+                    <span class="radio">
+                        <input type="radio" name="discountType" value="NONE" id="discountType-NONE" th:field="*{discountType}">
+                        <label for="discountType-NONE">할인없음</label>
+                    </span>
+                    <span class="radio">
+                        <input type="radio" name="discountType" value="FIXED" id="discountType-FIXED" th:field="*{discountType}">
+                        <label for="discountType-FIXED">고정할인</label>
+                    </span>
+                    <span class="radio">
+                        <input type="radio" name="discountType" value="RATE" id="discountType-RATE" th:field="*{discountType}">
+                        <label for="discountType-RATE">할인율</label>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th>할인금액/할인율</th>
+                <td width="250">
+                    <input type="text" name="discount" th:field="*{discount}">
+                </td>
+                <th width="180">최대할인금액</th>
+                <td>
+                    <input type="number" name="maxDiscount" th:field="*{maxDiscount}">
+                </td>
+            </tr>
+            <tr>
+                <th>적립률</th>
+                <td>
+                    <input type="text" name="pointRate" th:field="*{pointRate}">
+                </td>
+                <th>최대 적립금</th>
+                <td>
+                    <input type="number" name="maxPoint" th:field="*{maxPoint}">
+                </td>
+            </tr>
+        </table>
 
         <h2>상품 옵션</h2>
 

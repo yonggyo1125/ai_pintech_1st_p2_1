@@ -2,9 +2,11 @@ package org.koreait.board.validators;
 
 import lombok.RequiredArgsConstructor;
 import org.koreait.board.controllers.RequestBoard;
+import org.koreait.global.validators.PasswordValidator;
 import org.koreait.member.libs.MemberUtil;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -12,7 +14,7 @@ import org.springframework.validation.Validator;
 @Lazy
 @Component
 @RequiredArgsConstructor
-public class BoardValidator implements Validator {
+public class BoardValidator implements Validator, PasswordValidator {
 
     private final MemberUtil memberUtil;
 
@@ -23,14 +25,17 @@ public class BoardValidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        if (errors.hasErrors()) {
-            return;
-        }
 
         RequestBoard form = (RequestBoard) target;
         // 비회원 비밀번호 검증
         if (!memberUtil.isLogin()) {
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "guestPw", "NotBlank");
+
+            // 대소문자 구분없은 알파벳 1자 이상, 숫자 1자 이상 포함
+            String guestPw = form.getGuestPw();
+            if (StringUtils.hasText(guestPw) && (!alphaCheck(guestPw, true) || !numberCheck(guestPw))) {
+                errors.rejectValue("guestPw", "Complexity");
+            }
         }
 
         // 수정일때 seq 필수 여부

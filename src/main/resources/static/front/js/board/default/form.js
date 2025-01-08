@@ -34,6 +34,17 @@ function callbackFileUpload(files) {
         const dom = domParser.parseFromString(html, "text/html");
         const el = dom.querySelector(".file-item");
         const insertEditor = el.querySelector(".insert-editor");
+        const removeEl = el.querySelector(".remove");
+        removeEl.addEventListener("click", () => {
+            if (!confirm('정말 삭제하겠습니까?')) {
+                return;
+            }
+
+            const { fileManager } = commonLib;
+            fileManager.delete(seq, () => {
+                el.parentElement.removeChild(el);
+            });
+        });
 
         if (location === 'editor') {
            imageUrls.push(fileUrl);

@@ -1,19 +1,20 @@
-package org.koreait.admin.board.validators;
+package org.koreait.board.validators;
 
 import lombok.RequiredArgsConstructor;
-import org.koreait.admin.board.controllers.RequestBoard;
-import org.koreait.board.repositories.BoardRepository;
+import org.koreait.board.controllers.RequestBoard;
+import org.koreait.member.libs.MemberUtil;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 @Lazy
-@Component("adminBoardValidator")
+@Component
 @RequiredArgsConstructor
 public class BoardValidator implements Validator {
 
-    private final BoardRepository boardRepository;
+    private final MemberUtil memberUtil;
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -26,12 +27,9 @@ public class BoardValidator implements Validator {
             return;
         }
 
-        RequestBoard form = (RequestBoard)target;
-        
-        // 게시판 등록일때만 게시판 아이디의 중복 여부 체크
-        String bid = form.getBid();
-        if (form.getMode().equals("add") && boardRepository.exists(bid)) {
-            errors.rejectValue("bid", "Duplicated");
+        RequestBoard form = (RequestBoard) target;
+        if (!memberUtil.isLogin()) {
+            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "guestPw", "NotBlank");
         }
     }
 }

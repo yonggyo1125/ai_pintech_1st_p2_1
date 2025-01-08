@@ -4,12 +4,14 @@ import lombok.RequiredArgsConstructor;
 import org.koreait.admin.board.controllers.RequestBoard;
 import org.koreait.board.entities.Board;
 import org.koreait.board.repositories.BoardRepository;
+import org.koreait.global.exceptions.scripts.AlertException;
 import org.koreait.global.libs.Utils;
 import org.koreait.member.constants.Authority;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -52,6 +54,27 @@ public class BoardConfigUpdateService {
      * @param chks
      */
     public void process(List<Integer> chks, String mode) {
+        mode = StringUtils.hasText(mode) ? mode : "edit";
+        if (chks == null || chks.isEmpty()) {
+            throw new AlertException("처리할 게시판을 선택하세요.");
+        }
+
+        List<Board> items = new ArrayList<>();
+        for (int chk : chks) {
+            String bid = utils.getParam("bid_" + chk);
+
+            if (mode.equals("delete")) {
+                boardRepository.deleteById(bid);
+                continue;
+            }
+
+            Board item = boardRepository.findById(bid).orElse(null);
+            if (item == null) continue;
+
+            item.setName(utils.getParam("name_" + chk));
+            item.setOpen(Boolean.parseBoolean(utils.getParam("open_" + chk)));
+            item.setSkin(utils.getParam("skin_" + chk));
+        }
 
     }
 }

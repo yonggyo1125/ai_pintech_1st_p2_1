@@ -177,7 +177,7 @@ commonLib.popupClose = function() {
 commonLib.loadEditor = function(id, height = 350) {
 
     if (typeof ClassicEditor === 'undefined' || !id) {
-        return;
+        return Promise.resolve();
     }
 
     return new Promise((resolve, reject) => {

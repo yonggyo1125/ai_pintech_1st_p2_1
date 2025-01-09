@@ -38,7 +38,13 @@
                 <td>
                     <textarea name="description" th:field="*{description}" id="description"></textarea>
                     <button type="button" class="sbtn file-upload" th:data-gid="*{gid}" data-location="editor" data-image-only="true" ->이미지 업로드</button>
-                    <div class="upload-files" id="editor-images"></div>
+                    <div class="upload-files" id="editor-images">
+                        <span th:if="*{editorImages != null}" th:each="item : *{editorImages}" class="file-item" th:id="${'file-' + item.seq}">
+                           <a th:href="@{/api/file/download/{seq}(seq=${item.seq})}" th:text="${item.fileName}"></a>
+                            <i class="insert-editor xi-upload" th:data-url="${item.fileUrl}"></i>
+                            <i class="remove xi-close" th:data-seq="${item.seq}"></i>
+                        </span>
+                    </div>
                 </td>
             </tr>
         </table>
@@ -49,7 +55,12 @@
                 <th width="180">메인이미지</th>
                 <td>
                     <button type="button" class="file-upload sbtn" th:data-gid="*{gid}" data-location="main" data-image-only="true">이미지 업로드</button>
-                    <div class="uploaded-files" id="main-images"></div>
+                    <div class="uploaded-files" id="main-images">
+                        <div th:if="*{mainImages != null}" th:each="item : *{mainImages}" th:object="${item}" class="image-item" th:id="*{'file-' + seq}">
+                            <i class="remove xi-close" th:data-seq="*{'file-' + seq}"></i>
+                            <div class="inner show-image" style="background:url('[thumbUrl]') no-repeat center center;background-size: cover;" data-seq="[seq]"></div>
+                        </div>
+                    </div>
                 </td>
             </tr>
             <tr>

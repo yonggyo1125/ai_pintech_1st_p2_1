@@ -136,7 +136,9 @@ public class BoardController {
     public String save(@Valid RequestBoard form, Errors errors, @SessionAttribute("commonValue") CommonValue commonValue, Model model) {
         String mode = form.getMode();
         mode = StringUtils.hasText(mode) ? mode : "write";
-        commonProcess(form.getBid(), mode, model);
+
+        if (mode.equals("edit")) commonProcess(form.getSeq(), mode, model);
+        else commonProcess(form.getBid(), mode, model);
 
         boardValidator.validate(form, errors);
 
@@ -215,6 +217,7 @@ public class BoardController {
         model.addAttribute("addCommonScript", addCommonScript);
         model.addAttribute("addScript", addScript);
         model.addAttribute("addCss", addCss);
+        model.addAttribute("mode", mode);
     }
 
     // 게시글 보기, 게시글 수정

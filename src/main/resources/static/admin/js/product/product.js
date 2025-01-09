@@ -17,7 +17,7 @@ function callbackFileUpload(files) {
     const targetMain = document.getElementById("main-images");
     const targetList = document.getElementById("list-images");
 
-    const { insertEditorImage } = commonLib;
+    const { insertEditorImage, fileManager } = commonLib;
     const imageUrls = [];
 
     const domParser = new DOMParser();
@@ -31,6 +31,21 @@ function callbackFileUpload(files) {
 
         const dom = domParser.parseFromString(html, 'text/html');
         const el = dom.querySelector(".file-item, .image-item");
+
+        const insertEditor = el.querySelector(".insert-editor");
+        if (insertEditor) {
+            insertEditor.addEventListener("click", () => insertEditorImage(fileUrl));
+        }
+
+        const removeEl = el.querySelector(".remove");
+        removeEl.addEventListener("click", () => {
+            fileManager.delete(seq, () => {
+                // 삭제 후속 처리
+                const el = document.getElementById(`file-${seq}`);
+                el.parentElement.removeChild(el);
+            });
+        });
+
 
         switch (location) {
             case "main":  // 메인 이미지

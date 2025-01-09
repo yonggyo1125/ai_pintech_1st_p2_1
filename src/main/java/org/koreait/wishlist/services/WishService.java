@@ -3,6 +3,8 @@ package org.koreait.wishlist.services;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import org.koreait.global.exceptions.BadRequestException;
+import org.koreait.global.libs.Utils;
 import org.koreait.member.entities.Member;
 import org.koreait.member.libs.MemberUtil;
 import org.koreait.member.repositories.MemberRepository;
@@ -25,6 +27,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Transactional
 public class WishService {
+    private final Utils utils;
     private final MemberUtil memberUtil;
     private final WishRepository repository;
     private final JPAQueryFactory queryFactory;
@@ -45,6 +48,19 @@ public class WishService {
                 repository.deleteById(wishId);
 
             } else { // 찜 추가
+                /* 포켓몬 찜 추가면 갯수를 6개로 제한 */
+                if (type == WishType.POKEMON) {
+                    QWish wish = QWish.wish;
+                    BooleanBuilder builder = new BooleanBuilder();
+                    builder.and(wish.member.eq(member))
+                            .and(wish.type.eq(type));
+
+                    long total = repository.count(builder);
+                    if (total > 6L) {
+                        throw new BadRequestException(utils.getMessage("OverMaxWish.Pokemon"));
+                    }
+                }
+
                 Wish wish = new Wish();
                 wish.setSeq(seq);
                 wish.setType(type);
@@ -54,6 +70,10 @@ public class WishService {
 
             repository.flush();
         } catch (Exception e) {
+            if (e instanceof BadRequestException) {
+                throw e;
+            }
+
             e.printStackTrace();
         }
     }

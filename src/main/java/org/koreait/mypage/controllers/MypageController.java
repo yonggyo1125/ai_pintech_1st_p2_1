@@ -117,7 +117,6 @@ public class MypageController {
             PokemonSearch pSearch = modelMapper.map(search, PokemonSearch.class);
             ListData<Pokemon> data = pokemonInfoService.getMyPokemons(pSearch);
             model.addAttribute("items", data.getItems());
-            model.addAttribute("pagination", data.getPagination());
         }
 
         return utils.tpl("mypage/wishlist");
@@ -135,6 +134,7 @@ public class MypageController {
 
         List<String> addCommonScript = new ArrayList<>();
         List<String> addScript = new ArrayList<>();
+        List<String> addCss = new ArrayList<>();
 
         if (mode.equals("profile")) { // 회원정보 수정
             addCommonScript.add("fileManager");
@@ -143,11 +143,13 @@ public class MypageController {
             pageTitle = utils.getMessage("회원정보_수정");
         } else if (mode.equals("wishlist")) { // 찜하기 목록
             addCommonScript.add("wish");
+            addCss.add("mypage/wishlist");
             pageTitle = utils.getMessage("나의_WISH");
         }
 
         model.addAttribute("addCommonScript", addCommonScript);
         model.addAttribute("addScript", addScript);
+        model.addAttribute("addCss", addCss);
         model.addAttribute("pageTitle", pageTitle);
     }
 }

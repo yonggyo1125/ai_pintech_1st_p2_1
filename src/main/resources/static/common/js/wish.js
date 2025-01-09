@@ -37,7 +37,6 @@ window.addEventListener("DOMContentLoaded", function() {
             (async() => {
                 try {
                     await ajaxLoad(apiUrl);
-
                     if (classList.contains("on")) { // 제거 처리
                         icon.className = "xi-heart-o";
                     } else { // 추가 처리

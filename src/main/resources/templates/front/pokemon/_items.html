@@ -10,13 +10,15 @@
                 <th:block th:utext="${@wishService.showWish(item.seq, 'POKEMON', myPokemons)}"></th:block>
                 <a th:href="@{/pokemon/view/{seq}(seq=*{seq})}">
                     <th:block th:utext="*{@utils.showImage(frontImage, 390, 390, 'image')}"></th:block>
-                    <div class="item-no"
-                         th:text="*{#strings.concat('No.', #numbers.formatInteger(seq, 4))}"></div>
-                    <div clas="item-nm" th:text="*{name}"></div>
+                    <div class="item-wrap">
+                        <div class="item-no"
+                             th:text="*{#strings.concat('No.', #numbers.formatInteger(seq, 4))}"></div>
+                        <div clas="item-nm" th:text="*{name}"></div>
 
-                    <div class="item-types">
-                        <div class="type" th:each="type : *{_types}"
-                             th:text="${#messages.msg(type)}"></div>
+                        <div class="item-types">
+                            <div class="type" th:each="type : *{_types}"
+                                 th:text="${#messages.msg(type)}"></div>
+                        </div>
                     </div>
                 </a>
             </li> <!--// item -->

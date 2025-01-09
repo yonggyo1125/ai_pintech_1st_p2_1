@@ -16,6 +16,8 @@ import org.koreait.board.services.configs.BoardConfigInfoService;
 import org.koreait.global.libs.Utils;
 import org.koreait.global.paging.ListData;
 import org.koreait.global.paging.Pagination;
+import org.koreait.member.entities.Member;
+import org.koreait.member.libs.MemberUtil;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -31,6 +33,7 @@ public class BoardInfoService {
     private final BoardDataRepository boardDataRepository;
     private final JPAQueryFactory queryFactory;
     private final HttpServletRequest request;
+    private final MemberUtil memberUtil;
     private final Utils utils;
 
     /**
@@ -189,6 +192,24 @@ public class BoardInfoService {
 
     public List<BoardData> getLatest(String bid) {
         return getLatest(bid, 5);
+    }
+
+    /**
+     * 로그인한 회원이 작성한 게시글 목록
+     *
+     * @param search
+     * @return
+     */
+    public ListData<BoardData> getMyList(BoardSearch search) {
+        if (!memberUtil.isLogin()) {
+            return new ListData<>(List.of(), null);
+        }
+
+        Member member = memberUtil.getMember();
+        String email = member.getEmail();
+        search.setEmail(List.of(email));
+
+        return getList(search);
     }
 
     /**

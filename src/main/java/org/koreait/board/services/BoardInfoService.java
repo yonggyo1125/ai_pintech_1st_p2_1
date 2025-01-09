@@ -2,6 +2,7 @@ package org.koreait.board.services;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.StringExpression;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -110,18 +111,44 @@ public class BoardInfoService {
             andBuilder.and(condition.contains(skey));
         }
 
+        // 회원 이메일
+        List<String> emails = search.getEmail();
+        if (emails != null && !emails.isEmpty()) {
+            andBuilder.and(boardData.member.email.in(emails));
+        }
+
         /* 검색 처리 E */
 
-        List<BoardData> items = queryFactory.selectFrom(boardData)
+        JPAQuery<BoardData> query = queryFactory.selectFrom(boardData)
                 .leftJoin(boardData.board)
                 .fetchJoin()
                 .leftJoin(boardData.member)
                 .fetchJoin()
                 .where(andBuilder)
                 .offset(offset)
-                .limit(limit)
-                .orderBy(boardData.notice.desc(), boardData.createdAt.desc())
-                .fetch();
+                .limit(limit);
+
+        /* 정렬 조건 처리 S */
+        String sort = search.getSort();
+        if (StringUtils.hasText(sort)) {
+            String[] _sort = sort.split("_");
+            String field = _sort[0];
+            String direction = _sort[1];
+            if (field.equals("viewCount")) {
+                query.orderBy(direction.equalsIgnoreCase("DESC") ? boardData.viewCount.desc() : boardData.viewCount.asc());
+            } else if (field.equals("commentCount")) {
+                query.orderBy(direction.equalsIgnoreCase("DESC") ? boardData.commentCount.desc() : boardData.commentCount.asc());
+            } else {
+                query.orderBy(boardData.notice.desc(), boardData.createdAt.desc());
+            }
+
+        } else { // 기본 정렬 조건 - notice DESC, createdAt DESC
+            query.orderBy(boardData.notice.desc(), boardData.createdAt.desc());
+        }
+
+        /* 정렬 조건 처리 E */
+
+        List<BoardData> items = query.fetch();
 
         long total = boardDataRepository.count(andBuilder);
 

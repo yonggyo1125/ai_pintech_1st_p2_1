@@ -5,6 +5,15 @@
     <input type="hidden" name="gid" th:field="*{gid}">
     <div class="error global" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
 
+    <dl th:if="${categories != null && !categories.isEmpty()}">
+        <dt th:text="#{분류}"></dt>
+        <dd>
+            <select name="category" th:field="*{category}">
+                <option value="" th:text="${#strings.concat('- ', #messages.msg('분류_선택'), ' -')}"></option>
+                <option th:each="category : ${categories}" th:value="${category}" th:text="${category}"></option>
+            </select>
+        </dd>
+    </dl>
     <dl>
         <dt th:text="#{작성자}"></dt>
         <dd>
@@ -17,7 +26,7 @@
             </th:block>
         </dd>
     </dl>
-    <dl th:if="${!@memberUtil.isLogin()}">
+    <dl th:if="${(requestBoard.mode == 'write' && !@memberUtil.isLogin()) || (requestBoard.mode == 'edit' && boardData.member == null)}">
         <dt th:text="#{비밀번호}"></dt>
         <dd>
             <input type="password" name="guestPw" th:field="*{guestPw}">

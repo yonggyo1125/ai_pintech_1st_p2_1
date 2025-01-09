@@ -18,9 +18,9 @@ public class BoardViewUpdateService {
     private final BoardViewRepository boardViewRepository;
     private final Utils utils;
 
-    public void process(Long seq) {
+    public long process(Long seq) {
         BoardData item = boardDataRepository.findById(seq).orElse(null);
-        if (item == null) return;
+        if (item == null) return 0L;
 
         try {
             BoardView view = new BoardView();
@@ -35,5 +35,7 @@ public class BoardViewUpdateService {
 
         item.setViewCount(total);
         boardDataRepository.saveAndFlush(item);
+
+        return total;
     }
 }

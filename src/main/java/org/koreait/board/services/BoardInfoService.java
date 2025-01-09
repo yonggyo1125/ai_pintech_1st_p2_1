@@ -144,6 +144,27 @@ public class BoardInfoService {
     }
 
     /**
+     * 게시판별 최신 게시글
+     *
+     * @param bid
+     * @param limit
+     * @return
+     */
+    public List<BoardData> getLatest(String bid, int limit) {
+        BoardSearch search = new BoardSearch();
+        search.setLimit(limit);
+        search.setBid(List.of(bid));
+
+        ListData<BoardData> data = getList(search);
+
+        return data.getItems();
+    }
+
+    public List<BoardData> getLatest(String bid) {
+        return getLatest(bid, 5);
+    }
+
+    /**
      * 추가 정보 처리
      *
      * @param item

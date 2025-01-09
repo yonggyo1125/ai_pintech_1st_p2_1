@@ -112,8 +112,11 @@ public class BoardController {
      * @return
      */
     @GetMapping("/edit/{seq}")
-    public String edit(@PathVariable("seq") Long seq, Model model) {
+    public String edit(@PathVariable("seq") Long seq, Model model, @SessionAttribute("commonValue") CommonValue commonValue) {
         commonProcess(seq, "edit", model);
+
+        RequestBoard form = boardInfoService.getForm(commonValue.getData());
+        model.addAttribute("requestBoard", form);
 
         return utils.tpl("board/edit");
     }

@@ -100,6 +100,12 @@ public class BoardInfoService {
             andBuilder.and(boardData.board.bid.in(bids));
         }
 
+        // 분류 검색
+        List<String> categories = search.getCategory();
+        if (categories != null && !categories.isEmpty()) {
+            andBuilder.and(boardData.category.in(categories));
+        }
+
         /**
          * 키워드 검색
          *  sopt

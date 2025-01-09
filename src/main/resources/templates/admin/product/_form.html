@@ -58,7 +58,8 @@
                     <div class="uploaded-files" id="main-images">
                         <div th:if="*{mainImages != null}" th:each="item : *{mainImages}" th:object="${item}" class="image-item" th:id="*{'file-' + seq}">
                             <i class="remove xi-close" th:data-seq="*{'file-' + seq}"></i>
-                            <div class="inner show-image" style="background:url('[thumbUrl]') no-repeat center center;background-size: cover;" data-seq="[seq]"></div>
+                            <th:block th:utext="*{@utils.showBackground(seq, 200, 100, 'inner show-image')}"></th:block>
+                            <!--<div class="inner show-image" style="background:url('[thumbUrl]') no-repeat center center;background-size: cover;" data-seq="[seq]"></div>-->
                         </div>
                     </div>
                 </td>

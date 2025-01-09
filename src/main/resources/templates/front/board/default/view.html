@@ -1,6 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<th:block th:fragment="skin">
+<th:block th:fragment="skin" th:object="${boardData}">
+    <div th:replace="~{front/board/default/_title::title}"></div>
+
+    <div class="view-content">
+        <div class="subject">
+            <span class="badge" th:if="*{category != null}" th:text="*{category}"></span>
+            <th:block th:text="*{subject}"></th:block>
+        </div>
+        <div class="post-info">
+            <div class="left">
+                <span class="poster">
+                    <th:block th:text="*{poster}"></th:block>
+                    <th:block th:if="*{member != null}">
+                        (<th:block th:text="*{member.email}"></th:block>)
+                        <a th:if="${@memberUtil.isLogin()}" th:href="@{/message?email={email}(email=*{member.email})}" target="_blank">
+                            <i class="xi-mail"></i>
+                        </a>
+                    </th:block>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!--// view-content -->
 
     <th:block th:if="${board.useComment}">
         <th:block th:replace="~{front/board/default/_comment::comment}"></th:block>

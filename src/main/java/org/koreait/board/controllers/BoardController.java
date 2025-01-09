@@ -202,19 +202,34 @@ public class BoardController {
         }
 
         model.addAttribute("board", board);
+        model.addAttribute("categories", board.getCategories());
         model.addAttribute("addCommonScript", addCommonScript);
         model.addAttribute("addScript", addScript);
         model.addAttribute("addCss", addCss);
     }
 
+    // 게시글 보기, 게시글 수정
     private void commonProcess(Long seq, String mode, Model model) {
-        String bid = null;
+        BoardData item = boardInfoService.get(seq);
+        Board board = item.getBoard();
 
+        String pageTitle = String.format("%s - %s", item.getSubject(), board.getName());
+
+        String bid = board.getBid();
         commonProcess(bid, mode, model);
+
+        CommonValue commonValue = commonValue();
+        commonValue.setBoard(board);
+        commonValue.setData(item);
+
+        model.addAttribute("commonValue", commonValue);
+        model.addAttribute("pageTitle", pageTitle);
+        model.addAttribute("boardData", item);
     }
 
     @Data
     static class CommonValue implements Serializable {
         private Board board;
+        private BoardData data;
     }
 }

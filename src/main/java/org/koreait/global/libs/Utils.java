@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.koreait.file.entities.FileInfo;
 import org.koreait.file.services.FileInfoService;
+import org.koreait.member.libs.MemberUtil;
 import org.springframework.context.MessageSource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.stereotype.Component;
@@ -22,6 +23,7 @@ public class Utils {
     private final HttpServletRequest request;
     private final MessageSource messageSource;
     private final FileInfoService fileInfoService;
+    private final MemberUtil memberUtil;
 
     public boolean isMobile() {
 
@@ -200,5 +202,17 @@ public class Utils {
 
     public String popup(String url, int width, int height) {
         return String.format("commonLib.popup('%s', %d, %d);", url, width, height);
+    }
+
+    // 회원, 비회원 구분 해시
+    public int getMemberHash() {
+        // 회원 - 회원번호, 비회원 - IP + User-Agent
+        if (memberUtil.isLogin()) return Objects.hash(memberUtil.getMember().getSeq());
+        else { // 비회원
+            String ip = request.getRemoteAddr();
+            String ua = request.getHeader("User-Agent");
+
+            return Objects.hash(ip, ua);
+        }
     }
 }

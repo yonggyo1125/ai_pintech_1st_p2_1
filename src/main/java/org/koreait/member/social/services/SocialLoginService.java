@@ -6,4 +6,5 @@ public interface SocialLoginService {
     String getLoginUrl(String redirectUrl);
     void connect(String token);
     void disconnect();
+    boolean exists(String token);
 }

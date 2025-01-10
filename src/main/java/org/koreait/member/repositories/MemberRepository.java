@@ -13,6 +13,7 @@ public interface MemberRepository extends JpaRepository<Member, Long>, QuerydslP
     @EntityGraph(attributePaths = "authorities")
     Optional<Member> findByEmail(String email);
 
+    @EntityGraph(attributePaths = "authorities")
     Member findBySocialChannelAndSocialToken(SocialChannel channel, String token);
 
     default boolean exists(String email) {

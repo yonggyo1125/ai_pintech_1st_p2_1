@@ -4,12 +4,14 @@ package org.koreait.member.social.services;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.querydsl.core.BooleanBuilder;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.koreait.global.libs.Utils;
 import org.koreait.global.services.CodeValueService;
 import org.koreait.member.MemberInfo;
 import org.koreait.member.entities.Member;
+import org.koreait.member.entities.QMember;
 import org.koreait.member.libs.MemberUtil;
 import org.koreait.member.repositories.MemberRepository;
 import org.koreait.member.services.MemberInfoService;
@@ -137,6 +139,9 @@ public class KakaoLoginService implements SocialLoginService {
         member.setSocialToken(token);
 
         memberRepository.saveAndFlush(member);
+
+        memberInfoService.addInfo(member);
+        session.setAttribute("member", member);
     }
 
     // 소셜 로그인 해제
@@ -149,5 +154,17 @@ public class KakaoLoginService implements SocialLoginService {
         member.setSocialToken(null);
 
         memberRepository.saveAndFlush(member);
+
+        memberInfoService.addInfo(member);
+        session.setAttribute("member", member);
+    }
+
+    public boolean exists(String token) {
+        BooleanBuilder builder = new BooleanBuilder();
+        QMember member = QMember.member;
+        builder.and(member.socialChannel.eq(SocialChannel.KAKAO))
+                .and(member.socialToken.eq(token));
+
+        return memberRepository.exists(builder);
     }
 }

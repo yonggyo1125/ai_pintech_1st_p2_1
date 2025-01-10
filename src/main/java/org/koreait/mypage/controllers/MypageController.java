@@ -69,7 +69,8 @@ public class MypageController {
             form.setOptionalTerms(Arrays.stream(optionalTerms.split("\\|\\|")).toList());
         }
 
-        form.setKakaoLoginConnectUrl(kakaoLoginService.getLoginUrl("profile"));
+        form.setKakaoLoginConnectUrl(kakaoLoginService.getLoginUrl("connect"));
+        form.setKakaoLoginDisconnectUrl(kakaoLoginService.getLoginUrl("disconnect"));
 
         model.addAttribute("requestProfile", form);
 

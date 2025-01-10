@@ -115,7 +115,9 @@
             </dd>
         </dl>
         <th:block th:if="${profile.kakaoConnected}">
-            <button type="button" th:text="#{카카오_로그인_해제}"></button>
+            <a th:if="*{kakaoLoginDisconnectUrl != null && kakaoLoginDisconnectUrl != ''}" th:href="*{kakaoLoginDisconnectUrl}">
+                <button type="button" th:text="#{카카오_로그인_해제}"></button>
+            </a>
         </th:block>
         <th:block th:unless="${profile.kakaoConnected}">
             <a th:if="*{kakaoLoginConnectUrl != null && kakaoLoginConnectUrl != ''}" th:href="*{kakaoLoginConnectUrl}">

@@ -1,6 +1,9 @@
 package org.koreait.member.social.services;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.koreait.global.libs.Utils;
 import org.koreait.global.services.CodeValueService;
@@ -16,6 +19,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
+import java.util.Map;
 
 @Lazy
 @Service
@@ -25,6 +29,7 @@ public class KakaoLoginService implements SocialLoginService {
     private final RestTemplate restTemplate;
     private final MemberRepository memberRepository;
     private final CodeValueService codeValueService;
+    private final ObjectMapper om;
     private final Utils utils;
 
     @Override
@@ -65,7 +70,12 @@ public class KakaoLoginService implements SocialLoginService {
 
         ResponseEntity<String> response2 = restTemplate.exchange(URI.create(url), HttpMethod.GET, request2, String.class);
         if (response2.getStatusCode() == HttpStatus.OK) {
+            try {
+                Map<String, String> data = om.readValue(response2.getBody(), new TypeReference<>() {});
 
+                return data.get("id");
+
+            } catch (JsonProcessingException e) {}
         }
 
         /* 회원 ID - SocialToken E */

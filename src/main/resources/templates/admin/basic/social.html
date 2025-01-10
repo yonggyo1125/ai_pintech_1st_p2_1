@@ -4,5 +4,34 @@
       layout:decorate="~{admin/layouts/main}">
 <div layout:fragment="content">
     <h1>소셜 로그인 설정</h1>
+    <form name="frmSave" method="POST" th:action="@{/admin/basic/social}" autocomplete="off" th:object="${socialConfig}">
+        <h2>카카오 로그인</h2>
+        <table class="table-cols">
+            <tr>
+                <th width="180">사용여부</th>
+                <td>
+                    <span class="radio">
+                        <input type="radio" name="useKakaoLogin" value="true" id="useKakaoLogin-true" th:field="*{useKakaoLogin}">
+                        <label for="useKakaoLogin-true">사용</label>
+                    </span>
+
+                    <span class="radio">
+                        <input type="radio" name="useKakaoLogin" value="false" id="useKakaoLogin-false" th:field="*{useKakaoLogin}">
+                        <label for="useKakaoLogin-false">미사용</label>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th>REST API KEY</th>
+                <td>
+                    <input type="text" name="kakaoRestApiKey" th:field="*{kakaoRestApiKey}">
+                </td>
+            </tr>
+        </table>
+        <div class="button-group">
+            <button type="reset" class="btn">다시입력</button>
+            <button type="submit" class="btn black">저장하기</button>
+        </div>
+    </form>
 </div>
 </html>

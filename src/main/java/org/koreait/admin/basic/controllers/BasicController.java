@@ -119,7 +119,7 @@ public class BasicController implements SubMenus {
     public String social(Model model) {
         commonProcess("social", model);
 
-        SocialConfig form = codeValueService.get("siteConfig", SocialConfig.class);
+        SocialConfig form = codeValueService.get("socialConfig", SocialConfig.class);
         form = Objects.requireNonNullElseGet(form, SocialConfig::new);
 
         model.addAttribute("socialConfig", form);

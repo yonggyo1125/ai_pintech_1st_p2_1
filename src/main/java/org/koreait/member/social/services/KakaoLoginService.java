@@ -7,11 +7,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.koreait.global.libs.Utils;
 import org.koreait.global.services.CodeValueService;
+import org.koreait.member.MemberInfo;
+import org.koreait.member.entities.Member;
 import org.koreait.member.repositories.MemberRepository;
+import org.koreait.member.services.MemberInfoService;
+import org.koreait.member.social.constants.SocialChannel;
 import org.koreait.member.social.entities.AuthToken;
 import org.koreait.member.social.entities.SocialConfig;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.*;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -28,6 +34,7 @@ public class KakaoLoginService implements SocialLoginService {
 
     private final RestTemplate restTemplate;
     private final MemberRepository memberRepository;
+    private final MemberInfoService memberInfoService;
     private final CodeValueService codeValueService;
     private final ObjectMapper om;
     private final Utils utils;
@@ -85,6 +92,17 @@ public class KakaoLoginService implements SocialLoginService {
 
     @Override
     public boolean login(String token) {
-        return false;
+        Member member = memberRepository.findBySocialChannelAndSocialToken(SocialChannel.KAKAO, token);
+        if (member == null) {
+            return false;
+        }
+
+        MemberInfo memberInfo = (MemberInfo)memberInfoService.loadUserByUsername(member.getEmail());
+
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(memberInfo, member.getPassword(), memberInfo.getAuthorities());
+
+        SecurityContextHolder.getContext().setAuthentication(authentication); // 로그인 처리
+
+        return true;
     }
 }

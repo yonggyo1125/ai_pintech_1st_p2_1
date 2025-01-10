@@ -2,6 +2,7 @@ package org.koreait.member.repositories;
 
 import org.koreait.member.entities.Member;
 import org.koreait.member.entities.QMember;
+import org.koreait.member.social.constants.SocialChannel;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
@@ -12,7 +13,7 @@ public interface MemberRepository extends JpaRepository<Member, Long>, QuerydslP
     @EntityGraph(attributePaths = "authorities")
     Optional<Member> findByEmail(String email);
 
-    Member findBySocialChannelAndSocialToken(String channel, String token);
+    Member findBySocialChannelAndSocialToken(SocialChannel channel, String token);
 
     default boolean exists(String email) {
         QMember member = QMember.member;

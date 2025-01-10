@@ -18,7 +18,7 @@ public class SocialController {
     @GetMapping("/callback/kakao")
     public void callback(@RequestParam(name="code", required = false) String code) {
 
-        kakaoLoginService.getToken(code);
-
+        String token = kakaoLoginService.getToken(code);
+        System.out.println(token);
     }
 }

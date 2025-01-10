@@ -5,8 +5,8 @@
 <main layout:fragment="content">
     <h1 th:text="#{회원가입}"></h1>
     <form name="frmJoin" method="POST" th:action="@{/member/join_ps}" autocomplete="off" th:object="${requestJoin}">
-        <input th:if="*{socialChannel != null}" type="hidden" name="socialChannel" th:field="*{socialChannel}">
-        <input th:if="*{socialToken != null}" type="hidden" name="socialToken" th:field="*{socialToken}">
+        <input th:if="*{socialChannel != null && socialChannel.name != 'NONE' }" type="hidden" name="socialChannel" th:field="*{socialChannel}">
+        <input th:if="*{socialToken != null && socialToken != ''}" type="hidden" name="socialToken" th:field="*{socialToken}">
 
         <div class="row">
             <input type="text" name="email" th:field="*{email}" th:placeholder="#{이메일_주소를_입력해주세요.}" th:readonly="${authCodeVerified}">
@@ -28,6 +28,7 @@
             <input type="text" name="name" th:field="*{name}" th:placeholder="#{회원명을_입력하세요.}">
             <div class="error" th:each="err : ${#fields.errors('name')}" th:text="${err}"></div>
         </div>
+
         <th:block th:if="${!socialConfig.useKakaoLogin && !requestJoin.social}">
             <div class="row">
                 <input type="password" name="password" th:field="*{password}" th:placeholder="#{비밀번호}">

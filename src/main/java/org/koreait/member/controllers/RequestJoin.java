@@ -49,6 +49,6 @@ public class RequestJoin extends RequestAgree {
 
     // 소셜 로그인으로 가입하는 건지 체크
     public boolean isSocial() {
-        return socialChannel != null && StringUtils.hasText(socialToken);
+        return socialChannel != null && socialChannel != SocialChannel.NONE && StringUtils.hasText(socialToken);
     }
 }

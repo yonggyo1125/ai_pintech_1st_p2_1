@@ -6,10 +6,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.koreait.global.annotations.ApplyErrorPage;
 import org.koreait.global.libs.Utils;
+import org.koreait.global.services.CodeValueService;
 import org.koreait.member.MemberInfo;
 import org.koreait.member.libs.MemberUtil;
 import org.koreait.member.services.MemberInfoService;
 import org.koreait.member.services.MemberUpdateService;
+import org.koreait.member.social.constants.SocialChannel;
+import org.koreait.member.social.entities.SocialConfig;
 import org.koreait.member.validators.JoinValidator;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -28,7 +31,7 @@ import java.util.List;
 @ApplyErrorPage
 @RequestMapping("/member")
 @RequiredArgsConstructor
-@SessionAttributes({"requestAgree", "requestLogin", "authCodeVerified"})
+@SessionAttributes({"requestAgree", "requestLogin", "authCodeVerified", "socialChannel", "socialToken"})
 public class MemberController {
     
     private final Utils utils;
@@ -36,6 +39,7 @@ public class MemberController {
     private final JoinValidator joinValidator; // 회원 가입 검증
     private final MemberUpdateService updateService; // 회원 가입 처리
     private final MemberInfoService infoService; // 회원 정보 조회
+    private final CodeValueService codeValueService;
 
     @ModelAttribute("requestAgree")
     public RequestAgree requestAgree() {
@@ -52,7 +56,17 @@ public class MemberController {
     public boolean authCodeVerified() {
         return false;
     }
-    
+
+    @ModelAttribute("socialChannel")
+    public SocialChannel socialChannel() {
+        return null;
+    }
+
+    @ModelAttribute("socialToken")
+    public String socialToken() {
+        return null;
+    }
+
     /* 회원 페이지 CSS */
     @ModelAttribute("addCss")
     public List<String> addCss() {
@@ -97,8 +111,11 @@ public class MemberController {
      * @return
      */
     @PostMapping("/join")
-    public String join(RequestAgree agree, Errors errors, @ModelAttribute RequestJoin form, Model model) {
+    public String join(RequestAgree agree, Errors errors, @ModelAttribute RequestJoin form, Model model, @SessionAttribute("socialChannel") SocialChannel socialChannel, @SessionAttribute("socialToken") String socialToken) {
         commonProcess("join", model); // 회원 가입 공통 처리
+
+        form.setSocialChannel(socialChannel);
+        form.setSocialToken(socialToken);
 
         // 회원가입 양식 첫 유입에서는 이메일인증 상태를 false
         model.addAttribute("authCodeVerified", false);
@@ -165,6 +182,9 @@ public class MemberController {
         List<String> addCommonScript = new ArrayList<>(); // 공통 자바스크립트
         List<String> addScript = new ArrayList<>(); // front쪽에 추가하는 자바스크립트
 
+        // 소셜 로그인 설정
+        SocialConfig socialConfig = codeValueService.get("socialConfig", SocialConfig.class);
+
         if (mode.equals("login")) {  // 로그인 공통 처리
             pageTitle = utils.getMessage("로그인");
 
@@ -191,5 +211,8 @@ public class MemberController {
 
         // front 스크립트
         model.addAttribute("addScript", addScript);
+        
+        // 소셜 로그인 설정
+        model.addAttribute("socialConfig", socialConfig);
     }
 }

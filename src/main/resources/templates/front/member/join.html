@@ -25,17 +25,18 @@
             <input type="text" name="name" th:field="*{name}" th:placeholder="#{회원명을_입력하세요.}">
             <div class="error" th:each="err : ${#fields.errors('name')}" th:text="${err}"></div>
         </div>
-        <div class="row">
-            <input type="password" name="password" th:field="*{password}" th:placeholder="#{비밀번호}">
+        <th:block th:if="${!socialConfig.useKakaoLogin && !requestJoin.social}">
+            <div class="row">
+                <input type="password" name="password" th:field="*{password}" th:placeholder="#{비밀번호}">
 
-            <div class="error" th:each="err : ${#fields.errors('password')}" th:text="${err}"></div>
-        </div>
-        <div class="row">
-            <input type="password" name="confirmPassword" th:field="*{confirmPassword}" th:placeholder="#{위에_입력한_비밀번호와_동일한_비밀번호를_입력해주세요.}">
+                <div class="error" th:each="err : ${#fields.errors('password')}" th:text="${err}"></div>
+            </div>
+            <div class="row">
+                <input type="password" name="confirmPassword" th:field="*{confirmPassword}" th:placeholder="#{위에_입력한_비밀번호와_동일한_비밀번호를_입력해주세요.}">
 
-            <div class="error" th:each="err : ${#fields.errors('confirmPassword')}" th:text="${err}"></div>
-        </div>
-
+                <div class="error" th:each="err : ${#fields.errors('confirmPassword')}" th:text="${err}"></div>
+            </div>
+        </th:block>
         <div class="row">
             <input type="text" name="nickName" th:field="*{nickName}" th:placeholder="#{닉네임을_입력하세요.}">
 

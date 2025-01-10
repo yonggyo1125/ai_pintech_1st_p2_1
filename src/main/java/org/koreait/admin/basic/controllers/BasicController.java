@@ -152,6 +152,8 @@ public class BasicController implements SubMenus {
             pageTitle = "사이트 기본정보";
         } else if (mode.equals("terms")) {
             pageTitle = "약관 관리";
+        } else if (mode.equals("social")) {
+            pageTitle = "소셜 로그인";
         }
 
         pageTitle += " - 기본설정";

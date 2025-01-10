@@ -1,4 +1,5 @@
 <div xmlns:th="http://www.thymeleaf.org"
      th:class="${isLogin ? 'wish-btn' : 'wish-btn guest'}" th:classappend="${isMine} ? 'on'"  th:data-seq="${seq}" th:data-type="${type.name}">
-    <i th:classappend="${isMine ? 'xi-heart' : 'xi-heart-o'}"></i>
+    <i th:if="${type.name != 'GAME_POKEMON'}" th:class="${'wish-' + type.name}" th:classappend="${isMine ? 'xi-heart' : 'xi-heart-o'}"></i>
+    <i th:if="${type.name == 'GAME_POKEMON'}" th:class="${'wish-' + type.name}" th:classappend="${isMine ? 'xi-star' : 'xi-star-o'}"></i>
 </div>

@@ -113,6 +113,11 @@ public class MypageController {
         mode = Objects.requireNonNullElse(mode, WishType.POKEMON);
         if (mode == WishType.BOARD) { // 게시글 찜하기 목록
 
+        } else if (mode == WishType.GAME_POKEMON) { // 게임용 포켓몬 선택 목록
+
+            List<Pokemon> items = pokemonInfoService.getMyGamePokemons();
+            model.addAttribute("items", items);
+
         } else { // 포켓몬 찜하기 목록
             PokemonSearch pSearch = modelMapper.map(search, PokemonSearch.class);
             ListData<Pokemon> data = pokemonInfoService.getMyPokemons(pSearch);

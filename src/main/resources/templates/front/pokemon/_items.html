@@ -8,6 +8,7 @@
             </li>
             <li th:unless="${#lists.isEmpty(items)}" class="item" th:each="item : ${items}" th:object="${item}">
                 <th:block th:utext="${@wishService.showWish(item.seq, 'POKEMON', myPokemons)}"></th:block>
+                <th:block th:utext="${@wishService.showWish(item.seq, 'GAME_POKEMON', myGamePokemons)}"></th:block>
                 <a th:href="@{/pokemon/view/{seq}(seq=*{seq})}">
                     <th:block th:utext="*{@utils.showImage(frontImage, 390, 390, 'image')}"></th:block>
                     <div class="item-no"

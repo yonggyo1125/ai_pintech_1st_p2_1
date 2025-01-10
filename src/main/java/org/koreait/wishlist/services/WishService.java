@@ -3,6 +3,8 @@ package org.koreait.wishlist.services;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import org.koreait.global.exceptions.BadRequestException;
+import org.koreait.global.libs.Utils;
 import org.koreait.member.entities.Member;
 import org.koreait.member.libs.MemberUtil;
 import org.koreait.member.repositories.MemberRepository;
@@ -30,6 +32,7 @@ public class WishService {
     private final JPAQueryFactory queryFactory;
     private final MemberRepository memberRepository;
     private final SpringTemplateEngine templateEngine;
+    private final Utils utils;
 
     public void process(String mode, Long seq, WishType type) {
         if (!memberUtil.isLogin()) {
@@ -45,6 +48,18 @@ public class WishService {
                 repository.deleteById(wishId);
 
             } else { // 찜 추가
+                // 게임용 포켓몬 선택 제한 (6개)
+                if (type == WishType.GAME_POKEMON) {
+                    QWish wish = QWish.wish;
+                    BooleanBuilder builder = new BooleanBuilder();
+                    builder.and(wish.member.eq(member))
+                            .and(wish.type.eq(WishType.GAME_POKEMON));
+                    long total = repository.count(builder);
+                    if (total >= 6L) { // 6개 이상은 선택 불가
+                        throw new BadRequestException(utils.getMessage("MaxChoice.gamePokemon"));
+                    }
+                }
+
                 Wish wish = new Wish();
                 wish.setSeq(seq);
                 wish.setType(type);
@@ -54,6 +69,10 @@ public class WishService {
 
             repository.flush();
         } catch (Exception e) {
+            if (e instanceof BadRequestException) {
+                throw e;
+            }
+
             e.printStackTrace();
         }
     }

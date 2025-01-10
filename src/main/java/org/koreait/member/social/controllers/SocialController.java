@@ -1,6 +1,7 @@
 package org.koreait.member.social.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.koreait.member.social.entities.AuthToken;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -36,8 +37,9 @@ public class SocialController {
 
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
 
-        ResponseEntity<String> response = restTemplate.postForEntity(URI.create("https://kauth.kakao.com/oauth/token"), request, String.class);
+        ResponseEntity<AuthToken> response = restTemplate.postForEntity(URI.create("https://kauth.kakao.com/oauth/token"), request, AuthToken.class);
 
-        System.out.println(response);
+        AuthToken token = response.getBody();
+        System.out.println(token);
     }
 }

@@ -99,7 +99,9 @@ public class KakaoLoginService implements SocialLoginService {
 
         MemberInfo memberInfo = (MemberInfo)memberInfoService.loadUserByUsername(member.getEmail());
 
-        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(memberInfo, member.getPassword(), memberInfo.getAuthorities());
+        System.out.println("memberInfo:" + memberInfo);
+
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(memberInfo, null, memberInfo.getAuthorities());
 
         SecurityContextHolder.getContext().setAuthentication(authentication); // 로그인 처리
 

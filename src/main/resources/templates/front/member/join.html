@@ -4,6 +4,13 @@
       layout:decorate="~{front/layouts/main}">
 <main layout:fragment="content">
     <h1 th:text="#{회원가입}"></h1>
+
+    <th:block th:if="${socialConfig.useKakaoLogin && requestJoin.social}">
+        <div class="social-channel">
+            <img th:src="@{/front/images/kakaotalk.png}">
+            <th:block th:text="#{카카오_로그인_회원가입}"></th:block>
+        </div>
+    </th:block>
     <form name="frmJoin" method="POST" th:action="@{/member/join_ps}" autocomplete="off" th:object="${requestJoin}">
         <input th:if="*{socialChannel != null && socialChannel.name != 'NONE' }" type="hidden" name="socialChannel" th:field="*{socialChannel}">
         <input th:if="*{socialToken != null && socialToken != ''}" type="hidden" name="socialToken" th:field="*{socialToken}">

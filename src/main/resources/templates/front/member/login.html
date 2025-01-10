@@ -32,6 +32,13 @@
         </div>
 
         <a th:href="@{/member/agree}" th:text="#{아직_회원이_아니신가요?}" class="join-link"></a>
+
+        <th:block th:if="*{kakaoLoginUrl != null && kakaoLoginUrl != ''}">
+            <h2 th:text="#{소셜_로그인}"></h2>
+            <a th:href="*{kakaoLoginUrl}">
+                <img th:src="@{/front/images/kakao_login.png}">
+            </a>
+        </th:block>
     </form>
 
 </main>

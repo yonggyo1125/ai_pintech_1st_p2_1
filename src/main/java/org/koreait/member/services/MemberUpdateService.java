@@ -56,9 +56,11 @@ public class MemberUpdateService {
         }
 
         // 비밀번호 해시화 - BCrypt
-        String hash = passwordEncoder.encode(form.getPassword());
-        member.setPassword(hash);
-        member.setCredentialChangedAt(LocalDateTime.now());
+        if (!form.isSocial()) {
+            String hash = passwordEncoder.encode(form.getPassword());
+            member.setPassword(hash);
+            member.setCredentialChangedAt(LocalDateTime.now());
+        }
 
         // 소셜 로그인 관련
         member.setSocialChannel(form.getSocialChannel());

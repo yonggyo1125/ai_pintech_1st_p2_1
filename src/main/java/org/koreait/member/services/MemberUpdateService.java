@@ -60,6 +60,10 @@ public class MemberUpdateService {
         member.setPassword(hash);
         member.setCredentialChangedAt(LocalDateTime.now());
 
+        // 소셜 로그인 관련
+        member.setSocialChannel(form.getSocialChannel());
+        member.setSocialToken(form.getSocialToken());
+
         // 회원 권한
         Authorities auth = new Authorities();
         auth.setMember(member);

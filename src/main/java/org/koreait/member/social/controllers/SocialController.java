@@ -1,17 +1,11 @@
 package org.koreait.member.social.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.koreait.member.social.entities.AuthToken;
-import org.springframework.http.*;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-
-import java.net.URI;
 
 
 @RestController
@@ -21,8 +15,10 @@ public class SocialController {
 
     private final RestTemplate restTemplate;
 
-    @GetMapping("/callback")
+    @GetMapping("/callback/kakao")
     public void callback(@RequestParam(name="code", required = false) String code) {
+
+        /*
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
@@ -46,6 +42,6 @@ public class SocialController {
         HttpEntity<Void> request2 = new HttpEntity<>(headers2);
 
         ResponseEntity<String> response2 = restTemplate.exchange(URI.create("https://kapi.kakao.com/v2/user/me"), HttpMethod.GET, request2, String.class);
-        System.out.println(response2);
+        System.out.println(response2);*/
     }
 }

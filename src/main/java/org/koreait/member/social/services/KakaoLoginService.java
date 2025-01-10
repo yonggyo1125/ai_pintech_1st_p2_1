@@ -8,10 +8,7 @@ import org.koreait.member.repositories.MemberRepository;
 import org.koreait.member.social.entities.AuthToken;
 import org.koreait.member.social.entities.SocialConfig;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -51,11 +48,29 @@ public class KakaoLoginService implements SocialLoginService {
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
 
         ResponseEntity<AuthToken> response = restTemplate.postForEntity(URI.create("https://kauth.kakao.com/oauth/token"), request, AuthToken.class);
+        if (response.getStatusCode() != HttpStatus.OK) { // 정상 응답 X -> 종료
+            return null;
+        }
 
         AuthToken token = response.getBody();
+        String accessToken = token.getAccessToken();
         /* Access Token 발급 E */
 
-        return "";
+
+        /* 회원 ID - SocialToken S */
+        String url = "https://kapi.kakao.com/v2/user/me";
+        HttpHeaders headers2 = new HttpHeaders();
+        headers2.setBearerAuth(accessToken);
+        HttpEntity<Void> request2 = new HttpEntity<>(headers2);
+
+        ResponseEntity<String> response2 = restTemplate.exchange(URI.create(url), HttpMethod.GET, request2, String.class);
+        if (response2.getStatusCode() == HttpStatus.OK) {
+
+        }
+
+        /* 회원 ID - SocialToken E */
+
+        return null;
     }
 
     @Override

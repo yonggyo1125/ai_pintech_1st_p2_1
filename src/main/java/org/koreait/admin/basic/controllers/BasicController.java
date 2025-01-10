@@ -11,6 +11,7 @@ import org.koreait.global.entities.SiteConfig;
 import org.koreait.global.entities.Terms;
 import org.koreait.global.libs.Utils;
 import org.koreait.global.services.CodeValueService;
+import org.koreait.member.social.entities.SocialConfig;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -112,6 +113,29 @@ public class BasicController implements SubMenus {
 
         model.addAttribute("script", "parent.location.reload();");
         return "common/_execute_script";
+    }
+
+    @GetMapping("/social")
+    public String social(Model model) {
+        commonProcess("social", model);
+
+        SocialConfig form = codeValueService.get("siteConfig", SocialConfig.class);
+        form = Objects.requireNonNullElseGet(form, SocialConfig::new);
+
+        model.addAttribute("socialConfig", form);
+
+        return "admin/basic/social";
+    }
+
+    @PostMapping("/social")
+    public String socialPs(SocialConfig form, Model model) {
+        commonProcess("social", model);
+
+        codeValueService.save("socialConfig", form);
+
+        utils.showSessionMessage("저장되었습니다.");
+
+        return "admin/basic/social";
     }
 
     /**

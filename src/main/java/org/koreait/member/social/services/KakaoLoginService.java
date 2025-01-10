@@ -45,7 +45,7 @@ public class KakaoLoginService implements SocialLoginService {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("grant_type", "authorization_code");
         params.add("client_id", restApiKey);
-        params.add("redirect_uri", utils.getUrl("/member/social/callback"));
+        params.add("redirect_uri", utils.getUrl("/member/social/callback/kakao"));
         params.add("code", code);
 
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);

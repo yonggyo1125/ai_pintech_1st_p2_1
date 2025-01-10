@@ -12,6 +12,7 @@ import org.koreait.member.entities.Member;
 import org.koreait.member.libs.MemberUtil;
 import org.koreait.member.services.MemberInfoService;
 import org.koreait.member.services.MemberUpdateService;
+import org.koreait.member.social.services.KakaoLoginService;
 import org.koreait.mypage.validators.ProfileValidator;
 import org.koreait.pokemon.controllers.PokemonSearch;
 import org.koreait.pokemon.entities.Pokemon;
@@ -43,6 +44,7 @@ public class MypageController {
     private final ProfileValidator profileValidator;
     private final MemberInfoService infoService;
     private final PokemonInfoService pokemonInfoService;
+    private final KakaoLoginService kakaoLoginService;
 
     @ModelAttribute("profile")
     public Member getMember() {
@@ -66,6 +68,8 @@ public class MypageController {
         if (StringUtils.hasText(optionalTerms)) {
             form.setOptionalTerms(Arrays.stream(optionalTerms.split("\\|\\|")).toList());
         }
+
+        form.setKakaoLoginConnectUrl(kakaoLoginService.getLoginUrl("profile"));
 
         model.addAttribute("requestProfile", form);
 

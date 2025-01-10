@@ -136,7 +136,7 @@ public class MemberController {
      * @return
      */
     @PostMapping("/join_ps")
-    public String joinPs(@SessionAttribute("requestAgree") RequestAgree agree, @Valid RequestJoin form, Errors errors, SessionStatus status, Model model) {
+    public String joinPs(@SessionAttribute("requestAgree") RequestAgree agree, @Valid RequestJoin form, Errors errors, SessionStatus status, Model model, HttpSession session) {
         commonProcess("join", model); // 회원가입 공통 처리
 
         joinValidator.validate(agree, errors); // 약관 동의 여부 체크
@@ -155,6 +155,11 @@ public class MemberController {
         updateService.process(form);
 
         status.setComplete();
+
+        // 인증 관련 세션정보 삭제
+        session.removeAttribute("socialChannel");
+        session.removeAttribute("socialToken");
+        session.removeAttribute("authCodeVerified");
 
         // 회원가입 처리 완료 후 - 로그인 페이지로 이동
         return "redirect:/member/login";

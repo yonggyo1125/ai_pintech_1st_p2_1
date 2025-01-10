@@ -1,5 +1,6 @@
 package org.koreait.main.controllers;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.koreait.global.libs.Utils;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,8 @@ public class MainController {
 
     @GetMapping
     public String index(Model model) {
+
+
         return utils.tpl("main/index");
     }
 }

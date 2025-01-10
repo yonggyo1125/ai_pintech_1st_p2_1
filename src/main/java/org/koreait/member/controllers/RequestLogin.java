@@ -17,5 +17,7 @@ public class RequestLogin implements Serializable {
     private String redirectUrl; // 로그인 완료 후 이동할 주소
 
     private List<String> errorCodes;
+
+    private String kakaoLoginUrl;
 }
 

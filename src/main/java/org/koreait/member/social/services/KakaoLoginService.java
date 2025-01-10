@@ -27,6 +27,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.util.Map;
+import java.util.Objects;
 
 @Lazy
 @Service
@@ -111,7 +112,7 @@ public class KakaoLoginService implements SocialLoginService {
     }
 
     @Override
-    public String getLoginUrl() {
+    public String getLoginUrl(String redirectUrl) {
         SocialConfig socialConfig = codeValueService.get("socialConfig", SocialConfig.class);
         String restApiKey = socialConfig.getKakaoRestApiKey();
         if (!socialConfig.isUseKakaoLogin() || !StringUtils.hasText(restApiKey)) {
@@ -119,7 +120,8 @@ public class KakaoLoginService implements SocialLoginService {
         }
 
         String redirectUri = utils.getUrl("/member/social/callback/kakao");
+        redirectUrl = Objects.requireNonNullElse(redirectUrl, "");
 
-        return String.format("https://kauth.kakao.com/oauth/authorize?client_id=%s&redirect_uri=%s&response_type=code", restApiKey, redirectUri);
+        return String.format("https://kauth.kakao.com/oauth/authorize?client_id=%s&redirect_uri=%s&response_type=code&state=%s", restApiKey, redirectUri, redirectUrl);
     }
 }

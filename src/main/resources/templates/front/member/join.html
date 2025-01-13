@@ -36,7 +36,7 @@
             <div class="error" th:each="err : ${#fields.errors('name')}" th:text="${err}"></div>
         </div>
 
-        <th:block th:if="${!socialConfig.useKakaoLogin && !requestJoin.social}">
+        <th:block th:if="${!socialConfig.useKakaoLogin || !requestJoin.social}">
             <div class="row">
                 <input type="password" name="password" th:field="*{password}" th:placeholder="#{비밀번호}">
 

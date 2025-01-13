@@ -78,8 +78,10 @@ public class MemberController {
     public String login(@ModelAttribute RequestLogin form, Errors errors, Model model, HttpSession session) {
         commonProcess("login", model); // 로그인 페이지 공통 처리
 
-        session.setAttribute("socialChannel", SocialChannel.NONE);
-        session.setAttribute("socialToken", null);
+        //session.setAttribute("socialChannel", SocialChannel.NONE);
+        //session.setAttribute("socialToken", null);
+        model.addAttribute("socialChannel", SocialChannel.NONE);
+        model.addAttribute("socialToken", null);
 
         form.setKakaoLoginUrl(kakaoLoginService.getLoginUrl(form.getRedirectUrl()));
 

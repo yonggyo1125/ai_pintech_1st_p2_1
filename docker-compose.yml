@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+  pokemon-service:
+    image: openjdk:17-jdk
+    container_name: pokemon
+    ports: "3000:3000"
+    volumes:
+      - pokemon-volume:/uploads
+    environment:
+      - SPRING_PROFILES_ACTIVE=default,prod,email,dl
+      - FILE_PATH=/uploads/
+      - FILE_URL=/uploads/
+      - PYTHON_RUN=...
+      - PYTHON_SCRIPT=...
+      - DL_DATA_URL=...
+      - PYTHON_SCRIPT2=...
+      - PYTHON_BERT=...
+      - REDIS_PORT=6379
+      - DDL_AUTO=none
+    command:
+        - java -jar -Ddb.host=${DB_HOST} -Ddb.password=${DB_PASSWORD} -Ddb.username=${DB_USERNAME} -Dddl.auto=${DDL_AUTO} -Ddl.data.url=${DL_DATA_URL} -Dpython.run=${PYTHON_RUN} -Dpython.script=${PYTHON_SCRIPT} -Dredis.host=${REDIS_HOST} -Dredis.port=${REDIS_PORT} -Dmail.username=${MAIL_USERNAME} -Dmail.password=${MAIL_PASSWORD} -Dpython.script2=${PYTHON_SCRIPT2} -Dpython.bert=${PYTHON_BERT} app.jar"

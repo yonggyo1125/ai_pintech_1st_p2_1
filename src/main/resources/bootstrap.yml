@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: pokemon-service
+
+  cloud:
+    config:
+      uri: ${config.server}

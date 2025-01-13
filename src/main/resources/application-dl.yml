@@ -1,6 +1,0 @@
-python:
-  run.path: ${python.run}
-  script.path: ${python.script}
-  script2.path: ${python.script2}
-  bert.path: ${python.bert}
-  data.url: ${dl.data.url}

@@ -184,7 +184,6 @@ public class BoardController {
      */
     @ExceptionHandler(GuestPasswordCheckException.class)
     public String guestPassword() {
-
         return utils.tpl("board/password");
     }
 
@@ -201,6 +200,15 @@ public class BoardController {
         if (!StringUtils.hasText(password)) {
             throw new AlertException(utils.getMessage("NotBlank.password"));
         }
+
+        Long seq = (Long)session.getAttribute("seq");
+
+       if (!boardValidator.checkGuestPassword(password, seq)) {
+           throw new AlertException(utils.getMessage("Mismatch.password"));
+       }
+
+        // 비회원 비밀번호 검증 성공시 세션에 board_게시글번호
+        session.setAttribute("board_" + seq, true);
 
         // 비회원 비밀번호 인증 완료된 경우 새로 고침
         model.addAttribute("script", "parent.location.reload();");

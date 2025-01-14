@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.koreait.board.entities.Board;
 import org.koreait.board.entities.BoardData;
+import org.koreait.board.services.BoardDeleteService;
 import org.koreait.board.services.BoardInfoService;
 import org.koreait.board.services.BoardUpdateService;
 import org.koreait.board.services.BoardViewUpdateService;
@@ -42,6 +43,7 @@ public class BoardController {
     private final BoardUpdateService boardUpdateService;
     private final BoardInfoService boardInfoService;
     private final BoardViewUpdateService boardViewUpdateService;
+    private final BoardDeleteService boardDeleteService;
 
     /**
      * 사용자별 공통 데이터
@@ -168,6 +170,8 @@ public class BoardController {
     public String delete(@PathVariable("seq") Long seq, Model model, @SessionAttribute("commonValue") CommonValue commonValue) {
         commonProcess(seq, "delete", model);
         Board board = commonValue.getBoard();
+
+        boardDeleteService.delete(seq);
 
         return "redirect:/board/list/" + board.getBid();
     }

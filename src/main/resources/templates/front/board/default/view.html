@@ -54,10 +54,10 @@
     </div>
     <!--// view-content -->
     <div class="view-buttons">
-        <a th:href="@{/board/list/{bid}(bid=${board.bid})}" th:text="#{글목록}"></a>
-        <a th:href="@{/board/write/{bid}(bid=${board.bid})}" th:text="#{글쓰기}"></a>
-        <a th:href="@{/board/edit/{seq}(seq=*{seq})}" th:text="#{글수정}"></a>
-        <a th:href="@{/board/delete/{seq}(seq=*{seq})}" th:text="#{글삭제}" onclick="return confirm('정말 삭제하겠습니까?');"></a>
+        <a th:if="*{listable}" th:href="@{/board/list/{bid}(bid=${board.bid})}" th:text="#{글목록}"></a>
+        <a th:if="*{writable}" th:href="@{/board/write/{bid}(bid=${board.bid})}" th:text="#{글쓰기}"></a>
+        <a th:if="*{editable}" th:href="@{/board/edit/{seq}(seq=*{seq})}" th:text="#{글수정}"></a>
+        <a th:if="*{editable}" th:href="@{/board/delete/{seq}(seq=*{seq})}" th:text="#{글삭제}" onclick="return confirm('정말 삭제하겠습니까?');"></a>
     </div>
     <!--// view-buttons -->
 

@@ -53,4 +53,10 @@ public class Board extends BaseMemberEntity implements Serializable {
 
     @Transient
     private List<String> categories;
+
+    @Transient
+    private boolean listable;
+
+    @Transient
+    private boolean writable;
 }

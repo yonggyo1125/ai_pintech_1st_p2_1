@@ -277,10 +277,10 @@ public class BoardInfoService {
 
         Board board = item.getBoard();
         Authority listAuthority = board.getListAuthority();
-        boolean listable = (listAuthority == Authority.USER && memberUtil.isLogin()) || (listAuthority == Authority.ADMIN && memberUtil.isAdmin());
+        boolean listable = listAuthority == Authority.ALL || (listAuthority == Authority.USER && memberUtil.isLogin()) || (listAuthority == Authority.ADMIN && memberUtil.isAdmin());
 
         Authority writeAuthority = board.getWriteAuthority();
-        boolean writable = (writeAuthority == Authority.USER && memberUtil.isLogin()) || (writeAuthority == Authority.ADMIN && memberUtil.isAdmin());
+        boolean writable = writeAuthority == Authority.ALL || (writeAuthority == Authority.USER && memberUtil.isLogin()) || (writeAuthority == Authority.ADMIN && memberUtil.isAdmin());
 
         Member member = item.getMember();
         Member loggedMember = memberUtil.getMember();

@@ -24,6 +24,7 @@ public class RequestBoard {
     private boolean useEditorImage; // 에디터 첨부 이미지 사용 여부
     private boolean useAttachFile; // 다운로드용 첨부 파일 사용 여부
     private boolean useComment; // 댓글 사용 여부
+    private boolean listUnderView; // 보기페이지 하단 목록 노출
     private String locationAfterWriting; // 글 작성 후 이동 경로 list, view
     private String skin; // 게시판 스킨
 

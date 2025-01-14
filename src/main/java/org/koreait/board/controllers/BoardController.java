@@ -86,12 +86,24 @@ public class BoardController {
      * @return
      */
     @GetMapping("/view/{seq}")
-    public String view(@PathVariable("seq") Long seq, Model model) {
+    public String view(@PathVariable("seq") Long seq, Model model, @ModelAttribute RequestComment form) {
         commonProcess(seq, "view", model);
 
         long viewCount = boardViewUpdateService.process(seq); // 조회수 업데이트
         BoardData data = (BoardData)model.getAttribute("boardData");
         data.setViewCount(viewCount);
+
+        Board board = data.getBoard();
+        if (board.isListUnderView()) { // 보기페이지 하단에 게시글 목록 출력
+            ListData<BoardData> listData = boardInfoService.getList(board.getBid(), new BoardSearch());
+            model.addAttribute("items", listData.getItems());
+            model.addAttribute("pagination", listData.getPagination());
+        }
+
+        // 댓글을 사용하는 경우
+        if (board.isUseComment() && memberUtil.isLogin()) {
+            form.setCommenter(memberUtil.getMember().getName());
+        }
 
         return utils.tpl("board/view");
     }

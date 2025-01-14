@@ -31,6 +31,8 @@ public class Board extends BaseMemberEntity implements Serializable {
     private boolean useEditorImage;
     private boolean useAttachFile;
     private boolean useComment; // 댓글 사용 여부
+    private boolean listUnderView; // 글 보기 하단에 글목록 노출 여부
+
     private String locationAfterWriting; // 글 작성후 이동 경로 - list : 목록, view : 글보기
 
     private String skin;

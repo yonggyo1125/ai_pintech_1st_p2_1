@@ -107,6 +107,19 @@
                 </td>
             </tr>
             <tr>
+                <th>글보기페이지 목록</th>
+                <td>
+                    <span class="radio">
+                        <input type="radio" name="listUnderView" value="true" id="listUnderView-true" th:field="*{listUnderView}">
+                        <label for="listUnderView-true">사용</label>
+                    </span>
+                    <span class="radio">
+                        <input type="radio" name="listUnderView" value="false" id="listUnderView-false" th:field="*{listUnderView}">
+                        <label for="listUnderView-false">미사용</label>
+                    </span>
+                </td>
+            </tr>
+            <tr>
                 <th>글작성 후 이동</th>
                 <td>
                     <span class="radio">

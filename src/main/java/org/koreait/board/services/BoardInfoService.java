@@ -18,7 +18,6 @@ import org.koreait.file.services.FileInfoService;
 import org.koreait.global.libs.Utils;
 import org.koreait.global.paging.ListData;
 import org.koreait.global.paging.Pagination;
-import org.koreait.member.constants.Authority;
 import org.koreait.member.entities.Member;
 import org.koreait.member.libs.MemberUtil;
 import org.modelmapper.ModelMapper;
@@ -276,11 +275,11 @@ public class BoardInfoService {
         /* listable, writable, editable, mine 처리 S */
 
         Board board = item.getBoard();
-        Authority listAuthority = board.getListAuthority();
-        boolean listable = listAuthority == Authority.ALL || (listAuthority == Authority.USER && memberUtil.isLogin()) || (listAuthority == Authority.ADMIN && memberUtil.isAdmin());
+        configInfoService.addInfo(board);
 
-        Authority writeAuthority = board.getWriteAuthority();
-        boolean writable = writeAuthority == Authority.ALL || (writeAuthority == Authority.USER && memberUtil.isLogin()) || (writeAuthority == Authority.ADMIN && memberUtil.isAdmin());
+        boolean listable = board.isListable();
+
+        boolean writable = board.isWritable();
 
         Member member = item.getMember();
         Member loggedMember = memberUtil.getMember();

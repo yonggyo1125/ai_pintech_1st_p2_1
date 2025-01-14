@@ -5,6 +5,7 @@
            <li th:if="${items == null || items.isEmpty()}" class="no-data" th:text="#{조회된_게시글이_없습니다.}"></li>
             <li th:unless="${items == null || items.isEmpty()}" th:each="item: ${items}" th:object="${item}">
                 <a th:href="@{/board/view/{seq}(seq=*{seq})}">
+                    <span class="badge" th:if="${boardData != null && boardData.seq == item.seq}" th:text="#{열람중}"></span>
                     <span class="badge" th:if="*{category != null}" th:text="*{category}"></span>
                     <th:block th:text="*{subject}"></th:block>
                     <span th:if="*{commentCount > 0L}" th:text="*{#strings.concat('(', commentCount, ')')}"></span>

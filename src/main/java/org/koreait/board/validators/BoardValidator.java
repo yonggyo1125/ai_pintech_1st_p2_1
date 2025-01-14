@@ -58,6 +58,8 @@ public class BoardValidator implements Validator, PasswordValidator {
      * @param seq
      */
     public boolean checkGuestPassword(String password, Long seq) {
+        if (seq == null) return false;
+
         BoardData item = boardDataRepository.findById(seq).orElse(null);
 
         if (item != null && StringUtils.hasText(item.getGuestPw())) {

@@ -72,4 +72,16 @@ public class BoardData extends BaseEntity implements Serializable {
 
     @Transient
     private List<FileInfo> attachFiles; // 다운로드용 첨부 파일
+
+    @Transient
+    private boolean listable; // 목록 버튼 노출 여부
+
+    @Transient
+    private boolean editable; // 수정, 삭제 버튼 노출 여부
+
+    @Transient
+    private boolean writable; // 글쓰기 버튼 노출 여부
+
+    @Transient
+    private boolean mine; // 내가 작성한 게시글 여부
 }

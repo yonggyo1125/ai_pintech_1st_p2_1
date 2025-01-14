@@ -18,6 +18,7 @@ import org.koreait.file.services.FileInfoService;
 import org.koreait.global.libs.Utils;
 import org.koreait.global.paging.ListData;
 import org.koreait.global.paging.Pagination;
+import org.koreait.member.constants.Authority;
 import org.koreait.member.entities.Member;
 import org.koreait.member.libs.MemberUtil;
 import org.modelmapper.ModelMapper;
@@ -271,6 +272,30 @@ public class BoardInfoService {
             item.setPrev(prev);
             item.setNext(next);
         }
+
+        /* listable, writable, editable, mine 처리 S */
+
+        Board board = item.getBoard();
+        Authority listAuthority = board.getListAuthority();
+        boolean listable = (listAuthority == Authority.USER && memberUtil.isLogin()) || (listAuthority == Authority.ADMIN && memberUtil.isAdmin());
+
+        Authority writeAuthority = board.getWriteAuthority();
+        boolean writable = (writeAuthority == Authority.USER && memberUtil.isLogin()) || (writeAuthority == Authority.ADMIN && memberUtil.isAdmin());
+
+        Member member = item.getMember();
+        Member loggedMember = memberUtil.getMember();
+
+        boolean editable = member == null || (memberUtil.isLogin() && loggedMember.getEmail().equals(member.getEmail())); // 비회원게시글은 비밀번호 확인이 필요하므로 버튼 노출, 회원게시글 로그인한 회원과 일치하면 버튼 노출
+
+        boolean mine = request.getSession().getAttribute("board_" + item.getSeq()) != null
+                        || (member != null && memberUtil.isLogin() && loggedMember.getEmail().equals(member.getEmail()));
+
+        item.setListable(listable);
+        item.setWritable(writable);
+        item.setEditable(editable);
+        item.setMine(mine);
+
+        /* listable, writable, editable, mine 처리 E */
     }
 
     private void addInfo(BoardData item) {

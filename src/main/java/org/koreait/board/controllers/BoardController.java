@@ -13,9 +13,11 @@ import org.koreait.board.validators.BoardValidator;
 import org.koreait.file.constants.FileStatus;
 import org.koreait.file.services.FileInfoService;
 import org.koreait.global.annotations.ApplyErrorPage;
+import org.koreait.global.entities.SiteConfig;
 import org.koreait.global.exceptions.scripts.AlertException;
 import org.koreait.global.libs.Utils;
 import org.koreait.global.paging.ListData;
+import org.koreait.global.services.CodeValueService;
 import org.koreait.member.libs.MemberUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Controller
@@ -45,6 +48,7 @@ public class BoardController {
     private final BoardViewUpdateService boardViewUpdateService;
     private final BoardDeleteService boardDeleteService;
     private final BoardAuthService boardAuthService;
+    private final CodeValueService codeValueService;
 
     /**
      * 사용자별 공통 데이터
@@ -183,7 +187,11 @@ public class BoardController {
      * @return
      */
     @ExceptionHandler(GuestPasswordCheckException.class)
-    public String guestPassword() {
+    public String guestPassword(Model model) {
+
+        SiteConfig config = Objects.requireNonNullElseGet(codeValueService.get("siteConfig", SiteConfig.class), SiteConfig::new);
+        model.addAttribute("siteConfig", config);
+
         return utils.tpl("board/password");
     }
 
@@ -220,7 +228,9 @@ public class BoardController {
     private void commonProcess(String bid, String mode, Model model) {
 
         // 권한 체크
-        boardAuthService.check(mode, bid);
+        if (!List.of("edit", "delete").contains(mode)) {
+            boardAuthService.check(mode, bid);
+        }
 
         Board board = configInfoService.get(bid);
         String pageTitle = board.getName(); // 게시판명 - 목록, 글쓰기

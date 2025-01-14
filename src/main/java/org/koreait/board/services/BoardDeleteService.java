@@ -1,5 +1,6 @@
 package org.koreait.board.services;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.koreait.board.entities.BoardData;
 import org.koreait.board.repositories.BoardDataRepository;
@@ -14,6 +15,7 @@ public class BoardDeleteService {
     private final BoardInfoService infoService;
     private final BoardDataRepository boardRepository;
     private final FileDeleteService fileDeleteService;
+    private final HttpSession session;
 
     public void delete(Long seq) {
 
@@ -25,5 +27,8 @@ public class BoardDeleteService {
 
         boardRepository.delete(item);
         boardRepository.flush();
+
+        // 비회원 인증 정보 삭제
+        session.removeAttribute("board_" + seq);
     }
 }

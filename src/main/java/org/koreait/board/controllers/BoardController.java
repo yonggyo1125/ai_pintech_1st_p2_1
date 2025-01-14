@@ -1,19 +1,19 @@
 package org.koreait.board.controllers;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.koreait.board.entities.Board;
 import org.koreait.board.entities.BoardData;
-import org.koreait.board.services.BoardDeleteService;
-import org.koreait.board.services.BoardInfoService;
-import org.koreait.board.services.BoardUpdateService;
-import org.koreait.board.services.BoardViewUpdateService;
+import org.koreait.board.exceptions.GuestPasswordCheckException;
+import org.koreait.board.services.*;
 import org.koreait.board.services.configs.BoardConfigInfoService;
 import org.koreait.board.validators.BoardValidator;
 import org.koreait.file.constants.FileStatus;
 import org.koreait.file.services.FileInfoService;
 import org.koreait.global.annotations.ApplyErrorPage;
+import org.koreait.global.exceptions.scripts.AlertException;
 import org.koreait.global.libs.Utils;
 import org.koreait.global.paging.ListData;
 import org.koreait.member.libs.MemberUtil;
@@ -44,6 +44,7 @@ public class BoardController {
     private final BoardInfoService boardInfoService;
     private final BoardViewUpdateService boardViewUpdateService;
     private final BoardDeleteService boardDeleteService;
+    private final BoardAuthService boardAuthService;
 
     /**
      * 사용자별 공통 데이터
@@ -176,9 +177,43 @@ public class BoardController {
         return "redirect:/board/list/" + board.getBid();
     }
 
+    /**
+     * 비회원 비밀번호 처리
+     *
+     * @return
+     */
+    @ExceptionHandler(GuestPasswordCheckException.class)
+    public String guestPassword() {
+
+        return utils.tpl("board/password");
+    }
+
+    /**
+     * 비회원 비밀번호 검증
+     *
+     * @param password
+     * @param session
+     * @param model
+     * @return
+     */
+    @PostMapping("/password")
+    public String validateGuestPassword(@RequestParam(name="password", required = false) String password, HttpSession session, Model model) {
+        if (!StringUtils.hasText(password)) {
+            throw new AlertException(utils.getMessage("NotBlank.password"));
+        }
+
+        // 비회원 비밀번호 인증 완료된 경우 새로 고침
+        model.addAttribute("script", "parent.location.reload();");
+        return "common/_execute_script";
+    }
+
 
     // 공통 처리
     private void commonProcess(String bid, String mode, Model model) {
+
+        // 권한 체크
+        boardAuthService.check(mode, bid);
+
         Board board = configInfoService.get(bid);
         String pageTitle = board.getName(); // 게시판명 - 목록, 글쓰기
         List<String> addCommonScript = new ArrayList<>();
@@ -226,8 +261,12 @@ public class BoardController {
 
     // 게시글 보기, 게시글 수정
     private void commonProcess(Long seq, String mode, Model model) {
+
         BoardData item = boardInfoService.get(seq);
         Board board = item.getBoard();
+
+        // 게시판 권한 체크
+        boardAuthService.check(mode, seq);
 
         String pageTitle = String.format("%s - %s", item.getSubject(), board.getName());
 

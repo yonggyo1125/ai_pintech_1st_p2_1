@@ -2,9 +2,12 @@ package org.koreait.board.validators;
 
 import lombok.RequiredArgsConstructor;
 import org.koreait.board.controllers.RequestBoard;
+import org.koreait.board.entities.BoardData;
+import org.koreait.board.repositories.BoardDataRepository;
 import org.koreait.global.validators.PasswordValidator;
 import org.koreait.member.libs.MemberUtil;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
@@ -17,6 +20,8 @@ import org.springframework.validation.Validator;
 public class BoardValidator implements Validator, PasswordValidator {
 
     private final MemberUtil memberUtil;
+    private final BoardDataRepository boardDataRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -44,5 +49,21 @@ public class BoardValidator implements Validator, PasswordValidator {
         if (mode != null && mode.equals("edit") && (seq == null || seq < 1L)) {
             errors.rejectValue("seq", "NotNull");
         }
+    }
+
+    /**
+     * 비회원 비밀번호 체크
+     *
+     * @param password
+     * @param seq
+     */
+    public boolean checkGuestPassword(String password, Long seq) {
+        BoardData item = boardDataRepository.findById(seq).orElse(null);
+
+        if (item != null && StringUtils.hasText(item.getGuestPw())) {
+            return passwordEncoder.matches(password, item.getGuestPw());
+        }
+
+        return false;
     }
 }

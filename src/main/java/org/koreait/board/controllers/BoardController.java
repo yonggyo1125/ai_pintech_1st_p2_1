@@ -109,6 +109,7 @@ public class BoardController {
             form.setCommenter(memberUtil.getMember().getName());
         }
 
+        form.setMode("write");
         form.setTarget("ifrmProcess");
 
         return utils.tpl("board/view");
@@ -197,6 +198,18 @@ public class BoardController {
         boardDeleteService.delete(seq);
 
         return "redirect:/board/list/" + board.getBid();
+    }
+
+    @PostMapping("/comment")
+    public String comment(@Valid RequestComment form, Errors errors, Model model) {
+        String mode = form.getMode();
+        mode = StringUtils.hasText(mode) ? mode : "write";
+
+        if (errors.hasErrors()) {
+
+        }
+
+        return null;
     }
 
     /**

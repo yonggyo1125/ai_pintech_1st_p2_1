@@ -14,4 +14,15 @@
         <div class="inner show-image" style="background:url('[thumbUrl]') no-repeat center center;background-size: cover;" data-seq="[seq]"></div>
     </div>
 </script>
+
+<script th:fragment="image-item2" type="text/html" id="tpl-image-item">
+    <div class="image-item" id="file-[seq]">
+
+        <div class="inner show-image" style="background:url('[thumbUrl]') no-repeat center center;background-size: cover;" data-seq="[seq]"></div>
+        <div class="controls">
+            <i class="insert-editor xi-upload" data-url="[fileUrl]"></i>
+            <i class="remove xi-close" data-seq="[seq]"></i>
+        </div>
+    </div>
+</script>
 </html>

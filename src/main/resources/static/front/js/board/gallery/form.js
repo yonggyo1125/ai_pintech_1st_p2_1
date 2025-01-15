@@ -38,6 +38,7 @@ function callbackFileUpload(files) {
 
     const imageUrls = [];
     const tpl = document.getElementById("tpl-file-item").innerHTML;
+    const tpl2 = document.getElementById("tpl-image-item").innerHTML;
 
     const targetEditor = document.getElementById("editor-files");
     const targetAttach = document.getElementById("attach-files");
@@ -47,7 +48,7 @@ function callbackFileUpload(files) {
 
     for (const {seq, location, fileName, fileUrl} of files) {
 
-        let html = tpl;
+        let html = location === 'editor' ? tpl2 : tpl;
         html = html.replace(/\[seq\]/g, seq)
                    .replace(/\[fileName\]/g, fileName)
                     .replace(/\[fileUrl\]/g, fileUrl);

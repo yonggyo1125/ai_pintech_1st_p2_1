@@ -323,7 +323,12 @@ public class BoardController {
         /* 비회원 댓글 비밀번홀 검증 S */
         Long cSeq = (Long)session.getAttribute("cSeq");
         if (cSeq != null && cSeq > 0L) {
+            if (!commentValidator.checkGuestPassword(password, cSeq)) {
+                throw new AlertException(utils.getMessage("Mismatch.password"));
+            }
 
+            // 비회원 댓글 비밀번호 검증 성공 comment_댓글번호
+            session.setAttribute("comment_" + cSeq, true);
         }
         /* 비회원 댓글 비밀번홀 검증 E */
 

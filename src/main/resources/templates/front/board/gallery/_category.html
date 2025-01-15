@@ -1,0 +1,7 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <nav th:fragment="category" th:if="${categories != null && !categories.isEmpty()}" class="category-tab">
+        <a th:href="@{/board/list/{bid}(bid=${board.bid})}" th:text="#{전체}" class="tab" th:classappend="${param.category == null || param.category == ''} ? 'on'"></a>
+        <a th:each="category : ${categories}" th:href="@{/board/list/{bid}?category={category}(bid=${board.bid}, category=${category})}" th:text="${category}" class="tab" th:classappend="${param.category == category} ? 'on'"></a>
+    </nav>
+</html>

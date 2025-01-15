@@ -6,5 +6,9 @@
     <th:block th:if="*{skin == 'default'}">
         <th:block th:replace="~{front/board/default/view::skin}"></th:block>
     </th:block>
+
+    <th:block th:if="*{skin == 'gallery'}">
+        <th:block th:replace="~{front/board/gallery/view::skin}"></th:block>
+    </th:block>
 </main>
 </html>

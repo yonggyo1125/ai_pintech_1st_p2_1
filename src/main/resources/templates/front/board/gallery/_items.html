@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <th:block th:fragment="items">
+        <ul>
+           <li th:if="${items == null || items.isEmpty()}" class="no-data" th:text="#{조회된_게시글이_없습니다.}"></li>
+            <li th:unless="${items == null || items.isEmpty()}" th:each="item: ${items}" th:object="${item}">
+                <a th:href="@{/board/view/{seq}(seq=*{seq})}">
+                    <span class="badge" th:if="${boardData != null && boardData.seq == item.seq}" th:text="#{열람중}"></span>
+                    <span class="badge" th:if="*{category != null}" th:text="*{category}"></span>
+                    <th:block th:text="*{subject}"></th:block>
+                    <span th:if="*{commentCount > 0L}" th:text="*{#strings.concat('(', commentCount, ')')}"></span>
+                </a>
+                <div class="post-info">
+                    <span class="view-count">
+                        <th:block th:text="#{조회수}"></th:block>:
+                        <th:block th:text="*{viewCount >= 1000 ? #numbers.formatInteger(viewCount, 3, 'COMMA') : viewCount}"></th:block>
+                    </span>
+                    <span class="poster">
+                        <th:block th:text="*{poster}"></th:block>
+                        <div th:if="*{member != null}" th:text="*{member.email}"></div>
+                    </span>
+                    <span class="post-date" th:text="*{#temporals.format(createdAt, 'yyyy.MM.dd HH:mm')}"></span>
+                </div>
+            </li>
+        </ul>
+    </th:block>
+</html>

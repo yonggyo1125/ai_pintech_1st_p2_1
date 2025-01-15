@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="common" th:object="${requestBoard}">
+    <input type="hidden" name="bid" th:field="*{bid}">
+    <input type="hidden" name="gid" th:field="*{gid}">
+    <div class="error global" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
+
+    <dl th:if="${categories != null && !categories.isEmpty()}">
+        <dt th:text="#{분류}"></dt>
+        <dd>
+            <select name="category" th:field="*{category}">
+                <option value="" th:text="${#strings.concat('- ', #messages.msg('분류_선택'), ' -')}"></option>
+                <option th:each="category : ${categories}" th:value="${category}" th:text="${category}"></option>
+            </select>
+        </dd>
+    </dl>
+    <dl>
+        <dt th:text="#{작성자}"></dt>
+        <dd>
+            <input type="text" name="poster" th:field="*{poster}">
+            <div class="error" th:each="err : ${#fields.errors('poster')}" th:text="${err}"></div>
+
+            <th:block th:if="${@memberUtil.isAdmin()}">
+                <input type="checkbox" name="notice" value="true" id="notice" th:field="*{notice}">
+                <label for="notice" th:text="#{공지글}"></label>
+            </th:block>
+        </dd>
+    </dl>
+    <dl th:if="${((requestBoard.mode == null || requestBoard.mode == 'write') && !@memberUtil.isLogin()) || (requestBoard.mode == 'edit' && boardData.member == null)}">
+        <dt th:text="#{비밀번호}"></dt>
+        <dd>
+            <input type="password" name="guestPw" th:field="*{guestPw}">
+            <div class="error" th:each="err : ${#fields.errors('guestPw')}" th:text="${err}"></div>
+        </dd>
+    </dl>
+    <dl>
+        <dt th:text="#{제목}"></dt>
+        <dd>
+            <input type="text" name="subject" th:field="*{subject}">
+            <div class="error" th:each="err : ${#fields.errors('subject')}" th:text="${err}"></div>
+        </dd>
+    </dl>
+    <dl>
+        <dt th:text="#{내용}"></dt>
+        <dd>
+            <textarea name="content" id="content" th:field="*{content}"></textarea>
+            <div class="error" th:each="err : ${#fields.errors('content')}" th:text="${err}"></div>
+
+            <th:block th:if="${board.useEditor && board.useEditorImage}">
+                <button type="button" class="file-upload image" th:text="#{이미지_업로드}" th:data-gid="*{gid}" data-location="editor" data-image-only="true"></button>
+                <div class="uploaded-files" id="editor-files">
+                    <span th:if="*{editorImages != null}" th:each="item : *{editorImages}" class="file-item" th:id="${'file-' + item.seq}">
+                       <a th:href="@{/api/file/download/{seq}(seq=${item.seq})}" th:text="${item.fileName}"></a>
+                        <i class="insert-editor xi-upload" th:data-url="${item.fileUrl}"></i>
+                        <i class="remove xi-close" th:data-seq="${item.seq}"></i>
+                    </span>
+                </div>
+            </th:block>
+        </dd>
+    </dl>
+    <dl th:if="${board.useAttachFile}">
+        <dt th:text="#{파일_첨부}"></dt>
+        <dd>
+            <button type="button" class="file-upload attach" th:text="#{파일_업로드}" th:data-gid="*{gid}" data-location="attach"></button>
+            <div class="uploaded-files" id="attach-files">
+                <span th:if="*{attachFiles != null}" th:each="item : *{attachFiles}" class="file-item" th:id="${'file-' + item.seq}">
+                    <a th:href="@{/api/file/download/{seq}(seq=${item.seq})}" th:text="${item.fileName}"></a>
+                    <i class="remove xi-close" th:data-seq="${item.seq}"></i>
+                </span>
+            </div>
+        </dd>
+    </dl>
+    <script th:replace="~{common/_tpl_file::file-item}"></script>
+</th:block>
+</html>

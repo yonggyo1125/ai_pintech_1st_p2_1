@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="skin" th:object="${board}">
+    <div th:replace="~{front/board/gallery/_title::title}"></div>
+
+    <form name="frmSave" method="POST" th:action="@{/board/save}" autocomplete="off" th:object="${requestBoard}">
+        <input type="hidden" name="mode" value="edit">
+        <input type="hidden" name="seq" th:field="*{seq}">
+
+        <th:block th:replace="~{front/board/gallery/_form::common}"></th:block>
+
+        <div class="button-group">
+            <button type="reset" class="btn" th:text="#{다시작성}"></button>
+            <button type="submit" class="btn black" th:text="#{수정하기}"></button>
+        </div>
+    </form>
+</th:block>
+</html>

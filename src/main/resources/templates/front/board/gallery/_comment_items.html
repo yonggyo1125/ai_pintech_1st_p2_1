@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="items" th:if="${comments != null && !comments.isEmpty()}">
+    <ul class="comment-items">
+        <li class="comment-item" th:each="item : ${comments}" th:object="${item}">
+            <div class="comment-info">
+                <div class="left">
+                    <th:block th:text="*{commenter}"></th:block>
+                    <th:block th:if="*{member != null}">
+                        <a th:href="@{/message?email={email}(email=*{member.email})}" th:text="*{#strings.concat('(', member.email, ')')}" target="_blank"></a>
+                    </th:block>
+                </div>
+                <div class="right">
+                    <span class="ip-addr" th:text="*{ipAddr}"></span>
+                    <span class="date" th:text="*{#temporals.format(createdAt, 'yyyy.MM.dd HH:mm:ss')}"></span>
+                </div>
+            </div>
+            <!--// comment-info -->
+            <div class="comment-content" th:utext="*{@utils.nl2br(content)}"></div>
+            <div class="controls" th:if="*{editable}">
+                <a th:href="@{/board/comment/edit/{seq}(seq=*{seq})}" th:text="#{수정}"></a>
+                <a th:href="@{/board/comment/delete/{seq}(seq=*{seq})}" th:text="#{삭제}" onclick="return confirm('정말 삭제하겠습니까?');"></a>
+            </div>
+        </li>
+    </ul>
+    <!--// comment-items -->
+</th:block>
+</html>

@@ -120,6 +120,7 @@ public class BoardController {
 
         form.setMode("write");
         form.setTarget("ifrmProcess");
+        form.setBoardDataSeq(seq);
 
         return utils.tpl("board/view");
     }

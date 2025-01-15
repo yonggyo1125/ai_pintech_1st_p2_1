@@ -58,5 +58,9 @@ public class CommentUpdateService {
         if (StringUtils.hasText(guestPw)) {
             item.setGuestPw(passwordEncoder.encode(guestPw));
         }
+
+        commentDataRepository.saveAndFlush(item);
+
+        return item;
     }
 }

@@ -1,0 +1,56 @@
+/* 메인 배너 S */
+.main-banner .banner {
+    height: 768px;
+}
+
+.main-banner a {
+    position: relative;
+    display: block;
+}
+
+.main-banner .banner1 {
+    background:url('../../images/main/main_banner1.jpg') no-repeat center center;
+    background-size: cover;
+}
+
+.main-banner .banner2 {
+    background:url('../../images/main/main_banner2.png') no-repeat center center;
+    background-size: cover;
+}
+
+.main-banner .banner3 {
+    background:url('../../images/main/main_banner3.png') no-repeat center center;
+    background-size: cover;
+}
+
+@media screen and (max-width: 1000px) {
+    .main-banner .banner {
+        height: 650px;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .main-banner .banner {
+            height: 600px;
+        }
+}
+
+@media screen and (max-width: 700px) {
+    .main-banner .banner {
+            height: 550px;
+        }
+}
+
+.main-banner .more-button {
+    position: absolute;
+    width: 330px;
+    height: 63px;
+    bottom: 80px;
+    left: calc(50% - 165px);
+    border: 1px solid #000;
+    background:rgba(0, 0, 0, 0.8);
+    cursor: pointer;
+    color: #fff;
+    text-align: center;
+}
+/* 메인 배너 E */

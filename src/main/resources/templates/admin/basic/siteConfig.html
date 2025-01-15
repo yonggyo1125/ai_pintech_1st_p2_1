@@ -26,6 +26,23 @@
                     <input type="text" name="keywords" th:field="*{keywords}">
                 </td>
             </tr>
+            <tr>
+                <th>화면</th>
+                <td>
+                    <span class="radio">
+                        <input type="radio" name="device" value="ALL" th:field="*{device}" id="device-ALL">
+                        <label for="device-ALL">PC + MOBILE</label>
+                    </span>
+                    <span class="radio">
+                        <input type="radio" name="device" value="PC" th:field="*{device}" id="device-PC">
+                        <label for="device-PC">PC</label>
+                    </span>
+                    <span class="radio">
+                        <input type="radio" name="device" value="MOBILE" th:field="*{device}" id="device-MOBILE">
+                        <label for="device-MOBILE">MOBILE</label>
+                    </span>
+                </td>
+            </tr>
         </table>
 
         <h2>CSS, JS 버전</h2>

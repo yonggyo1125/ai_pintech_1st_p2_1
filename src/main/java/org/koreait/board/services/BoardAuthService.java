@@ -124,7 +124,14 @@ public class BoardAuthService {
     }
 
     public void check(String mode, Long seq) {
-        BoardData item = infoService.get(seq);
+        BoardData item = null;
+        if (mode.equals("comment")) {
+            CommentData comment = commentInfoService.get(seq);
+            item = comment.getData();
+        } else {
+            item = infoService.get(seq);
+        }
+
         Board board = item.getBoard();
         check(mode, board.getBid(), seq);
     }

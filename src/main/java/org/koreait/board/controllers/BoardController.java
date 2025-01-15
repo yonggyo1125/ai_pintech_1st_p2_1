@@ -1,5 +1,6 @@
 package org.koreait.board.controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.Data;
@@ -10,6 +11,7 @@ import org.koreait.board.exceptions.GuestPasswordCheckException;
 import org.koreait.board.services.*;
 import org.koreait.board.services.configs.BoardConfigInfoService;
 import org.koreait.board.validators.BoardValidator;
+import org.koreait.board.validators.CommentValidator;
 import org.koreait.file.constants.FileStatus;
 import org.koreait.file.services.FileInfoService;
 import org.koreait.global.annotations.ApplyErrorPage;
@@ -50,6 +52,8 @@ public class BoardController {
     private final BoardDeleteService boardDeleteService;
     private final BoardAuthService boardAuthService;
     private final CodeValueService codeValueService;
+    private final CommentValidator commentValidator;
+    private final HttpServletRequest request;
 
     /**
      * 사용자별 공통 데이터
@@ -214,6 +218,8 @@ public class BoardController {
         String mode = form.getMode();
         mode = StringUtils.hasText(mode) ? mode : "write";
 
+        commentValidator.validate(form, errors);
+
         if (errors.hasErrors()) {
             if (!mode.equals("edit")) { // 댓글 등록시에는 alert 메세지로 검증 실패를 알린다.
                 FieldError err = errors.getFieldErrors().get(0);
@@ -225,7 +231,16 @@ public class BoardController {
             return utils.tpl("board/comment"); // 수정
         }
 
-        return null;
+        String redirectUrl = String.format("/board/view/%d#comment-%d", form.getBoardDataSeq(), 0L); // 임시
+        if (mode.equals("edit")) {
+            return "redirect:" + redirectUrl;
+        } else {
+
+            redirectUrl = request.getContextPath() + redirectUrl;
+
+            model.addAttribute("script", "parent.location.replace('" + redirectUrl + "');");
+            return "common/_execute_script";
+        }
     }
 
     /**

@@ -14,6 +14,7 @@ import org.koreait.board.entities.QBoardData;
 import org.koreait.board.exceptions.BoardDataNotFoundException;
 import org.koreait.board.repositories.BoardDataRepository;
 import org.koreait.board.services.configs.BoardConfigInfoService;
+import org.koreait.file.entities.FileInfo;
 import org.koreait.file.services.FileInfoService;
 import org.koreait.global.libs.Utils;
 import org.koreait.global.paging.ListData;
@@ -249,8 +250,15 @@ public class BoardInfoService {
     private void addInfo(BoardData item, boolean isView) {
         // 게시판 파일 정보 S
         String gid = item.getGid();
-        item.setEditorImages(fileInfoService.getList(gid, "editor"));
+        List<FileInfo> editorImages = fileInfoService.getList(gid, "editor");
+        item.setEditorImages(editorImages);
         item.setAttachFiles(fileInfoService.getList(gid, "attach"));
+
+        if (editorImages != null && !editorImages.isEmpty()) {
+            FileInfo selectedImage = editorImages.stream().filter(FileInfo::isSelected).findFirst().orElseGet(() -> editorImages.get(0));
+            item.setSelectedImage(selectedImage);
+        }
+
         // 게시판 파일 정보 E
 
         // 이전, 다음 게시글

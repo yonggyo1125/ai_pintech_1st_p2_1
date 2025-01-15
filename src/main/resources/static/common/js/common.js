@@ -212,6 +212,28 @@ commonLib.insertEditorImage = function(imageUrls, editor) {
     editor.execute('insertImage', { source: imageUrls });
 };
 
+/**
+* 목록 노출 메인이미지 선택
+*
+*/
+commonLib.selectImage = function(seq) {
+    const { ajaxLoad } = commonLib;
+    const items = document.querySelectorAll(".image-item");
+    items.forEach(i => i.classList.remove("on"));
+
+    const el = document.getElementById(`file-${seq}`);
+
+    (async () => {
+        try {
+             await ajaxLoad(`/api/file/select/${seq}`);
+             el.classList.add("on");
+
+        } catch (err) {
+            console.error(err);
+        }
+    })();
+};
+
 window.addEventListener("DOMContentLoaded", function() {
     // 체크박스 전체 토글 기능 S
     const checkAlls = document.getElementsByClassName("check-all");

@@ -49,11 +49,14 @@
             <th:block th:if="${board.useEditor && board.useEditorImage}">
                 <button type="button" class="file-upload image" th:text="#{이미지_업로드}" th:data-gid="*{gid}" data-location="editor" data-image-only="true"></button>
                 <div class="uploaded-files" id="editor-files">
-                    <span th:if="*{editorImages != null}" th:each="item : *{editorImages}" class="file-item" th:id="${'file-' + item.seq}">
-                       <a th:href="@{/api/file/download/{seq}(seq=${item.seq})}" th:text="${item.fileName}"></a>
-                        <i class="insert-editor xi-upload" th:data-url="${item.fileUrl}"></i>
-                        <i class="remove xi-close" th:data-seq="${item.seq}"></i>
-                    </span>
+                    <div th:if="*{editorImages != null}" th:each="item : *{editorImages}" th:object="${item}" class="image-item" th:id="*{'file-' + seq}">
+                        <th:block th:utext="*{@utils.showBackground(seq, 100, 50, 'inner show-image')}"></th:block>
+                        <div class="controls">
+                            <i class="insert-editor xi-upload" th:data-url="*{fileUrl}"></i>
+                            <i class="select-image xi-check" th:data-seq="*{seq}"></i>
+                            <i class="remove xi-close" th:data-seq="*{seq}"></i>
+                        </div>
+                    </div>
                 </div>
             </th:block>
         </dd>

@@ -20,7 +20,8 @@
         <!--// commenter -->
         <div class="comment-wrap">
             <textarea name="content" id="comment-content" th:field="*{content}"></textarea>
-            <button type="submit" th:text="#{작성하기}"></button>
+            <button th:if="${mode != 'edit'}" type="submit" th:text="#{작성하기}"></button>
+            <button th:if="${mode == 'edit'}" type="submit" th:text="#{수정하기}"></button>
         </div>
         <div class="error" th:each="err : ${#fields.errors('content')}" th:text="${err}"></div>
     </form>

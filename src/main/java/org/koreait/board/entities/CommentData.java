@@ -5,10 +5,12 @@ import lombok.Data;
 import org.koreait.global.entities.BaseEntity;
 import org.koreait.member.entities.Member;
 
+import java.io.Serializable;
+
 @Data
 @Entity
 @Table(indexes = @Index(name = "idx_comment_data_created_at", columnList = "createdAt ASC"))
-public class CommentData extends BaseEntity {
+public class CommentData extends BaseEntity implements Serializable {
     @Id @GeneratedValue
     private Long seq;
 

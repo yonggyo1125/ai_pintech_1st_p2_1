@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<th:block th:fragment="items" th:if="${comments != null && !comment.isEmpty()}">
+<th:block th:fragment="items" th:if="${comments != null && !comments.isEmpty()}">
     <ul class="comment-items">
         <li class="comment-item" th:each="item : ${comments}" th:object="${item}">
             <div class="comment-info">

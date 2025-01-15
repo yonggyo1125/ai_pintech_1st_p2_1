@@ -86,7 +86,7 @@ public class BoardController {
      * @return
      */
     @GetMapping("/view/{seq}")
-    public String view(@PathVariable("seq") Long seq, Model model, @ModelAttribute RequestComment form) {
+        public String view(@PathVariable("seq") Long seq, Model model, @ModelAttribute RequestComment form) {
         commonProcess(seq, "view", model);
 
         long viewCount = boardViewUpdateService.process(seq); // 조회수 업데이트
@@ -95,7 +95,11 @@ public class BoardController {
 
         Board board = data.getBoard();
         if (board.isListUnderView()) { // 보기페이지 하단에 게시글 목록 출력
-            ListData<BoardData> listData = boardInfoService.getList(board.getBid(), new BoardSearch());
+
+            BoardSearch search = new BoardSearch();
+            search.setPage(boardInfoService.getPage(board.getBid(), seq, board.getRowsPerPage()));
+
+            ListData<BoardData> listData = boardInfoService.getList(board.getBid(), search);
             model.addAttribute("items", listData.getItems());
             model.addAttribute("pagination", listData.getPagination());
         }
@@ -104,6 +108,8 @@ public class BoardController {
         if (board.isUseComment() && memberUtil.isLogin()) {
             form.setCommenter(memberUtil.getMember().getName());
         }
+
+        form.setTarget("ifrmProcess");
 
         return utils.tpl("board/view");
     }

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <form th:fragment="form" id="commentForm" name="frmSave" method="POST" th:action="@{/board/comment}" autocomplete="off" th:object="${requestComment}" th:target="*{target}">
+        <input type="hidden" name="mode" th:field="*{mode}">
+        <div class="error global" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
+
+        <div class="commenter">
+            <span th:text="#{작성자}"></span>
+            <input type="text" name="commenter" th:field="*{commenter}">
+            <th:block th:if="${!@memberUtil.isLogin()}">
+                <span th:text="#{비밀번호}"></span>
+                <input type="password" name="guestPw" th:field="*{guestPw}">
+                <div class="error" th:each="err : ${#fields.errors('guestPw')}" th:text="${err}"></div>
+            </th:block>
+            <div class="error" th:each="err : ${#fields.errors('commenter')}" th:text="${err}"></div>
+
+        </div>
+        <!--// commenter -->
+        <div class="comment-wrap">
+            <textarea name="content" id="comment-content" th:field="*{content}"></textarea>
+            <button type="submit" th:text="#{작성하기}"></button>
+        </div>
+        <div class="error" th:each="err : ${#fields.errors('content')}" th:text="${err}"></div>
+    </form>
+</html>

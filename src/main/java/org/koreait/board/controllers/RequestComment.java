@@ -15,4 +15,6 @@ public class RequestComment {
 
     @NotBlank
     private String content;
+
+    private String target;
 }

@@ -10,6 +10,7 @@ import org.koreait.board.entities.BoardData;
 import org.koreait.board.entities.CommentData;
 import org.koreait.board.exceptions.GuestPasswordCheckException;
 import org.koreait.board.services.*;
+import org.koreait.board.services.comment.CommentInfoService;
 import org.koreait.board.services.comment.CommentUpdateService;
 import org.koreait.board.services.configs.BoardConfigInfoService;
 import org.koreait.board.validators.BoardValidator;
@@ -56,6 +57,7 @@ public class BoardController {
     private final CodeValueService codeValueService;
     private final CommentValidator commentValidator;
     private final CommentUpdateService commentUpdateService;
+    private final CommentInfoService commentInfoService;
     private final HttpServletRequest request;
 
 
@@ -114,13 +116,20 @@ public class BoardController {
         }
 
         // 댓글을 사용하는 경우
-        if (board.isUseComment() && memberUtil.isLogin()) {
-            form.setCommenter(memberUtil.getMember().getName());
+        if (board.isUseComment()) {
+            if (memberUtil.isLogin()) {
+                form.setCommenter(memberUtil.getMember().getName());
+            }
+
+            form.setMode("write");
+            form.setTarget("ifrmProcess");
+            form.setBoardDataSeq(seq);
+
+            List<CommentData> comments = commentInfoService.getList(seq); // 댓글 목록
+            model.addAttribute("comments", comments);
         }
 
-        form.setMode("write");
-        form.setTarget("ifrmProcess");
-        form.setBoardDataSeq(seq);
+
 
         return utils.tpl("board/view");
     }

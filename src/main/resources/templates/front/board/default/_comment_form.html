@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <form th:fragment="form" id="commentForm" name="frmSave" method="POST" th:action="@{/board/comment}" autocomplete="off" th:object="${requestComment}" th:target="*{target}">
-        <input type="hidden" name="mode" th:field="*{mode}">
         <div class="error global" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
+        <input type="hidden" name="mode" th:field="*{mode}">
+        <input th:if="${mode == 'edit'}" type="hidden" name="seq" th:field="*{seq}">
+        <input type="hidden" name="boardDataSeq" th:field="*{boardDataSeq}">
 
         <div class="commenter">
             <span th:text="#{작성자}"></span>

@@ -23,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
@@ -200,13 +201,28 @@ public class BoardController {
         return "redirect:/board/list/" + board.getBid();
     }
 
+    /**
+     * 댓글 등록/수정
+     *
+     * @param form
+     * @param errors
+     * @param model
+     * @return
+     */
     @PostMapping("/comment")
     public String comment(@Valid RequestComment form, Errors errors, Model model) {
         String mode = form.getMode();
         mode = StringUtils.hasText(mode) ? mode : "write";
 
         if (errors.hasErrors()) {
+            if (!mode.equals("edit")) { // 댓글 등록시에는 alert 메세지로 검증 실패를 알린다.
+                FieldError err = errors.getFieldErrors().get(0);
+                String code = err.getCode();
+                String field = err.getField();
+                throw new AlertException(utils.getMessage(code + ".requestComment." + field));
+            }
 
+            return utils.tpl("board/comment"); // 수정
         }
 
         return null;

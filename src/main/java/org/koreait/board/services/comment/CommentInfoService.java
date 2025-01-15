@@ -8,6 +8,8 @@ import org.koreait.board.entities.CommentData;
 import org.koreait.board.entities.QCommentData;
 import org.koreait.board.exceptions.CommentNotFoundException;
 import org.koreait.board.repositories.CommentDataRepository;
+import org.koreait.member.entities.Member;
+import org.koreait.member.libs.MemberUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,7 @@ public class CommentInfoService {
     private final CommentDataRepository commentDataRepository;
     private final ModelMapper modelMapper;
     private final JPAQueryFactory queryFactory;
+    private final MemberUtil memberUtil;
 
     /**
      * 댓글 한개 조회
@@ -70,6 +73,10 @@ public class CommentInfoService {
 
     // 추가 데이터 처리
     private void addInfo(CommentData item) {
+        Member member = memberUtil.getMember();
+        Member commentMember = item.getMember();
+        boolean editable = memberUtil.isAdmin() || item.getMember() == null || (commentMember != null && memberUtil.isLogin() && member.getEmail().equals(commentMember.getEmail()));
 
+        item.setEditable(editable); // 댓글 수정, 삭제 가능, 다만 비회원은 비밀번호 검증 페이지로 넘어간다.
     }
 }

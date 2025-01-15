@@ -231,6 +231,8 @@ public class BoardController {
             return utils.tpl("board/comment"); // 수정
         }
 
+        // 댓글 등록/수정 서비스
+
         String redirectUrl = String.format("/board/view/%d#comment-%d", form.getBoardDataSeq(), 0L); // 임시
         if (mode.equals("edit")) {
             return "redirect:" + redirectUrl;

@@ -66,7 +66,7 @@
     </th:block>
 
     <th:block th:if="${board.listUnderView}">
-        <th:block th:replace="~{front/board/default/_items::items}"></th:block>
+        <th:block th:replace="~{front/board/default/_items::items(items=${items})}"></th:block>
         <th:block th:replace="~{common/_pagination::pagination}"></th:block>
     </th:block>
 </th:block>

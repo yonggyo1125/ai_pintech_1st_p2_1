@@ -5,6 +5,11 @@ window.addEventListener("DOMContentLoaded", function() {
             nextEl: ".swiper-button-next",
             prevEl: ".swiper-button-prev",
           },
+          loop: true,
+          autoplay: {
+            delay: 1000,
+          },
+          speed: 1000,
     });
     /* 메인 배너 E */
 });

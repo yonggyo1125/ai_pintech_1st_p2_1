@@ -38,6 +38,7 @@ dependencies {
 	implementation 'org.springframework.session:spring-session-data-redis'
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 
 
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'

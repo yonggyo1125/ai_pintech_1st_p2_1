@@ -126,10 +126,20 @@ public class Utils {
     }
 
     public String showImage(Long seq, int width, int height, String className) {
+        if (seq == null) {
+            String url = getUrl("/common/images/no_image.png");
+            return showImage(null, url, width, height, "image", className);
+        }
+
         return showImage(seq, null, width, height, "image", className);
     }
 
     public String showBackground(Long seq, int width, int height, String className) {
+        if (seq == null) {
+            String url = getUrl("/common/images/no_image.png");
+            return showImage(null, url, width, height, "background", className);
+
+        }
         return showImage(seq, null, width, height, "background", className);
     }
 
@@ -161,7 +171,9 @@ public class Utils {
                 imageUrl = String.format("%s/api/file/thumb?url=%s&width=%d&height=%d", request.getContextPath(), url, width, height);
             }
 
-            if (!StringUtils.hasText(imageUrl)) return "";
+            if (!StringUtils.hasText(imageUrl)) {
+                imageUrl = String.format("%s/common/images/no_image.png", request.getContextPath());
+            }
 
             mode = Objects.requireNonNullElse(mode, "image");
             className = Objects.requireNonNullElse(className, "image");

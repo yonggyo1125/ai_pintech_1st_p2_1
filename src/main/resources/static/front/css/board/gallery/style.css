@@ -1,0 +1,21 @@
+.gallery-items {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.gallery-items > li {
+    width: calc(100% / 4 - 30px);
+    margin: 20px 15px;
+    box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, .1);
+    border-bottom: 4px solid #0080FF;
+}
+
+.gallery-items > li .image {
+    width: 100% !important;
+}
+
+.gallery-items > li .bottom {
+    min-height: 157px;
+    padding: 20px;
+    background: #fff;
+}

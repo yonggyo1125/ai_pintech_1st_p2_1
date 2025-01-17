@@ -23,11 +23,12 @@
                             <th:block th:if="*{category != null && category != ''}" th:text="*{category}"></th:block>
                             <th:block th:unless="*{category != null && category != ''}">
                                 <th:block th:text="*{poster}"></th:block>
-                                <div th:if="*{member != null}" th:text="*{member.email}"></div>
+                                <div th:if="*{member != null}" class="dn" th:text="*{member.email}"></div>
                             </th:block>
                         </span>
                         <span class="post-date" th:text="*{#temporals.format(createdAt, 'yyyy년 MM월 dd일')}"></span>
                     </div>
+                    <i class="go-link"></i>
                 </div>
             </li>
         </ul>

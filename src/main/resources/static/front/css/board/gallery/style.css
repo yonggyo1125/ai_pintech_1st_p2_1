@@ -18,4 +18,47 @@
     min-height: 157px;
     padding: 20px;
     background: #fff;
+    position: relative;
+}
+
+.gallery-items .subject {
+    display: block;
+    min-height: 56px;
+    margin-bottom: 40px;
+    font-weight: 500;
+    font-size: 1.539rem;
+    letter-spacing: -1px;
+}
+
+.gallery-items .post-info {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: #666;
+    font-size: 1.077rem;
+}
+
+.gallery-items .post-info * {
+    color: #666;
+    font-size: 1.077rem;
+}
+
+.gallery-items .post-date::before {
+    content: '';
+    display: inline-block;
+    width: 1px;
+    height: 11px;
+    margin: 0 10px;
+    border-left: 1px solid #9b9fa8;
+    opacity: .5;
+}
+
+.gallery-items .go-link {
+    position: absolute;
+    bottom: 13px;
+    right: 20px;
+    width: 52px;
+    height: 32px;
+    border-radius: 20px;
+    background: #0080FF url('../../images/icon_go.png') no-repeat center bottom 14px;
 }

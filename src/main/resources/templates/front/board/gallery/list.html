@@ -3,7 +3,7 @@
 <th:block th:fragment="skin" th:object="${board}">
     <div th:replace="~{front/board/gallery/_title::title}"></div>
 
-    <form id="frmSearch" name="frmSearch" method="GET" th:action="@{/board/list/{bid}(bid=*{bid})}" autocomplete="off" th:object="${boardSearch}">
+    <form id="frmSearch" class='layout-width' name="frmSearch" method="GET" th:action="@{/board/list/{bid}(bid=*{bid})}" autocomplete="off" th:object="${boardSearch}">
         <input type="hidden" name="sort" th:field="*{sort}">
         <input type="hidden" name="category" th:field="*{category}">
 

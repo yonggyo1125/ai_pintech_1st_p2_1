@@ -1,0 +1,99 @@
+main {
+    padding: 50px 0 100px;
+}
+.board-title {
+    font-size: 2.5rem;
+    padding-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.board-title .btn {
+    background: #ff612c;
+    color: #fff;
+    width: 100px;
+    text-align: center;
+    height: 45px;
+    display: block;
+    line-height: 45px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 1.25rem;
+}
+
+#frmSearch {
+    background: #393939;
+    padding: 20px 30px;
+    display: flex;
+    margin-bottom: 30px;
+}
+
+#frmSearch select {
+    height: 40px;
+    width: 160px;
+    border: 0;
+    background: #fff;
+}
+
+#frmSearch input[type='text'] {
+    height: 40px;
+    flex-grow: 1;
+    border: 0;
+    padding: 0 10px;
+    border-left: 10px solid #393939;
+    background: #fff;
+}
+
+#frmSearch button[type='submit'] {
+    color: #fff;
+    background: #FF0000;
+    height: 40px;
+    width: 60px;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 1.25rem;
+}
+
+.category-tab {
+    display: flex;
+    height: 55px;
+}
+
+.category-tab a {
+    width: 0;
+    flex-grow: 1;
+    font-size: 1.7rem;
+    background: #fff;
+    color: #000;
+    position: relative;
+    text-align: center;
+    line-height: 53px;
+}
+.category-tab a::after {
+    position: absolute;
+    display: block;
+    height: 1px;
+    background: #000;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    content: '';
+}
+
+.category-tab a.on {
+    color: #ffa70e;
+}
+
+.category-tab a.on::after {
+    position: absolute;
+    display: block;
+    height: 5px;
+    background: #ffa70e;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    content: '';
+}
+

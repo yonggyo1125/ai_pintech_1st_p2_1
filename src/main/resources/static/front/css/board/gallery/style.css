@@ -3,7 +3,7 @@
     flex-wrap: wrap;
 }
 
-.gallery-items > li {
+.gallery-items > li:not(.no-data) {
     width: calc(100% / 4 - 30px);
     margin: 20px 15px;
     box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, .1);

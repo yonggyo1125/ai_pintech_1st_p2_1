@@ -3,7 +3,7 @@
 <th:block th:fragment="skin" th:object="${boardData}">
     <div th:replace="~{front/board/default/_title::title}"></div>
 
-    <div class="view-content">
+    <div class="view-content layout-width">
         <div class="subject">
             <span class="badge" th:if="*{category != null}" th:text="*{category}"></span>
             <th:block th:text="*{subject}"></th:block>

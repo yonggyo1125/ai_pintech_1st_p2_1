@@ -16,14 +16,15 @@
     </dl>
     <dl>
         <dt th:text="#{작성자}"></dt>
-        <dd>
-            <input type="text" name="poster" th:field="*{poster}">
-            <div class="error" th:each="err : ${#fields.errors('poster')}" th:text="${err}"></div>
-
-            <th:block th:if="${@memberUtil.isAdmin()}">
+        <dd class="poster-notice">
+            <div>
+                <input type="text" name="poster" th:field="*{poster}">
+                <div class="error" th:each="err : ${#fields.errors('poster')}" th:text="${err}"></div>
+            </div>
+            <div th:if="${@memberUtil.isAdmin()}" class="checkbox">
                 <input type="checkbox" name="notice" value="true" id="notice" th:field="*{notice}">
                 <label for="notice" th:text="#{공지글}"></label>
-            </th:block>
+            </div>
         </dd>
     </dl>
     <dl th:if="${((requestBoard.mode == null || requestBoard.mode == 'write') && !@memberUtil.isLogin()) || (requestBoard.mode == 'edit' && boardData.member == null)}">
@@ -47,7 +48,7 @@
             <div class="error" th:each="err : ${#fields.errors('content')}" th:text="${err}"></div>
 
             <th:block th:if="${board.useEditor && board.useEditorImage}">
-                <button type="button" class="file-upload image" th:text="#{이미지_업로드}" th:data-gid="*{gid}" data-location="editor" data-image-only="true"></button>
+                <button type="button" class="file-upload image sbtn skyblue mt10" th:text="#{이미지_업로드}" th:data-gid="*{gid}" data-location="editor" data-image-only="true"></button>
                 <div class="uploaded-files" id="editor-files">
                     <span th:if="*{editorImages != null}" th:each="item : *{editorImages}" class="file-item" th:id="${'file-' + item.seq}">
                        <a th:href="@{/api/file/download/{seq}(seq=${item.seq})}" th:text="${item.fileName}"></a>
@@ -61,7 +62,7 @@
     <dl th:if="${board.useAttachFile}">
         <dt th:text="#{파일_첨부}"></dt>
         <dd>
-            <button type="button" class="file-upload attach" th:text="#{파일_업로드}" th:data-gid="*{gid}" data-location="attach"></button>
+            <button type="button" class="file-upload attach sbtn blue" th:text="#{파일_업로드}" th:data-gid="*{gid}" data-location="attach"></button>
             <div class="uploaded-files" id="attach-files">
                 <span th:if="*{attachFiles != null}" th:each="item : *{attachFiles}" class="file-item" th:id="${'file-' + item.seq}">
                     <a th:href="@{/api/file/download/{seq}(seq=${item.seq})}" th:text="${item.fileName}"></a>

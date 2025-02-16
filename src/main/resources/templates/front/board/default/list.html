@@ -20,7 +20,9 @@
 
     <nav th:replace="~{front/board/default/_category::category}"></nav>
 
-    <th:block th:replace="~{front/board/default/_items::items(items=${items})}"></th:block>
-    <th:block th:replace="~{common/_pagination::pagination}"></th:block>
+    <div class="layout-width post-items">
+        <th:block th:replace="~{front/board/default/_items::items(items=${items})}"></th:block>
+        <th:block th:replace="~{common/_pagination::pagination}"></th:block>
+    </div>
 </th:block>
 </html>

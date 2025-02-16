@@ -16,14 +16,15 @@
     </dl>
     <dl>
         <dt th:text="#{작성자}"></dt>
-        <dd>
-            <input type="text" name="poster" th:field="*{poster}">
-            <div class="error" th:each="err : ${#fields.errors('poster')}" th:text="${err}"></div>
-
-            <th:block th:if="${@memberUtil.isAdmin()}">
+        <dd class="poster-notice">
+            <div>
+                <input type="text" name="poster" th:field="*{poster}">
+                <div class="error" th:each="err : ${#fields.errors('poster')}" th:text="${err}"></div>
+            </div>
+            <div th:if="${@memberUtil.isAdmin()}" class="checkbox">
                 <input type="checkbox" name="notice" value="true" id="notice" th:field="*{notice}">
                 <label for="notice" th:text="#{공지글}"></label>
-            </th:block>
+            </div>
         </dd>
     </dl>
     <dl th:if="${((requestBoard.mode == null || requestBoard.mode == 'write') && !@memberUtil.isLogin()) || (requestBoard.mode == 'edit' && boardData.member == null)}">

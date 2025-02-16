@@ -62,12 +62,16 @@
     <!--// view-buttons -->
 
     <th:block th:if="${board.useComment}">
-        <th:block th:replace="~{front/board/default/_comment::comment}"></th:block>
+        <div class="layout-width">
+            <th:block th:replace="~{front/board/default/_comment::comment}"></th:block>
+        </div>
     </th:block>
 
     <th:block th:if="${board.listUnderView}">
-        <th:block th:replace="~{front/board/default/_items::items(items=${items})}"></th:block>
-        <th:block th:replace="~{common/_pagination::pagination}"></th:block>
+        <div class="layout-width post-items">
+            <th:block th:replace="~{front/board/default/_items::items(items=${items})}"></th:block>
+            <th:block th:replace="~{common/_pagination::pagination}"></th:block>
+        </div>
     </th:block>
 </th:block>
 </html>

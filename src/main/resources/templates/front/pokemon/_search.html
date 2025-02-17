@@ -2,7 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:fragment="search">
     <form id="frmSearch" name="frmSearch" method="GET" th:action="@{/pokemon/list}" autocomplete="off" th:object="${pokemonSearch}">
-        <img th:src="@{/front/images/icon_ball_b.png}">
+        <div class="search-tit">
+            <img th:src="@{/front/images/icon_ball_b.png}" class="icon">
+            <th:block th:text="#{포켓몬_도감}"></th:block>
+        </div>
+        <div class="search-wrap">
+            <input type="text" name="skey" th:field="*{skey}" th:placeholder="#{포켓몬_이름_또는_설명,특성_키워드를_입력해주세요.}">
+        </div>
+        <button type="submit"></button>
     </form>
 </th:block>
 </html>

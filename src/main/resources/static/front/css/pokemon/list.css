@@ -117,3 +117,68 @@
     font-weight: 300;
     color: #ff637f;
 }
+
+.pokemon-list-page #frmSearch {
+    display: flex;
+    background: #393939;
+    padding: 30px 25px 20px;
+}
+.pokemon-list-page #frmSearch .icon {
+    vertical-align: middle;
+}
+
+.pokemon-list-page #frmSearch .search-tit {
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.846rem;
+    position: relative;
+    left: -5px;
+    top: 2px;
+    margin-right: 20px;
+}
+
+.pokemon-list-page #frmSearch button[type='submit'] {
+    width: 55px;
+    height: 55px;
+    background: #da343c url('../../images/search.png') no-repeat center center;
+    background-size: 50%;
+    border: 0;
+    position: relative;
+}
+
+.pokemon-list-page #frmSearch button[type='submit']:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -20px;
+    width: 21px;
+    height: 27px;
+    background-color: #0e0e0e;
+    transform: skew(-40deg);
+}
+
+.pokemon-list-page #frmSearch .search-wrap {
+    flex-grow: 1;
+    position: relative;
+}
+
+.pokemon-list-page #frmSearch .search-wrap:before {
+     content: '';
+     position: absolute;
+     top: 0;
+     left: -20px;
+     width: 21px;
+     height: 27px;
+     background-color: #393939;
+     transform: skew(-40deg);
+}
+
+.pokemon-list-page #frmSearch input[type='text'] {
+    width: 100%;
+    background: #0e0e0e;
+    border: 0;
+    color: #fff;
+    padding-left: 20px;
+    font-size: 1.2307rem;
+    height: 55px;
+}

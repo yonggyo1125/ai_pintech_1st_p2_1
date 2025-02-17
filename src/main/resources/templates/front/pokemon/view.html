@@ -7,59 +7,65 @@
     <th:block th:replace="~{/front/pokemon/_navigator::navigator}"></th:block>
 
     <section class="details" th:object="${item}">
-        <div class="left">
-            <th:block th:utext="${@wishService.showWish(item.seq, 'POKEMON', myPokemons)}"></th:block>
-            <th:block th:utext="*{@utils.showImage(frontImage, 390, 390, 'image')}"></th:block>
+        <div class="wrapper layout-width">
+            <div class="left">
+                <div class="item">
+                    <th:block th:utext="${@wishService.showWish(item.seq, 'POKEMON', myPokemons)}"></th:block>
+                    <th:block th:utext="*{@utils.showImage(frontImage, 390, 390, 'image')}"></th:block>
+                </div>
+            </div>
+            <div class="right">
+                <div class="item-no"
+                     th:text="*{#strings.concat('No.', #numbers.formatInteger(seq, 4))}"></div>
+                <div class="item-nm" th:text="*{name}"></div>
+                <div class="flavor-text" th:text="*{flavorText}"></div>
+
+                <div class="spec-info">
+                    <ul>
+                        <li>
+                            <div class="tit" th:text="#{타입}"></div>
+                            <div class="text">
+                                <span th:each="type : *{_types}"
+                                          th:text="${#messages.msg(type)}"></span>
+                            </div>
+                        </li>
+                        <li>
+
+                            <div class="tit" th:text="#{키}"></div>
+                            <div class="text" th:text="*{#strings.concat(height / 10.0, 'm')}"></div>
+                        </li>
+                        <li>
+                            <div class="tit" th:text="#{분류}"></div>
+                            <div class="text" th:text="*{genus}"></div>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <div class="tit" th:text="#{성별}"></div>
+                            <div class="text"></div>
+                        </li>
+                        <li>
+                            <div class="tit" th:text="#{몸무게}"></div>
+                            <div class="text"
+                                 th:text="*{#strings.concat(weight / 10.0, 'kg')}"></div>
+                        </li>
+                        <li>
+                            <div class="tit" th:text="#{특성}"></div>
+                            <div class="text">
+                                <span th:each="ability : *{_abilities}" th:text="${ability}"></span>
+                            </div>
+                        </li>
+                    </ul>
+                </div> <!--// spec-info -->
+                <a href="#" target="_blank" class="go-link">
+                    <div>
+                        <th:block th:text="*{name}"></th:block>
+                        <th:block th:text="#{상품 보러가기}"></th:block>
+                        <i class="xi-angle-right"></i>
+                    </div>
+                </a>
+            </div> <!--// right -->
         </div>
-        <div class="right">
-            <div class="item-no"
-                 th:text="*{#strings.concat('No.', #numbers.formatInteger(seq, 4))}"></div>
-            <div class="item-nm" th:text="*{name}"></div>
-            <div class="flavor-text" th:text="*{flavorText}"></div>
-
-            <div class="spec-info">
-                <ul>
-                    <li>
-                        <div class="tit" th:text="#{타입}"></div>
-                        <div class="text">
-                            <span th:each="type : *{_types}"
-                                      th:text="${#messages.msg(type)}"></span>
-                        </div>
-                    </li>
-                    <li>
-
-                        <div class="tit" th:text="#{키}"></div>
-                        <div class="text" th:text="*{#strings.concat(height / 10.0, 'm')}"></div>
-                    </li>
-                    <li>
-                        <div class="tit" th:text="#{분류}"></div>
-                        <div class="text" th:text="*{genus}"></div>
-                    </li>
-                </ul>
-                <ul>
-                    <li>
-                        <div class="tit" th:text="#{성별}"></div>
-                        <div class="text"></div>
-                    </li>
-                    <li>
-                        <div class="tit" th:text="#{몸무게}"></div>
-                        <div class="text"
-                             th:text="*{#strings.concat(weight / 10.0, 'kg')}"></div>
-                    </li>
-                    <li>
-                        <div class="tit" th:text="#{특성}"></div>
-                        <div class="text">
-                            <span th:each="ability : *{_abilities}" th:text="${ability}"></span>
-                        </div>
-                    </li>
-                </ul>
-            </div> <!--// spec-info -->
-            <a href="#" target="_blank" class="go-link">
-                <th:block th:text="*{name}"></th:block>
-                <th:block th:text="#{상품 보러가기}"></th:block>
-                <i class="xi-angle-right"></i>
-            </a>
-        </div> <!--// right -->
     </section>
 </main>
 </html>

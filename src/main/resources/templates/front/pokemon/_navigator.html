@@ -3,11 +3,13 @@
 <th:block th:fragment="navigator">
     <nav th:object="${item}">
         <a th:href="@{/pokemon/view/{seq}(seq=*{prevItem.seq})}" class="prev-link">
+            <i class="icon-prev"></i>
             <span th:text="*{#strings.concat('No.', #numbers.formatInteger(prevItem.seq, 4))}" class="item-no"></span>
             <span th:text="*{prevItem.name}" class="item-nm"></span>
         </a>
 
         <a th:href="@{/pokemon/view/{seq}(seq=*{nextItem.seq})}" class="next-link">
+            <i class="icon-next"></i>
             <span th:text="*{#strings.concat('No.', #numbers.formatInteger(nextItem.seq, 4))}" class="item-no"></span>
             <span th:text="*{nextItem.name}" class="item-nm"></span>
         </a>

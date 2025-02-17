@@ -3,6 +3,10 @@
     flex-wrap: wrap;
 }
 
+.gallery-items > li {
+    background: #fff;
+}
+
 .gallery-items > li:not(.no-data) {
     width: calc(100% / 4 - 30px);
     margin: 20px 15px;

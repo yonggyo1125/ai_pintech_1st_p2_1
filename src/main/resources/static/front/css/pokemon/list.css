@@ -1,0 +1,119 @@
+.pokemon-list-page {
+    padding-bottom: 190px;
+}
+.pokemon-list-page .items {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 45px 45px 0;
+}
+
+.pokemon-list-page .item {
+    position: relative;
+    margin-bottom: 40px;
+    padding: 0 10px;
+    width: calc(100% / 5);
+}
+
+.pokemon-list-page .item .image {
+    padding: 20px;
+    border: 1px solid #e8e8e8;
+    border-radius: 10px;
+    transition: .5s;
+}
+
+.pokemon-list-page .item .image {
+    width: 100%;
+    display: block;
+}
+
+.pokemon-list-page .item .item-no {
+    padding: 10px 0;
+    font-size: 1.1538rem;
+    font-weight: 300;
+    color: #999;
+}
+
+.pokemon-list-page .item-nm {
+    font-weight: 700;
+    font-size: 1.6923rem;
+}
+
+.pokemon-list-page .item-types {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.pokemon-list-page .item-types .type {
+    flex-grow: 1;
+    width: 0;
+    border-radius: 5px;
+    text-align: center;
+    color: #fff;
+    height: 30px;
+    line-height: 30px;
+    font-size: 1.1538rem;
+    font-weight: 500;
+    max-width: calc(100% / 2 - 8px);
+    background: #ff637f;
+}
+.pokemon-list-page .item-types .type + .type {
+    margin-left: 16px;
+}
+
+.pokemon-list-page .item-types .type-grass {
+    background: #42bf24;
+}
+
+.pokemon-list-page .item-types .type-poison {
+    background: #994dcf;
+}
+
+.pokemon-list-page .item-types .type-bug {
+    background: #9fa424;
+}
+
+.pokemon-list-page .item-types .type-fire {
+    background: #ff612c;
+}
+
+.pokemon-list-page .item-types .type-water {
+    background: #2992ff;
+}
+
+.pokemon-list-page .item-types .type-normal {
+    background: #999999;
+}
+
+.pokemon-list-page .item-types .type-flying {
+    background: #95c9ff;
+}
+
+.pokemon-list-page .item-types .type-electric {
+    background: #ffdb00;
+}
+
+.pokemon-list-page .item-types .type-ground {
+    background: #ab7939;
+}
+
+.pokemon-list-page .item-types .type-fairy {
+    background: #ffb1ff;
+}
+
+.pokemon-list-page .item-types .type-fighting {
+    background: #ffa202;
+}
+
+.pokemon-list-page .item .wish-btn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.pokemon-list-page .item .wish-btn i {
+    font-size: 30px;
+    font-weight: 300;
+    color: #ff637f;
+}

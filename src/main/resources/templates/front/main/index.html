@@ -45,10 +45,14 @@
         <!--// main-banner -->
 
         <section class="latest-news">
-            <h1 th:text="#{새로운_소식}"></h1>
+            <h1 class='main-tit' th:text="#{새로운_소식}"></h1>
             <th:block th:replace="~{front/board/gallery/_items::items(items=${@boardInfoService.getLatest('news', 12)})}"></th:block>
 
-            <a th:href="@{/board/list/gallery}" th:text="#{더보기}"></a>
+            <div class="more-btn-wrap">
+                <a th:href="@{/board/list/news}" class="more-btn">
+                    <p th:text="#{더보기}"></p>
+                </a>
+            </div>
         </section>
     </main>
 </html>

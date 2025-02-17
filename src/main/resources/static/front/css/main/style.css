@@ -103,6 +103,75 @@
 /* 새로운 소식 S */
 .latest-news {
     background:url('../../images/main/bg_pattern.jpg');
+    padding: 100px 0 140px;
 }
 
+.latest-news .more-btn-wrap {
+    text-align: center;
+    padding-top: 40px;
+}
+
+.latest-news .more-btn {
+    border-radius: 0;
+    transform: skew(-20deg);
+    display: inline-block;
+    position: relative;
+    background: linear-gradient(to right, #55bcb5, #85c083, #bec449, #f7c90e);
+    border: 0;
+    z-index: 2;
+    outline: none;
+    padding: 20px 125px;
+    border-radius: 0;
+    font-size: 1.615rem;
+    font-weight: 700;
+}
+.latest-news .more-btn::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    width: 97%;
+    height: 89%;
+    background-color: #fff;
+    z-index: 1;
+}
+.latest-news .more-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    border: 0;
+    background: linear-gradient(to left, #55bcb5, #85c083, #bec449, #f7c90e);
+    opacity: 0;
+    transition: .4s;
+}
+.latest-news .more-btn p {
+    position: relative;
+    transform: skew(20deg);
+    text-align: center;
+    z-index: 2;
+    padding: 0;
+    margin: 0;
+}
+
+.latest-news .more-btn p::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -70px;
+    width: 10px;
+    height: 20px;
+    background-image: url('../../images/icon_more.png');
+    transform: translateY(-50%);
+}
 /* 새로운 소식 E */
+
+.main-tit {
+   margin-bottom: 40px;
+   font-size: 3.846rem;
+   font-weight: 700;
+   letter-spacing: -0.07em;
+   text-align: center;
+}

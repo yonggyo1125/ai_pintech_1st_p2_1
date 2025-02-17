@@ -12,10 +12,10 @@
                     <th:block th:utext="*{@utils.showImage(frontImage, 390, 390, 'image')}"></th:block>
                     <div class="item-no"
                          th:text="*{#strings.concat('No.', #numbers.formatInteger(seq, 4))}"></div>
-                    <div clas="item-nm" th:text="*{name}"></div>
+                    <div class="item-nm" th:text="*{name}"></div>
 
                     <div class="item-types">
-                        <div class="type" th:each="type : *{_types}"
+                        <div th:class="${'type type-' + type}" th:each="type : *{_types}"
                              th:text="${#messages.msg(type)}"></div>
                     </div>
                 </a>

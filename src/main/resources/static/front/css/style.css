@@ -361,3 +361,13 @@ h1 {
 .sbtn.violet {
     background: #994dcf;
 }
+
+.error {
+    color: #dc3545;
+    text-align: center;
+    padding: 5px 10px;
+    border-radius: 3px;
+    box-shadow: 2px 2px 5px #212121;
+    margin: 5px 0 10px;
+    background: #fff;
+}

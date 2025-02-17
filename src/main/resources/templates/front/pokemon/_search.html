@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:fragment="search">
-    <form name="frmSearch" method="GET" th:action="@{/pokemon/list}" autocomplete="off" th:object="${pokemonSearch}">
-
+    <form id="frmSearch" name="frmSearch" method="GET" th:action="@{/pokemon/list}" autocomplete="off" th:object="${pokemonSearch}">
+        <img th:src="@{/front/images/icon_ball_b.png}">
     </form>
 </th:block>
 </html>

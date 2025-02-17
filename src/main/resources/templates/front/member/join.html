@@ -2,89 +2,92 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{front/layouts/main}">
-<main layout:fragment="content">
-    <h1 th:text="#{회원가입}"></h1>
+<main layout:fragment="content" class="join-page">
+    <div class="wrapper">
+        <h1 th:text="#{회원가입}"></h1>
 
-    <th:block th:if="${socialConfig.useKakaoLogin && requestJoin.social}">
-        <div class="social-channel">
-            <img th:src="@{/front/images/kakaotalk.png}">
-            <th:block th:text="#{카카오_로그인_회원가입}"></th:block>
-        </div>
-    </th:block>
-    <form name="frmJoin" method="POST" th:action="@{/member/join_ps}" autocomplete="off" th:object="${requestJoin}">
-        <input th:if="*{socialChannel != null && socialChannel.name != 'NONE' }" type="hidden" name="socialChannel" th:field="*{socialChannel}">
-        <input th:if="*{socialToken != null && socialToken != ''}" type="hidden" name="socialToken" th:field="*{socialToken}">
-
-        <div class="row">
-            <input type="text" name="email" th:field="*{email}" th:placeholder="#{이메일_주소를_입력해주세요.}" th:readonly="${authCodeVerified}">
-            <div class="error" th:each="err : ${#fields.errors('email')}" th:text="${err}"></div>
-        </div>
-        <div class="row auth-box">
-            <div th:if="${!authCodeVerified}">
-                <input type="number" id="auth-code" disabled>
-                <span class="timer">03:00</span>
-                <button type="button" id="verify-auth-code" class="dn" th:text="#{인증하기}"></button>
-                <button type="button" id="send-auth-code" th:text="#{인증코드_전송}" th:data-text="#{인증코드_재전송}" th:disabled="*{#strings.isEmpty(email)}"></button>
-
-            </div>
-            <div class="message" th:classappend="${!authCodeVerified} ? 'dn'">
-                <th:block th:if="${authCodeVerified}" th:text="#{인증되었습니다.}"></th:block>
-            </div>
-        </div>
-        <div class="row">
-            <input type="text" name="name" th:field="*{name}" th:placeholder="#{회원명을_입력하세요.}">
-            <div class="error" th:each="err : ${#fields.errors('name')}" th:text="${err}"></div>
-        </div>
-
-        <th:block th:if="${!socialConfig.useKakaoLogin || !requestJoin.social}">
-            <div class="row">
-                <input type="password" name="password" th:field="*{password}" th:placeholder="#{비밀번호}">
-
-                <div class="error" th:each="err : ${#fields.errors('password')}" th:text="${err}"></div>
-            </div>
-            <div class="row">
-                <input type="password" name="confirmPassword" th:field="*{confirmPassword}" th:placeholder="#{위에_입력한_비밀번호와_동일한_비밀번호를_입력해주세요.}">
-
-                <div class="error" th:each="err : ${#fields.errors('confirmPassword')}" th:text="${err}"></div>
+        <th:block th:if="${socialConfig.useKakaoLogin && requestJoin.social}">
+            <div class="social-channel">
+                <img th:src="@{/front/images/kakaotalk.png}">
+                <th:block th:text="#{카카오_로그인_회원가입}"></th:block>
             </div>
         </th:block>
-        <div class="row">
-            <input type="text" name="nickName" th:field="*{nickName}" th:placeholder="#{닉네임을_입력하세요.}">
+        <form name="frmJoin" method="POST" th:action="@{/member/join_ps}" autocomplete="off" th:object="${requestJoin}">
+            <input th:if="*{socialChannel != null && socialChannel.name != 'NONE' }" type="hidden" name="socialChannel" th:field="*{socialChannel}">
+            <input th:if="*{socialToken != null && socialToken != ''}" type="hidden" name="socialToken" th:field="*{socialToken}">
 
-            <div class="error" th:each="err : ${#fields.errors('nickName')}" th:text="${err}"></div>
-        </div>
-        <div class="row">
-            <input type="text" name="birthDt" th:field="*{birthDt}" th:placeholde="#{생년월일을_선택해주세요.}">
-            <select name="gender" th:field="*{gender}">
-                <option value='' th:text="#{성별}"></option>
-                <option value='FEMALE' th:text="#{여성}"></option>
-                <option value='MALE' th:text="#{남성}"></option>
-            </select>
+            <div class="row">
+                <input type="text" name="email" th:field="*{email}" th:placeholder="#{이메일_주소를_입력해주세요.}" th:readonly="${authCodeVerified}">
+                <div class="error" th:each="err : ${#fields.errors('email')}" th:text="${err}"></div>
+            </div>
+            <div class="row auth-box">
+                <div th:if="${!authCodeVerified}" class="auth-input">
+                    <input type="number" id="auth-code" disabled>
+                    <span class="timer">03:00</span>
+                    <button type="button" id="verify-auth-code" class="dn" th:text="#{인증하기}"></button>
+                    <button type="button" id="send-auth-code" th:text="#{인증코드_전송}" th:data-text="#{인증코드_재전송}" th:disabled="*{#strings.isEmpty(email)}"></button>
 
+                </div>
+                <div class="message" th:classappend="${!authCodeVerified} ? 'dn'">
+                    <th:block th:if="${authCodeVerified}" th:text="#{인증되었습니다.}"></th:block>
+                </div>
+            </div>
+            <div class="row">
+                <input type="text" name="name" th:field="*{name}" th:placeholder="#{회원명을_입력하세요.}">
+                <div class="error" th:each="err : ${#fields.errors('name')}" th:text="${err}"></div>
+            </div>
+
+            <th:block th:if="${!socialConfig.useKakaoLogin || !requestJoin.social}">
+                <div class="row">
+                    <input type="password" name="password" th:field="*{password}" th:placeholder="#{비밀번호}">
+
+                    <div class="error" th:each="err : ${#fields.errors('password')}" th:text="${err}"></div>
+                </div>
+                <div class="row">
+                    <input type="password" name="confirmPassword" th:field="*{confirmPassword}" th:placeholder="#{위에_입력한_비밀번호와_동일한_비밀번호를_입력해주세요.}">
+
+                    <div class="error" th:each="err : ${#fields.errors('confirmPassword')}" th:text="${err}"></div>
+                </div>
+            </th:block>
+            <div class="row">
+                <input type="text" name="nickName" th:field="*{nickName}" th:placeholder="#{닉네임을_입력하세요.}">
+
+                <div class="error" th:each="err : ${#fields.errors('nickName')}" th:text="${err}"></div>
+            </div>
+            <div class="row row-birth-dt">
+                <input type="text" name="birthDt" th:field="*{birthDt}" th:placeholder="#{생년월일을_선택해주세요.}">
+                <select name="gender" th:field="*{gender}">
+                    <option value='' th:text="#{성별}"></option>
+                    <option value='FEMALE' th:text="#{여성}"></option>
+                    <option value='MALE' th:text="#{남성}"></option>
+                </select>
+            </div>
             <div class="error" th:each="err : ${#fields.errors('birthDt')}" th:text="${err}"></div>
             <div class="error" th:each="err : ${#fields.errors('gender')}" th:text="${err}"></div>
-        </div>
 
-        <section class="address-box">
-            <div class="row">
-                <button type='button' class='search-address' th:text="#{주소찾기}"></button>
-                <input type="text" name="zipCode" th:field="*{zipCode}" th:placeholder="#{우편번호를_입력해주세요.}" readonly>
-
+            <section class="address-box">
+                <div class="row zip-code">
+                    <button type='button' class='search-address' th:text="#{주소찾기}"></button>
+                    <input type="text" name="zipCode" th:field="*{zipCode}" th:placeholder="#{우편번호를_입력해주세요.}" readonly>
+                </div>
                 <div class="error" th:each="err : ${#fields.errors('zipCode')}" th:text="${err}"></div>
-            </div>
-            <div class="row">
-                <input type="text" name="address" th:field="*{address}" th:placeholder="#{기존주소를_입력해주세요.}" readonly>
 
-                <div class="error" th:each="err : ${#fields.errors('address')}" th:text="${err}"></div>
-            </div>
-            <div class="row">
-                <input type="text" name="addressSub" th:field="*{addressSub}" th:placeholder="#{상세주소를_입력해주세요.}">
+                <div class="row">
+                    <input type="text" name="address" th:field="*{address}" th:placeholder="#{기존주소를_입력해주세요.}" readonly>
 
-                <div class="error" th:each="err : ${#fields.errors('addressSub')}" th:text="${err}"></div>
-            </div>
-        </section>
-        <div class="error global" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
-        <button type="submit" th:text="#{가입}"></button>
-    </form>
+                    <div class="error" th:each="err : ${#fields.errors('address')}" th:text="${err}"></div>
+                </div>
+                <div class="row">
+                    <input type="text" name="addressSub" th:field="*{addressSub}" th:placeholder="#{상세주소를_입력해주세요.}">
+
+                    <div class="error" th:each="err : ${#fields.errors('addressSub')}" th:text="${err}"></div>
+                </div>
+            </section>
+            <div class="error global" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
+            <button type="submit">
+                <div th:text="#{가입}"></div>
+            </button>
+        </form>
+    </div>
 </main>
 </html>

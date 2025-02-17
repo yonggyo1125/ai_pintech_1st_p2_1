@@ -16,4 +16,260 @@ main {
     margin: 0 auto;
 }
 
+.login-page input[type='text'],
+.login-page input[type='password'] {
+    border: 1px solid #bbb;
+    border-radius: 0;
+    background: #fff;
+    font-size: 1.385rem;
+    height: 60px;
+    padding: 0 15px;
+    width: 100%;
+}
+
+.login-page input[type='text'] {
+    margin-bottom: 10px;
+}
+
+.login-page input[type='password'] {
+    margin-bottom: 10px;
+}
+
+
+.login-page button[type='submit'], .agree-page button[type='submit'] {
+    border-radius: 0;
+    transform: skew(-20deg);
+    display: block;
+    width: 450px;
+    height: 75px;
+    border: 0;
+    background: #000;
+    cursor: pointer;
+    margin-left: 10px;
+
+}
+
+.login-page button[type='submit'] div, .agree-page button[type='submit'] div {
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.61538rem;
+    position: relative;
+    transform: skew(20deg);
+    text-align: center;
+    z-index: 2;
+}
+
+.login-page .auto-login {
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+.login-page .links {
+    margin: 30px 0 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #d0d0d0;
+    text-align: center;
+}
+.login-page .links a {
+    color: #666;
+    font-size: 1.15rem;
+    display: inline-block;
+}
+
+.login-page .links a+a:before {
+    content: '';
+    display: inline-block;
+    width: 1px;
+    height: .8em;
+    margin: 0 10px;
+    border-left: 1px solid #9b9fa8;
+    opacity: .5;
+}
+
+.login-page .join-link {
+    padding: 10px 25px;
+    font-size: 18px;
+    font-weight: 400;
+    border-radius: 38px;
+    background: #fff;
+    display: block;
+    width: 253px;
+    margin: 0 auto;
+    color: #000;
+    position: relative;
+}
+
+.login-page .join-link i {
+    position: absolute;
+    right: 18px;
+    top: 13px;
+}
+
+.login-page h2 {
+   text-align: center;
+   margin: 50px 0 10px;
+}
+
+.login-page .social-link img {
+    width: 100%;
+    display: block;
+}
+
 /* 로그인 E */
+
+/* 약관 동의 S */
+.agree-page {
+    padding: 80px 0 130px;
+}
+.agree-page .wrapper {
+    max-width: 580px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 55px;
+}
+
+.agree-page .wrapper h1 {
+    margin: 0 0 30px;
+    font-size: 2.615rem;
+    font-weight: 700;
+
+}
+
+.agree-page .wrapper label {
+    font-size: 1.23rem;
+}
+.agree-page .terms-check-all {
+    padding-bottom: 24px;
+    border-bottom: 1px solid #000;
+}
+
+.agree-page .terms-check-all label {
+    font-weight: 500;
+    font-size: 1.5384rem;
+}
+.agree-page .wrapper ul {
+    margin: 30px 0;
+}
+/* 약관 동의 E */
+/* 회원 가입 S */
+.join-page {
+    padding: 80px 0 130px;
+}
+.join-page .wrapper {
+    max-width: 580px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 55px;
+}
+
+.join-page .wrapper h1 {
+    margin: 0 0 30px;
+    font-size: 2.615rem;
+    font-weight: 700;
+
+}
+
+.join-page input[type='text'],
+.join-page input[type='password'],
+.join-page input[type='number'],
+.join-page select {
+    border: 1px solid #bbb;
+    border-radius: 0;
+    background: #fff;
+    font-size: 1.385rem;
+    height: 60px;
+    padding: 0 15px;
+    width: 100%;
+}
+.join-page select {
+    padding: 0;
+}
+.join-page input[type='text']:focus,
+.join-page input[type='password']:focus,
+.join-page input[type='number']:focus,
+.join-page input[type='number']:focus {
+    border-color: #000;
+}
+
+
+.join-page .row {
+    margin-bottom: 10px;
+}
+
+.join-page .row .auth-input {
+    display: flex;
+    align-items: center;
+}
+
+.join-page .row .auth-input button {
+    width: 250px;
+    height: 60px;
+    background: #454545;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.3846rem;
+}
+.join-page .row .auth-input .timer {
+    font-size: 1.3846rem;
+    padding: 0 20px;
+}
+.join-page .row .auth-input input {
+    flex-grow: 1;
+}
+
+.join-page .row-birth-dt {
+    display: flex;
+}
+
+.join-page .row-birth-dt select {
+    width: 100px;
+    margin-left: 10px;
+}
+
+.join-page .row-birth-dt input[type='text'] {
+    flex-grow: 1;
+}
+
+.join-page .address-box {
+    padding: 30px 0;
+    margin: 30px 0 20px;
+    border-bottom: 1px solid #bbb;
+    border-top: 1px solid #bbb;
+}
+
+.join-page .row.zip-code {
+    display: flex;
+}
+.join-page .row.zip-code button {
+    height: 60px;
+    padding: 10px 0;
+    font-size: 1.3846rem;
+    font-weight: 400;
+    width: 150px;
+    margin-right: 10px;
+    border: 0;
+    background: #454545;
+    color: #fff;
+}
+
+.join-page button[type='submit'] {
+    border-radius: 0;
+    transform: skew(-20deg);
+    display: block;
+    width: 450px;
+    height: 67px;
+    border: 0;
+    background: #da343c;
+    cursor: pointer;
+    margin-left: 10px;
+}
+.join-page button[type='submit'] div {
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.61538rem;
+    position: relative;
+    transform: skew(20deg);
+    text-align: center;
+    z-index: 2;
+}
+/* 회원 가입 E */

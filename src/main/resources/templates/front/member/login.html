@@ -3,7 +3,7 @@
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="~{front/layouts/main}">
 
-<main layout:fragment="content">
+<main layout:fragment="content" class="login-page">
     <img th:src="@{/front/images/logo.png}" th:alt="#{로고}" class="login-logo">
 
     <form name="frmLogin" class="login-box" method="POST" th:action="@{/member/login}" autocomplete="off" th:object="${requestLogin}">
@@ -17,25 +17,34 @@
             <input type="password" name="password" th:field="*{password}" th:placeholder="#{비밀번호}">
             <div class="error" th:each="err : ${#fields.errors('password')}" th:text="${err}"></div>
         </div>
-        <button type="submit" th:text="#{로그인}"></button>
 
-        <div class="error global" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
-
-        <div>
+        <div class="auto-login">
             <input type="checkbox" name="autoLogin" value="true" id="auto-login">
             <label for="auto-login" th:text="#{자동_로그인}"></label>
         </div>
+
+        <button type="submit">
+            <div th:text="#{로그인}"></div>
+        </button>
+
+
+        <div class="error global" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
+
+
 
         <div class="links">
             <a th:href="@{/member/find_email}" th:text="#{이메일_찾기}"></a>
             <a th:href="@{/member/find_pass}" th:text="#{비밀번호_찾기}"></a>
         </div>
 
-        <a th:href="@{/member/agree}" th:text="#{아직_회원이_아니신가요?}" class="join-link"></a>
+        <a th:href="@{/member/agree}" class="join-link">
+            <th:block th:text="#{아직_회원이_아니신가요?}"></th:block>
+            <i class="xi-angle-right-thin"></i>
+        </a>
 
         <th:block th:if="*{kakaoLoginUrl != null && kakaoLoginUrl != ''}">
             <h2 th:text="#{소셜_로그인}"></h2>
-            <a th:href="*{kakaoLoginUrl}">
+            <a th:href="*{kakaoLoginUrl}" class="social-link">
                 <img th:src="@{/front/images/kakao_login.png}">
             </a>
         </th:block>

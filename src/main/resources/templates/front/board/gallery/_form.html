@@ -48,7 +48,7 @@
             <div class="error" th:each="err : ${#fields.errors('content')}" th:text="${err}"></div>
 
             <th:block th:if="${board.useEditor && board.useEditorImage}">
-                <button type="button" class="file-upload image" th:text="#{이미지_업로드}" th:data-gid="*{gid}" data-location="editor" data-image-only="true"></button>
+                <button type="button" class="file-upload image sbtn skyblue" th:text="#{이미지_업로드}" th:data-gid="*{gid}" data-location="editor" data-image-only="true"></button>
                 <div class="uploaded-files" id="editor-files">
                     <div th:if="*{editorImages != null}" th:each="item : *{editorImages}" th:object="${item}" class="image-item" th:id="*{'file-' + seq}">
                         <th:block th:utext="*{@utils.showBackground(seq, 100, 50, 'inner show-image')}"></th:block>
@@ -65,7 +65,7 @@
     <dl th:if="${board.useAttachFile}">
         <dt th:text="#{파일_첨부}"></dt>
         <dd>
-            <button type="button" class="file-upload attach" th:text="#{파일_업로드}" th:data-gid="*{gid}" data-location="attach"></button>
+            <button type="button" class="file-upload attach sbtn blue" th:text="#{파일_업로드}" th:data-gid="*{gid}" data-location="attach"></button>
             <div class="uploaded-files" id="attach-files">
                 <span th:if="*{attachFiles != null}" th:each="item : *{attachFiles}" class="file-item" th:id="${'file-' + item.seq}">
                     <a th:href="@{/api/file/download/{seq}(seq=${item.seq})}" th:text="${item.fileName}"></a>
